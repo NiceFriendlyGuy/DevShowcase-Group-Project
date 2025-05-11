@@ -1,0 +1,40 @@
+[
+    {
+      "userId": 1,
+      "admin": true,
+      "name": "Annette",
+      "surname": "Black",
+      "email": "annette.black@gmail.com",
+      "password": "123456",
+      "phone": "+1 123 456 7890",
+      "role": "Full Stack Developer",
+      "photo": "assets/1.png",
+      "technologies": [
+        { "name": "React", "version": 1.2 },
+        { "name": "Angular", "version": 19 },
+        { "name": "Node.js" },
+        { "name": "Express" },
+        { "name": "MongoDB" }
+      ],
+      "bio": "Full stack developer with 5+ years of experience in web application development."
+    },
+    {
+      "userId": 2,
+      "admin": false,
+      "name": "John",
+      "surname": "Doe",
+      "email": "john.doe@gmail.com",
+      "password": "password123",
+      "phone": "+1 987 654 3210",
+      "role": "Frontend Developer",
+      "photo": "assets/2.jpeg",
+      "technologies": [
+        { "name": "Vue.js", "version": 3.0 },
+        { "name": "JavaScript", "version": "ES6" },
+        { "name": "HTML5" },
+        { "name": "CSS3" },
+        { "name": "Sass" }
+      ],
+      "bio": "Frontend developer specializing in building responsive and user-friendly web interfaces."
+    }
+]
