@@ -1,3 +1,54 @@
-<p>
-  developers works!
-</p>
+
+<ion-content>
+ 
+  @for (account of accounts; track account.name){
+    <ion-card>
+      <ion-card-header>
+        <ion-avatar class="top-right-avatar">
+          <img [src]="account.photo" />
+        </ion-avatar>
+        <ion-card-title>{{ account.name }} {{ account.surname }}</ion-card-title>
+        <ion-card-subtitle>{{ account.role }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        @for (skill of account.technologies; track skill.name){
+          <ion-chip >
+            <ion-icon [src]="getIconUrl(skill.name) "></ion-icon>
+            <ion-label>{{ skill.name }} {{skill.version}} </ion-label>
+          </ion-chip>
+        }
+        <p>{{ account.bio }}</p>
+        
+            <swiper-container slides-per-view=3 space-between=10  navigation  >
+
+
+              @for (preview of projectsPreview(account.userId); track $index){
+                <swiper-slide>
+                  <div class="image-container">
+                    <ion-img [src]="'assets/' + preview.id + '/' + preview.photos[0]"></ion-img>
+                    <div class="icons-container">
+
+                      @for(technology of preview.technologies; track technology){
+                        <ion-icon class="technology-icon" [src]="getIconUrl(technology.name)" title="{{ technology.name}} {{technology.version }}"></ion-icon>
+                      }
+                      
+                    </div>
+                    <div class="title-container">
+                      {{ preview.title }}
+                    </div>
+                   
+                  </div>
+                </swiper-slide>
+              }
+            </swiper-container>
+            <p class="contact-info">
+              Email: <strong><a href="mailto:{{ account.email }}">{{ account.email }}</a></strong><br>
+              Phone: <strong>{{ account.phone }}</strong>
+            </p>
+
+      </ion-card-content>
+    </ion-card>
+}
+</ion-content>
+
