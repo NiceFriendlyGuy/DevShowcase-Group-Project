@@ -7,8 +7,19 @@
 </ion-header>
 
 <ion-content>
+  <!-- Search Field -->
+  <div class="search-container">
+    <ion-item class="search-field">
+      <ion-input 
+        [(ngModel)]="searchTerm" 
+        (ngModelChange)="updateFilteredProfiles()"
+        placeholder="Search by ..."
+        clearInput>
+      </ion-input>
+    </ion-item>
+  </div>
   
-  @for (profile of profiles; track profile.name)
+  @for (profile of filteredProfiles; track profile.name)
   {
    <app-profile [profile]="profile" ></app-profile>
   }

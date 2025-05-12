@@ -1,0 +1,27 @@
+ion-toolbar {
+    --background: linear-gradient(45deg,  #4d65b4, #fdfdfd); /* Adds a gradient background */
+    --color: rgb(250, 249, 249); /* Sets the text color */
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow below the header */
+  }
+  
+  ion-title {
+    font-size: 1.5rem; /* Increases the font size of the title */
+    font-weight: bold; /* Makes the title bold */
+    text-align: left; /* Centers the title */
+  }
+  
+  ion-toolbar {
+    --padding-start: 16px; /* Adds padding to the toolbar */
+    --padding-end: 16px;
+  }
+
+.search-container {
+    margin: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-field {
+    width: 100%;
+    max-width: 400px;
+  }
