@@ -6,7 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <app-developers></app-developers>
+<ion-content>
+  
+  @for (profile of profiles; track profile.name)
+  {
+   <app-profile [profile]="profile" ></app-profile>
+  }
 
 </ion-content>

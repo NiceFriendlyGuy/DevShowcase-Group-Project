@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { DevelopersComponent } from '../components/developers/developers.component';
+import { ProfilesService } from 'src/app/services/profiles.service';
+import { ProfileComponent } from '../components/profile/profile.component'
+
 @Component({
   selector: 'app-profiles',
   templateUrl: 'profiles.page.html',
   styleUrls: ['profiles.page.scss'],
-  imports: [DevelopersComponent, IonHeader, IonToolbar, IonTitle, IonContent]
+  imports: [ProfileComponent, IonHeader, IonToolbar, IonTitle, IonContent]
 })
 export class profilesPage {
+  private profilesService: ProfilesService = inject<ProfilesService>(ProfilesService);
+  public profiles: any[] = [];
 
   constructor() {}
+  ngOnInit() {
+    this.profiles = this.profilesService.getProfilesAll();
+
+  }
 
 }

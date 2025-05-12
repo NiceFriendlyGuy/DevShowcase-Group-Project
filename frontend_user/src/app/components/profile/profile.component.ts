@@ -1,26 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { IonicModule} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { AccountsService } from 'src/app/services/accounts.service';
+import { ProfilesService } from 'src/app/services/profiles.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import Swiper from 'swiper';
 
 register();
 @Component({
-  selector: 'app-developers',
+  selector: 'app-profile',
   imports: [CommonModule, IonicModule],
   standalone: true,
-  templateUrl: './developers.component.html',
-  styleUrls: ['./developers.component.scss'],
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DevelopersComponent  implements OnInit {
-  private accountsService: AccountsService = inject<AccountsService>(AccountsService);
+export class ProfileComponent  implements OnInit {
+  @Input() profile:any;
   private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
 
-  public accounts: any[] = [];
+  public profiles: any[] = [];
   public projectsPreview = (id: number): any[] => 
     this.projectsService.getProjectsByAuthor(id);
   
@@ -28,15 +27,7 @@ export class DevelopersComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.getAccountsAll();
-
-  }
-
-  getAccountsAll() {
-    this.accounts = this.accountsService.getAccountsAll();
-  }
-
+  ngOnInit() { }
 
   getIcon(technology: string, type:string): string {
     let name = technology.toLowerCase().replace('.','');
@@ -49,3 +40,4 @@ export class DevelopersComponent  implements OnInit {
     return primaryUrl;
   }
 }
+
