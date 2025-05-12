@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['profiles.page.scss'],
   imports: [ProfileComponent, IonHeader, IonToolbar, IonTitle, IonContent,IonItem, IonInput, FormsModule]
 })
-export class profilesPage {
+export class ProfilesPage {
   private profilesService: ProfilesService = inject<ProfilesService>(ProfilesService);
   public profiles: any[] = [];
   public searchTerm: string = '';
