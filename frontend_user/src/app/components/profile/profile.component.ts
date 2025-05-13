@@ -20,8 +20,27 @@ export class ProfileComponent  implements OnInit {
   private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
 
   public profiles: any[] = [];
+
+  public swiperBreakpoints = {
+    // When the screen width is >= 320px
+    320: {
+      slidesPerView: 1.3,
+      spaceBetween: 10,
+    },
+    // When the screen width is >= 768px
+    768: {
+      slidesPerView: 2.3,
+      spaceBetween: 15,
+    },
+    // When the screen width is >= 1024px
+    1024: {
+      slidesPerView: 3.3,
+      spaceBetween: 20,
+    },
+  };
+
   public projectsPreview = (id: number): any[] => 
-    this.projectsService.getProjectsByAuthor(id);
+  this.projectsService.getProjectsByAuthor(id);
   
   
 

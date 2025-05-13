@@ -18,7 +18,7 @@
         }
         <p>{{ profile.bio }}</p>
         
-            <swiper-container slides-per-view=3 space-between=10  navigation  >
+            <swiper-container [breakpoints]="swiperBreakpoints" space-between=10  navigation  >
 
 
               @for (preview of projectsPreview(profile.userId); track $index){
