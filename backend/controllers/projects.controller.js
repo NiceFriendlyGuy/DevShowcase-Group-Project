@@ -1,3 +1,4 @@
+const Project = require('../models/projects.model');
 const projectModel = require('../models/projects.model');
 
 const projectController = {};
@@ -25,7 +26,7 @@ projectController.update = async function (req, res) {
     //
     const id = req.params.id;
     try {
-        if (!mongoose.ObjectId.Types.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json( { message: 'ID not existant for update' })
         }
         const updatedProject = await Project.findByIdAndUpdate(id, req.body, {new: true});
@@ -39,5 +40,17 @@ projectController.update = async function (req, res) {
 }
 
 projectController.delete = async function (req, res) {
-    //
+    const id = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json( { message: 'ID not existant for deletion'})
+        }
+        const deletedProject = await Project.findByIdAndDelete(id);
+        if (!deletedProject) {
+            return res.status(404).json( { message: 'No project found for deletion'})
+        }
+        res.status(200).json({ message: 'Project deleted successfully'})
+    } catch (err) {
+        res.status(400).json( { message: 'Project deletion failed', error: err.message})
+    }
 }
