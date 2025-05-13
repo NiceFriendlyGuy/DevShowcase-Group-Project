@@ -23,6 +23,19 @@ projectController.create = async function (req, res) {
 
 projectController.update = async function (req, res) {
     //
+    const id = req.params.id;
+    try {
+        if (!mongoose.ObjectId.Types.isValid(id)) {
+            return res.status(404).json( { message: 'ID not existant for update' })
+        }
+        const updatedProject = await Project.findByIdAndUpdate(id, req.body, {new: true});
+        if (!updatedProject) {
+            return res.status(404).json( {message: 'no project found to update' })
+        }
+        res.status(200).json(updatedProject);
+    } catch (err) {
+        res.status(400).json( { message: 'Project update failed', error: err.message})
+    }
 }
 
 projectController.delete = async function (req, res) {

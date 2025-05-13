@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', projectController.findAll);
 // router.post('/', projectController.create);
-// router.put('/projects/:id', projectController.update);
-// router.delete('/projects/:id', projectController.delete);
+// router.put('/:id', projectController.update);
+// router.delete('/:id', projectController.delete);
 
 module.exports = router;
