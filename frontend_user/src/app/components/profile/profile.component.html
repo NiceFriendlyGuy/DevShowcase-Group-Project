@@ -2,7 +2,7 @@
  
     <ion-card>
       <ion-card-header>
-        <ion-avatar class="top-right-avatar">
+        <ion-avatar *ngIf="profile.photo" class="top-right-avatar">
           <img [src]="profile.photo" />
         </ion-avatar>
         <ion-card-title>{{ profile.name }} {{ profile.surname }}</ion-card-title>

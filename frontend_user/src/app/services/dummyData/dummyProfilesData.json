@@ -2,9 +2,9 @@
     {
       "userId": 1,
       "admin": true,
-      "name": "Annette",
-      "surname": "Black",
-      "email": "annette.black@gmail.com",
+      "name": "Charles",
+      "surname": "Smith",
+      "email": "charles.smith@gmail.com",
       "password": "123456",
       "phone": "+1 123 456 7890",
       "role": "Full Stack Developer",
@@ -36,5 +36,43 @@
         { "name": "Sass" }
       ],
       "bio": "Frontend developer specializing in building responsive and user-friendly web interfaces."
+    },
+        {
+      "userId": 3,
+      "admin": false,
+      "name": "Alice",
+      "surname": "Johnson",
+      "email": "alice.johnson@gmail.com",
+      "password": "alice2023",
+      "phone": "+1 555 123 4567",
+      "role": "Backend Developer",
+      "photo": "",
+      "technologies": [
+        { "name": "Node.js", "version": "16.x" },
+        { "name": "Express", "version": "4.x" },
+        { "name": "PostgreSQL", "version": "13" },
+        { "name": "Docker", "version": "20.10" },
+        { "name": "Redis", "version": "6.x" }
+      ],
+      "bio": "Backend developer with expertise in building scalable APIs and managing databases."
+    },
+    {
+      "userId": 4,
+      "admin": false,
+      "name": "Emily",
+      "surname": "Davis",
+      "email": "emily.davis@gmail.com",
+      "password": "emily@123",
+      "phone": "+1 444 987 6543",
+      "role": "UI/UX Designer",
+      "photo": "",
+      "technologies": [
+        { "name": "Figma" },
+        { "name": "Adobe XD" },
+        { "name": "Sketch" },
+        { "name": "HTML5" },
+        { "name": "CSS3" }
+      ],
+      "bio": "UI/UX designer passionate about creating intuitive and visually appealing user interfaces."
     }
 ]
