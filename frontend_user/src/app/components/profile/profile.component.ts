@@ -20,6 +20,7 @@ export class ProfileComponent  implements OnInit {
   private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
 
   public profiles: any[] = [];
+  public randomImageIndex: number = Math.floor(Math.random() * 4) + 1;
 
   public swiperBreakpoints = {
     // When the screen width is >= 320px
@@ -44,7 +45,9 @@ export class ProfileComponent  implements OnInit {
   
   
 
-  constructor() { }
+  constructor() {
+
+   }
 
   ngOnInit() { }
 
@@ -58,5 +61,6 @@ export class ProfileComponent  implements OnInit {
     const primaryUrl = `${baseUrl}${skillName.toLowerCase().replace('.','')}/${skillName.toLowerCase().replace('.','')}-original.svg`;
     return primaryUrl;
   }
+
 }
 

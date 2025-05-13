@@ -16,7 +16,7 @@
             <ion-label>{{ skill.name }} {{skill.version}} </ion-label>
           </ion-chip>
         }
-        <p>{{ profile.bio }}</p>
+        <p class="biographie">{{ profile.bio }}</p>
         
             <swiper-container [breakpoints]="swiperBreakpoints" space-between=10  navigation  >
 
@@ -40,10 +40,15 @@
                 </swiper-slide>
               }
             </swiper-container>
-            <p class="contact-info">
-              Email: <strong><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></strong><br>
-              Phone: <strong>{{ profile.phone }}</strong>
-            </p>
+            
+            <div class="contact-info">
+              <div class="contact-container">
+                <ion-img class="contact-icon" [src]="'assets/contact-us-' + randomImageIndex + '.gif'"></ion-img>              <div class="contact-details">
+                <strong>Email:</strong> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a><br>
+                <strong>Phone:</strong> {{ profile.phone }}
+              </div>
+            </div>
+          </div>
 
       </ion-card-content>
     </ion-card>
