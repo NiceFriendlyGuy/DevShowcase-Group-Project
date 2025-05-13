@@ -1,11 +1,11 @@
 const Project = require('../models/projects.model');
-const projectModel = require('../models/projects.model');
+const mongoose = require('mongoose');
 
 const projectController = {};
 
 projectController.findAll = async function (req, res) {
     try {
-        const projects = await projectModel.find();
+        const projects = await Project.find();
         res.status(200).json(projects);
     } catch(err) {
         res.status(500).json( { message: 'Server Error', error: err.message } );
@@ -54,3 +54,5 @@ projectController.delete = async function (req, res) {
         res.status(400).json( { message: 'Project deletion failed', error: err.message})
     }
 }
+
+module.exports = projectController;
