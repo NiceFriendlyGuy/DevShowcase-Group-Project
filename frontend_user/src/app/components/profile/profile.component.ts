@@ -1,15 +1,15 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IonicModule} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 
 register();
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg],
   standalone: true,
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
