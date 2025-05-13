@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [],
+  imports: [MatCardModule, MatChipsModule],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.scss'
+  styleUrl: './statistics.component.scss',
 })
-export class StatisticsComponent {
-
-}
+export class StatisticsComponent {}
