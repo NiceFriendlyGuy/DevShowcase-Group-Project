@@ -8,9 +8,8 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   private readonly http = inject(HttpClient);
-  private userUrl = '/assets/users.json';
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.userUrl);
+    return this.http.get<User[]>('assets/fakeusers.json');
   }
 }
