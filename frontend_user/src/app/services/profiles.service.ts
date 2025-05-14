@@ -25,6 +25,7 @@ export class ProfilesService {
     this.profiles.push(profile);
     return profile;
   }
+
   authProfile(email: string, password: string) {
     const profile = this.profiles.find(profile => profile.email === email && profile.password === password);
     if (profile) {
@@ -32,6 +33,15 @@ export class ProfilesService {
     } else {
       return null;
     }
+  }
+
+  deleteProfile(id: number) {
+    const index = this.profiles.findIndex(profile => profile.userId === id);
+    if (index !== -1) {
+      this.profiles.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 
 }

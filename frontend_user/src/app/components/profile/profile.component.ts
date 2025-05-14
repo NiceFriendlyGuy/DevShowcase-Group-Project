@@ -19,7 +19,6 @@ export class ProfileComponent  implements OnInit {
   @Input() profile:any;
   private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
 
-  public profiles: any[] = [];
   public randomImageIndex: number = Math.floor(Math.random() * 4) + 1;
 
   public swiperBreakpoints = {

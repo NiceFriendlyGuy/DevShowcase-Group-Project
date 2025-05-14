@@ -3,24 +3,16 @@
     <ion-title>
       Account
     </ion-title>
-    <ion-label slot="end" class="Wellcome">Wellcome {{profile().name}}!</ion-label>
+    <ion-label slot="end" class="Wellcome">Wellcome {{profile.name}}!</ion-label>
     <ion-icon name="log-out" slot="end" size="large" class="logout-icon" (click)="logout()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
   <div class="actions">
-
-    <ion-button >Edit</ion-button>
-    <ion-button color="danger">Delete</ion-button>
+    <ion-button color="danger" (click)="deleteAccount()">Delete</ion-button>
     <ion-checkbox [checked]="true">Availability</ion-checkbox>
-
-
   </div>
-    
 
-
-
-  <app-profile [profile]="profile()"></app-profile>
-
+  <app-profile [profile]="profile"></app-profile>
 </ion-content>
