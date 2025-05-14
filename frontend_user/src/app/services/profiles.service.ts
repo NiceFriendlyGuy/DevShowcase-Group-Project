@@ -5,15 +5,33 @@ import dummyProfilesData from 'src/app/services/dummyData/dummyProfilesData.json
   providedIn: 'root'
 })
 export class ProfilesService {
+  private profiles: any[] = [];
 
-  constructor() { }
+  constructor() { 
+    // Initialize profiles with dummy data
+    this.profiles = dummyProfilesData;
+  }
 
   getProfilesAll(){
-    return dummyProfilesData
+    return this.profiles;
   }
 
   getProfilesById(authorId: number) {
-    return dummyProfilesData.filter(profiles => profiles.userId === authorId);
+    return this.profiles.filter(profile => profile.userId === authorId);
+  }
+
+  addProfile(profile: any) {
+    console.log('addProfile', profile);
+    this.profiles.push(profile);
+    return profile;
+  }
+  authProfile(email: string, password: string) {
+    const profile = this.profiles.find(profile => profile.email === email && profile.password === password);
+    if (profile) {
+      return profile;
+    } else {
+      return null;
+    }
   }
 
 }
