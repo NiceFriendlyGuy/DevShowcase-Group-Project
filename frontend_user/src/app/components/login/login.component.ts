@@ -52,15 +52,17 @@ export class LoginComponent  implements OnInit {
     }
   }
 
-   public byPass(): void {
+   public async byPass(): Promise<void> {
+    console.log("Bypass");
     const userInfo = {
-          email: "test@gmail.com",
-          password: "1234",
-          name: "Tester"
+      id: 6,
+      email: "tester@gmail.com",
+      password: "1234",
+      name: "Tester"
     }
-        console.log('Login successful:', userInfo);
-        this.authService.authUser(userInfo.email, userInfo.password);
-        //this.router.navigate(['/tabs/account/']);
+    const result = await this.authService.authUser(userInfo.email, userInfo.password);
+    this.authService.setProfileInfo(result);
+    this.router.navigate(['/tabs/account/']);
   }
 
   showError(message: string): void {
