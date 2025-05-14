@@ -12,6 +12,11 @@ ion-toolbar {
     text-align: left; /* Centers the title */
   }
 
+  ion-content {
+    --background: #bed0f7; /* Sets a light background color */
+    padding: 20px; /* Adds padding around the content */
+  }
+
 .search-container {
     margin: 16px;
     display: flex;
@@ -21,4 +26,5 @@ ion-toolbar {
   .search-field {
     width: 100%;
     max-width: 400px;
+    --background: #bed0f7; /* Sets a light background color */
   }

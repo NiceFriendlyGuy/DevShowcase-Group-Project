@@ -12,6 +12,11 @@ ion-toolbar {
     text-align: left; /* Centers the title */
   }
   
+  ion-content {
+    --background: #bed0f7; /* Sets a light background color */
+    padding: 20px; /* Adds padding around the content */
+  }
+  
   .actions {
   margin-top: 10px;
   margin-right:20px;
