@@ -74,5 +74,42 @@
         { "name": "CSS3" }
       ],
       "bio": "UI/UX designer passionate about creating intuitive and visually appealing user interfaces."
+    },
+    {
+      "userId": 5,
+      "admin": false,
+      "name": "Antonio",
+      "surname": "GP",
+      "email": "antonio.gonzalez.puertas@gmail.com",
+      "password": "1234",
+      "phone": "+1 444 987 6543",
+      "role": "Full Stack Developer",
+      "photo": "",
+      "technologies": [
+        { "name": "Vue.js", "version": 3.0 },
+        { "name": "JavaScript", "version": "ES6" },
+        { "name": "HTML5" },
+        { "name": "CSS3" }
+      ],
+      "bio": "Full stack developer in web application development."
+    },
+    {
+      "userId": 56,
+      "admin": true,
+      "name": "Tester",
+      "surname": "Dummmy",
+      "email": "tester@gmail.com",
+      "password": "1234",
+      "phone": "+1 444 987 6543",
+      "role": "Full Stack Developer",
+      "photo": "",
+      "technologies": [
+        { "name": "Vue.js", "version": 3.0 },
+        { "name": "JavaScript", "version": "ES6" },
+        { "name": "HTML5" },
+        { "name": "CSS3" }
+      ],
+      "bio": "Full stack developer in web application development."
     }
+    
 ]

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-
+import { ProfilesService } from './profiles.service'; // Import the ProfileService
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +9,7 @@ export class AuthService {
   private userInfoSubject = new BehaviorSubject<any>(null); // Holds user information
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private router = inject(Router);  
+  private profileService = inject(ProfilesService); // Inject the ProfileService
 
   constructor() { }
 
@@ -20,29 +21,18 @@ export class AuthService {
   }
 
   async authUser(email: string, password: string): Promise<any> {
-    //const result: any = await this.studentService.authUser(email,password);
-    let result = null;
-    if (password == '1234') {
+    const result: any = await this.profileService.authProfile(email,password);
+    if (result) {
       this.isLoggedInSubject.next(true);
-      result = {
-        student: {
-          id: 1,
-          email: email,
-          password: password,
-          given_name: "Antonio",
-          family_name: "Gonzalez",
-          picture: "https://randomuser.me/api/portraits/men/1.jpg"
-        }
-      };
     }
-      else {
-        result = {
-          message: "Invalid credentials"
-        };
-      }
     
-    return result; // Return the student object if authentication is successful
+    return result; // Return the profile object if authentication is successful
+  }
 
-
+  setProfileInfo(userInfo: any): void {
+    this.userInfoSubject.next(userInfo);
+  }
+  getProfileInfo(): any {
+    return this.userInfoSubject.value;
   }
 }

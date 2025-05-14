@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { IonButton} from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
+  imports: [ReactiveFormsModule, CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, RouterLink
+  ],
 
 })
 export class LoginComponent  implements OnInit {
@@ -34,14 +35,11 @@ export class LoginComponent  implements OnInit {
 
       // Add logic to handle login (e.g., call a service to authenticate)
       const result = await this.authService.authUser(this.loginForm.value.email, this.loginForm.value.password);
+      console.log("Logged: ",result);
       if (result) {
-        if (result.student) {
-          //this.authService.setUserInfo(result.student);
-          this.router.navigate(['/tabs/account/']);
-        }
-        else {
-          this.showError(result.message);
-        }
+        this.authService.setProfileInfo(result);
+        this.router.navigate(['/tabs/account/']);
+        
 
       } else {
         console.error('Login failed: Invalid credentials');
@@ -56,14 +54,13 @@ export class LoginComponent  implements OnInit {
 
    public byPass(): void {
     const userInfo = {
-          email: "",
-          password: "",
-          given_name: "Antonio"
+          email: "test@gmail.com",
+          password: "1234",
+          name: "Tester"
     }
         console.log('Login successful:', userInfo);
-        //this.authService.setUserInfo(userInfo);
-        this.authService.isLoggedIn = true;
-        this.router.navigate(['/tabs/account/']);
+        this.authService.authUser(userInfo.email, userInfo.password);
+        //this.router.navigate(['/tabs/account/']);
   }
 
   showError(message: string): void {
