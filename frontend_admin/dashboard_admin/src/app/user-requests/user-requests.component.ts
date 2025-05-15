@@ -4,11 +4,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RequestService } from '../services/request.service';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-user-requests',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatIconModule, CommonModule],
+  imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    CommonModule,
+    MatTooltipModule,
+  ],
   templateUrl: './user-requests.component.html',
   styleUrl: './user-requests.component.scss',
 })

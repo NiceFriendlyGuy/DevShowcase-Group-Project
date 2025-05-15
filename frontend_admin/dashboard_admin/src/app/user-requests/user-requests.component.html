@@ -18,13 +18,19 @@
         </div>
         <div class="action-buttons">
           <button
+            matTooltip="Valider"
             mat-icon-button
             color="primary"
             (click)="acceptRequest(request)"
           >
             <mat-icon>check</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="rejectRequest(request)">
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="rejectRequest(request)"
+            matTooltip="Refuser"
+          >
             <mat-icon>close</mat-icon>
           </button>
         </div>

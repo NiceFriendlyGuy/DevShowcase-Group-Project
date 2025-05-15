@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-search-user',
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatIconModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
   templateUrl: './search-user.component.html',
   styleUrl: './search-user.component.scss',
@@ -41,11 +43,12 @@ export class SearchUserComponent {
     );
   });
 
-  // Charger les utilisateurs
-  private loadUsers() {
-    this.userService.getUsers().subscribe((users) => {
-      this.users.set(users);
-    });
+  public deleteUser(user: User) {
+    this.userService
+      .deleteUser(this.users(), user)
+      .subscribe((updatedUsers) => {
+        this.users.set(updatedUsers);
+      });
   }
 
   // Méthode sécurisée pour gérer la recherche
@@ -53,5 +56,12 @@ export class SearchUserComponent {
     const input = event.target as HTMLInputElement;
     const value = input?.value ?? '';
     this.searchQuery.set(value);
+  }
+
+  // Charger les utilisateurs
+  private loadUsers() {
+    this.userService.getUsers().subscribe((users) => {
+      this.users.set(users);
+    });
   }
 }

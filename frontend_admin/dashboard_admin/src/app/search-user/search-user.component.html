@@ -21,7 +21,12 @@
           <mat-card-title>{{ user.nom }}</mat-card-title>
           <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
         </div>
-        <button mat-mini-fab color="warn" aria-label="Supprimer l'utilisateur">
+        <button
+          mat-mini-fab
+          color="warn"
+          matTooltip="Supprimer définitivement"
+          (click)="deleteUser(user)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-header>
