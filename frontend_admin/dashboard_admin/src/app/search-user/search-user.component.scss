@@ -27,6 +27,14 @@
   }
 }
 
+/* Conteneur Scrollable pour les Utilisateurs */
+.scrollable-container {
+  max-height: 800px; /* Limite la hauteur du conteneur */
+  overflow-y: auto;
+  padding-right: 8px; /* Laisse de l'espace pour la scrollbar */
+  border-top: 1px solid #e0e0e0;
+}
+
 /* Cartes Utilisateur compactes */
 .card-container {
   display: flex;

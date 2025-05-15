@@ -12,15 +12,17 @@
   </mat-form-field>
 </form>
 
-<div class="card-container">
-  @for (user of filteredUsers(); track user) {
-  <mat-card class="user-card" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{ user.nom }}</mat-card-title>
-      <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
-  } @if (filteredUsers().length === 0) {
-  <p>Aucun utilisateur trouvé.</p>
-  }
+<div class="scrollable-container">
+  <div class="card-container">
+    @for (user of filteredUsers(); track user) {
+    <mat-card class="user-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>{{ user.nom }}</mat-card-title>
+        <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    } @if (filteredUsers().length === 0) {
+    <p>Aucun utilisateur trouvé.</p>
+    }
+  </div>
 </div>

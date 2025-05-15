@@ -1,23 +1,20 @@
 <div class="main-container">
-    <!-- Menu Vertical (4 icônes) -->
-    <div class="menu">
-      <div class="menu-item"><mat-icon>logout</mat-icon></div>
-      <div class="menu-item"><mat-icon>account_circle</mat-icon></div>
-      <div class="menu-item"><mat-icon>settings</mat-icon></div>
-      <div class="menu-item"><mat-icon>notification_important</mat-icon></div>
+  <!-- Menu Vertical (4 icônes) -->
+  <div class="menu">
+    <div class="menu-item"><mat-icon>logout</mat-icon></div>
+    <div class="menu-item"><mat-icon>account_circle</mat-icon></div>
+    <div class="menu-item"><mat-icon>settings</mat-icon></div>
+    <div class="menu-item"><mat-icon>notification_important</mat-icon></div>
+  </div>
+
+  <!-- Contenu Principal (Statistiques + Demandes) -->
+  <div class="content">
+    <div class="main-content">
+      <app-statistics></app-statistics>
+      <app-user-requests></app-user-requests>
     </div>
-  
-    <!-- Contenu Principal (Statistiques + Demandes) -->
-    <div class="content">
-      <div class="main-content">
-        <app-statistics></app-statistics>
-        <app-user-requests></app-user-requests>
-      </div>
-      <div class="search-section">
-        <app-search-user></app-search-user>
-      </div>
+    <div class="search-section">
+      <app-search-user></app-search-user>
     </div>
   </div>
-  
-  <router-outlet></router-outlet>
-  
+</div>
