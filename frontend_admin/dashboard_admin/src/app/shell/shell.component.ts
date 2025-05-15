@@ -11,6 +11,7 @@ import { UserRequestsComponent } from '../user-requests/user-requests.component'
 import { SearchUserComponent } from '../search-user/search-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsComponent } from '../settings/settings.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-shell',
@@ -33,7 +34,11 @@ import { SettingsComponent } from '../settings/settings.component';
 export class ShellComponent {
   constructor(private dialog: MatDialog) {}
 
-  openSettingsDialog() {
+  public openProfileDialog() {
+    this.dialog.open(ProfileComponent);
+  }
+
+  public openSettingsDialog() {
     const parameters = [
       { name: 'Theme', value: true }, // true = Dark, false = Light
       { name: 'Language', value: 'English' },

@@ -2,7 +2,9 @@
   <!-- Menu Vertical (4 icônes) -->
   <div class="menu">
     <div class="menu-item"><mat-icon>logout</mat-icon></div>
-    <div class="menu-item"><mat-icon>account_circle</mat-icon></div>
+    <div class="menu-item" (click)="openProfileDialog()">
+      <mat-icon>account_circle</mat-icon>
+    </div>
     <button class="menu-item" (click)="openSettingsDialog()">
       <mat-icon>settings</mat-icon>
     </button>
