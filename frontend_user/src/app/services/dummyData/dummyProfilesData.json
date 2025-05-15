@@ -102,7 +102,7 @@
       "password": "1234",
       "phone": "+1 444 987 6543",
       "role": "Full Stack Developer",
-      "photo": "",
+      "photo": "assets/1.png",
       "technologies": [
         { "name": "Vue.js", "version": 3.0 },
         { "name": "JavaScript", "version": "ES6" },

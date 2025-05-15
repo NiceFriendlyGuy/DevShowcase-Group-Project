@@ -158,3 +158,9 @@ ion-card {
     text-decoration: underline; /* Adds underline on hover for better UX */
   }
 
+  @media (max-width: 768px) {
+    ion-chip ion-icon {
+      width: 20px; /* Adjusts the icon size */
+      height: 20px;
+    }
+  }   

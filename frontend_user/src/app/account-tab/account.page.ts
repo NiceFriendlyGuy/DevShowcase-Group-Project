@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonCheckbox, IonButtons, IonMenuButton, IonIcon, IonLabel, AlertController } from '@ionic/angular/standalone';
 import { ProfileComponent } from '../components/profile/profile.component'
+import { ProfileEditComponent } from '../components/profile-edit/profile-edit.component'
 import { ProfilesService } from '../services/profiles.service';
 import { AuthService } from '../services/auth.service';
 import { addIcons } from 'ionicons';
@@ -20,6 +21,7 @@ export class AccountPage {
   public profile: any = null;
   private router = inject(Router);
   private alertController = inject(AlertController);
+  public editMode: boolean = false;
   
   constructor() {
     addIcons({ logOut });
@@ -57,6 +59,12 @@ export class AccountPage {
     });
 
     await alert.present();
+  }
+
+  refreshProfile(){
+    this.profile = this.profilesService.getProfilesById(this.profile.userId)[0];
+    this.editMode = false
+    console.log('Profile:', this.profile);
   }
 
 }

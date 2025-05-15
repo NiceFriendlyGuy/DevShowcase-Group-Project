@@ -35,3 +35,11 @@ ion-toolbar {
     color: #3f3d3d;
     margin-right: 10px;
   }
+
+  @media (max-width: 768px) {
+    .edit-button,
+    .delete-button {
+      width: 100%; /* Full width for smaller screens */
+      font-size: 0.9rem; /* Slightly smaller font size */
+    }
+  }

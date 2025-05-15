@@ -26,6 +26,21 @@ export class ProfilesService {
     return profile;
   }
 
+  updateProfile(profile: any) {
+  console.log('updateProfile', profile);
+
+  const index = this.profiles.findIndex(profileToUpdate => profileToUpdate.userId === profile.userId);
+  if (index !== -1) {
+    for (const key in profile) {
+      if (profile.hasOwnProperty(key)) {
+        this.profiles[index][key] = profile[key]; // Update the field
+      }
+    }
+    return this.profiles[index];
+  }
+  return null;
+}
+
   authProfile(email: string, password: string) {
     const profile = this.profiles.find(profile => profile.email === email && profile.password === password);
     if (profile) {
