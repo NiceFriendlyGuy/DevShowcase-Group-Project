@@ -47,6 +47,27 @@ accountController.update = async function (req, res) {
 }
 
 accountController.delete = async function (req, res) {
+    const id = req.params.id;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid)
+        {
+            return res.status(404).json({message:"Id not existant"});
+        }
+
+        const deletedAccount = await Account.findByIdAndDelete(id);
+        if (!deletedAccount)
+        {
+            return res.status(200).json({message: "failed to delete account"});
+        }
+
+        res.status(200).json({message:"account deleted successfully"});
+    }
+    
+    catch(err)
+    {
+        res.status(400).json({message:"failure to delete account", error:err.message});
+    }
     //
 }
 
