@@ -16,7 +16,14 @@ accountController.findAll = async function (req, res) {
 }
 
 accountController.create = async function (req, res) {
-    //
+    try {
+        const newAccount = new Account(req.body);
+        await newAccount.save();
+        res.status(200).json(newAccount);
+    }
+    catch (err) {
+        res.status(400).json({message:"Unable to create account", error: err.message });
+    }//
 }
 
 accountController.update = async function (req, res) {
