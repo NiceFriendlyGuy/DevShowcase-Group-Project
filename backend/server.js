@@ -19,5 +19,3 @@ app.use('/api/accounts', accountRoutes);
 app.listen(port, () => {
 console.log(`server running at http://localhost:${port}`);
 });
-
-// conflit resolu pour tester
