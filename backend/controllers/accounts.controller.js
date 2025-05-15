@@ -1,8 +1,17 @@
 const Account = require('../models/accounts.model');
+const mongoose = require('mongoose');
 
 const accountController = {}
 
 accountController.findAll = async function (req, res) {
+    try {
+        const projects = await accountController.find();
+        res.status(200).json(projects);
+    }
+
+    catch(err){
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
     //
 }
 
