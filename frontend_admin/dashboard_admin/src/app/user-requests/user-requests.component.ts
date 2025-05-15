@@ -16,7 +16,6 @@ export class UserRequestsComponent {
   public requests = signal<any[]>([]);
   public isLoading = signal<boolean>(true);
   private readonly requestService = inject(RequestService);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
     this.loadRequests();
