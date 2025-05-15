@@ -50,7 +50,7 @@ accountController.delete = async function (req, res) {
     const id = req.params.id;
 
     try {
-        if (!mongoose.Types.ObjectId.isValid)
+        if (!mongoose.Types.ObjectId.isValid(id))
         {
             return res.status(404).json({message:"Id not existant"});
         }
@@ -58,7 +58,7 @@ accountController.delete = async function (req, res) {
         const deletedAccount = await Account.findByIdAndDelete(id);
         if (!deletedAccount)
         {
-            return res.status(200).json({message: "failed to delete account"});
+            return res.status(400).json({message: "failed to delete account"});
         }
 
         res.status(200).json({message:"account deleted successfully"});
