@@ -5,8 +5,8 @@ const accountController = {}
 
 accountController.findAll = async function (req, res) {
     try {
-        const projects = await accountController.find();
-        res.status(200).json(projects);
+        const accounts = await Account.find();
+        res.status(200).json(accounts);
     }
 
     catch(err){
@@ -27,7 +27,23 @@ accountController.create = async function (req, res) {
 }
 
 accountController.update = async function (req, res) {
-    //
+    const id = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({message:'Id not existant'});
+        }
+        const updatedAccount = await Account.findByIdAndUpdate(id, req.body, {new: true});
+        if (!updatedAccount)
+        {
+            return res.status(404).json({message:'account to update: not found'});
+        }
+
+        res.status(200).json(updatedAccount);
+    }
+
+    catch(err) {
+        res.status(400).json({message:"failure to update account", error: err.message});
+    }
 }
 
 accountController.delete = async function (req, res) {
