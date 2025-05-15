@@ -35,7 +35,10 @@ export class ShellComponent {
   constructor(private dialog: MatDialog) {}
 
   public openProfileDialog() {
-    this.dialog.open(ProfileComponent);
+    this.dialog.open(ProfileComponent, {
+      height: '400px',
+      width: '600px',
+    });
   }
 
   public openSettingsDialog() {

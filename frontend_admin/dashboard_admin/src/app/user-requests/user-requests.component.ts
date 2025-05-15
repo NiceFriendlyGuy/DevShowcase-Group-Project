@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-requests.component.scss',
 })
 export class UserRequestsComponent {
-  public requests: any[] = [];
+  public requests = signal<any[]>([]);
+  public isLoading = signal<boolean>(true);
   private readonly requestService = inject(RequestService);
 
   constructor() {
@@ -21,8 +22,9 @@ export class UserRequestsComponent {
   }
 
   public loadRequests() {
-    this.requestService.getRequests().subscribe((request) => {
-      this.requests = request;
+    this.requestService.getRequests().subscribe((data) => {
+      this.requests.set(data);
+      this.isLoading.set(false);
     });
   }
 
@@ -43,11 +45,11 @@ export class UserRequestsComponent {
     }
   }
 
-  public acceptRequest(index: number) {
-    this.requests.splice(index, 1);
+  public acceptRequest(request: any) {
+    this.requests.set(this.requests().filter((r) => r !== request));
   }
 
-  public rejectRequest(index: number) {
-    this.requests.splice(index, 1);
+  public rejectRequest(request: any) {
+    this.requests.set(this.requests().filter((r) => r !== request));
   }
 }

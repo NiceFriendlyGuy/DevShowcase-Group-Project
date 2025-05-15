@@ -3,12 +3,17 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-height: 400px; /* Hauteur maximale de la carte */
+  overflow: hidden;
 }
 
 .requests-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-height: 300px; /* Limite la hauteur de la liste */
+  overflow-y: auto; /* Scroll vertical uniquement */
+  padding-right: 8px; /* Laisse de l'espace pour la scrollbar */
 }
 
 .request-item {
@@ -18,17 +23,38 @@
   padding: 12px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.3s;
   cursor: pointer;
-  min-height: 48px; /* Assure une hauteur suffisante */
+  min-height: 48px;
+  position: relative;
 }
 
 .request-item:hover {
   background-color: #e0e0e0;
 }
 
+.request-item.support {
+  border-left: 4px solid #2196f3;
+}
+
+.request-item.complaint {
+  border-left: 4px solid #f44336;
+}
+
+.request-item.suggestion {
+  border-left: 4px solid #ff9800;
+}
+
+.request-item.verification {
+  border-left: 4px solid #4caf50;
+}
+
+.request-item.deletion {
+  border-left: 4px solid #9c27b0;
+}
+
 .request-item mat-icon {
-  font-size: 24px; /* Taille ajustée pour éviter les coupures */
+  font-size: 24px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -36,12 +62,17 @@
   justify-content: center;
 }
 
-.request-item p {
-  margin: 0;
+.request-text {
+  flex: 1;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.no-requests {
+  text-align: center;
   font-size: 14px;
-  color: #333;
-  flex: 1; /* Le texte prend tout l'espace disponible */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: #757575;
 }
