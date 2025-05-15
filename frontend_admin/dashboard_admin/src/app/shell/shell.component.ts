@@ -10,7 +10,7 @@ import { StatisticsComponent } from '../statistics/statistics.component';
 import { UserRequestsComponent } from '../user-requests/user-requests.component';
 import { SearchUserComponent } from '../search-user/search-user.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfileComponent } from '../profile/profile.component';
+import { SettingsComponent } from '../settings/settings.component';
 
 @Component({
   selector: 'app-shell',
@@ -27,16 +27,34 @@ import { ProfileComponent } from '../profile/profile.component';
     SearchUserComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RouterOutlet,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatInputModule,
+    StatisticsComponent,
+    UserRequestsComponent,
+    SearchUserComponent,
+    SettingsComponent,
+  ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
 })
 export class ShellComponent {
-  readonly dialog = inject(MatDialog);
+  constructor(private dialog: MatDialog) {}
 
-  openDialog() {
-    this.dialog.open(ProfileComponent, {
-      height: '400px',
-      width: '600px',
+  openSettingsDialog() {
+    const parameters = [
+      { name: 'Theme', value: true }, // true = Dark, false = Light
+      { name: 'Language', value: 'English' },
+      { name: 'Auto Save', value: true },
+    ];
+
+    this.dialog.open(SettingsComponent, {
+      data: { params: parameters },
     });
   }
 }
