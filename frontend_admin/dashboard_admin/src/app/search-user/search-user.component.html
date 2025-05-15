@@ -16,9 +16,14 @@
   <div class="card-container">
     @for (user of filteredUsers(); track user) {
     <mat-card class="user-card" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>{{ user.nom }}</mat-card-title>
-        <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
+      <mat-card-header class="user-card-header">
+        <div class="user-info">
+          <mat-card-title>{{ user.nom }}</mat-card-title>
+          <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
+        </div>
+        <button mat-mini-fab color="warn" aria-label="Supprimer l'utilisateur">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-card-header>
     </mat-card>
     } @if (filteredUsers().length === 0) {

@@ -1,0 +1,44 @@
+.statistics-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statistics-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 statistiques par ligne */
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 80px; /* Assure une hauteur suffisante pour les icônes */
+}
+
+.stat-item mat-icon {
+  font-size: 28px; /* Taille réduite pour éviter qu'elles soient coupées */
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-item h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.stat-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #757575;
+}

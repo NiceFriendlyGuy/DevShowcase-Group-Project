@@ -1,0 +1,27 @@
+[
+  {
+    "type": "support",
+    "title": "Demande de support :",
+    "content": "Mon compte a été désactivé sans raison."
+  },
+  {
+    "type": "complaint",
+    "title": "Plainte :",
+    "content": "L'application plante lorsque j'essaie de charger une image."
+  },
+  {
+    "type": "suggestion",
+    "title": "Suggestion :",
+    "content": "Pouvez-vous ajouter un mode sombre à l'application ?"
+  },
+  {
+    "type": "verification",
+    "title": "Demande de vérification :",
+    "content": "Pouvez-vous vérifier mon compte ?"
+  },
+  {
+    "type": "deletion",
+    "title": "Nouvelle demande :",
+    "content": "Je souhaite supprimer définitivement mon compte."
+  }
+]

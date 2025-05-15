@@ -29,9 +29,9 @@
 
 /* Conteneur Scrollable pour les Utilisateurs */
 .scrollable-container {
-  max-height: 800px; /* Limite la hauteur du conteneur */
+  max-height: 735px;
   overflow-y: auto;
-  padding-right: 8px; /* Laisse de l'espace pour la scrollbar */
+  padding-right: 8px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -49,9 +49,14 @@
 
   mat-card-header {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between; /* Espace entre les infos et le bouton */
+    align-items: center;
     padding: 8px;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
   }
 
   mat-card-title {
@@ -62,5 +67,9 @@
   mat-card-subtitle {
     font-size: 14px;
     color: #757575;
+  }
+
+  button {
+    margin-left: auto; /* Aligne le bouton à droite */
   }
 }

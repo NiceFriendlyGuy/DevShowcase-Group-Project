@@ -2,9 +2,10 @@
   <!-- Menu Vertical (4 icônes) -->
   <div class="menu">
     <div class="menu-item"><mat-icon>logout</mat-icon></div>
-    <div class="menu-item"><mat-icon>account_circle</mat-icon></div>
+    <div class="menu-item" (click)="openDialog()">
+      <mat-icon>account_circle</mat-icon>
+    </div>
     <div class="menu-item"><mat-icon>settings</mat-icon></div>
-    <div class="menu-item"><mat-icon>notification_important</mat-icon></div>
   </div>
 
   <!-- Contenu Principal (Statistiques + Demandes) -->

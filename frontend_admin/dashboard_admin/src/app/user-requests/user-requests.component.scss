@@ -1,0 +1,47 @@
+.requests-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.request-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+  min-height: 48px; /* Assure une hauteur suffisante */
+}
+
+.request-item:hover {
+  background-color: #e0e0e0;
+}
+
+.request-item mat-icon {
+  font-size: 24px; /* Taille ajustée pour éviter les coupures */
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.request-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  flex: 1; /* Le texte prend tout l'espace disponible */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
