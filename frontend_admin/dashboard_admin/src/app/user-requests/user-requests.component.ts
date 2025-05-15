@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class UserRequestsComponent {
   public requests: any[] = [];
   private readonly requestService = inject(RequestService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
     this.loadRequests();
@@ -23,6 +24,7 @@ export class UserRequestsComponent {
   public loadRequests() {
     this.requestService.getRequests().subscribe((request) => {
       this.requests = request;
+      this.cdr.detectChanges();
     });
   }
 
