@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-home></app-home>
+  
+  @for(project of projects; track project){
+      <app-project [project]="project"></app-project>
+  }
 
 </ion-content>

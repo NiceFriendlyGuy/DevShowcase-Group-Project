@@ -1,0 +1,175 @@
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  margin: 16px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* --- Header par défaut mobile (colonne) --- */
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+.project-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.project-title {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.project-info {
+  width: 100%;
+}
+
+/* Technologies scroll horizontal */
+.tech-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  padding-right: 16px; /* petit espace à droite */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE/Edge */
+}
+
+.tech-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.tech-chip {
+  flex: 0 0 auto; /* empêche de s'étirer, reste compact */
+  max-width: 140px; /* limite la taille pour garder l'effet "cut" */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+.author-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.author-list {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.project-description {
+  text-align: justify;
+  margin-top: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-screenshots {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  overflow-x: auto;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.screenshot {
+  height: 120px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+/* --- Adaptation pour écrans larges (desktop/tablette) --- */
+@media (min-width: 768px) {
+  .project-card {
+    max-width: 100%;
+    padding: 24px;
+  }
+
+  .project-header {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 24px;
+  }
+
+  .project-image {
+    width: 40%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .project-info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .project-title {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap; /* retour à la ligne auto */
+    overflow-x: unset; /* pas de scroll */
+    max-height: unset;
+    gap: 8px;
+  }
+
+  .author-section {
+    flex-direction: column; /* tout à la ligne */
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 12px;
+  }
+
+  .author-list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: unset;
+    gap: 6px;
+  }
+
+  .project-description {
+    margin-top: 16px;
+    -webkit-line-clamp: 3;
+    width: 100%;
+  }
+
+  .project-screenshots {
+    justify-content: flex-start;
+  }
+
+  .screenshot {
+    height: 160px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+}

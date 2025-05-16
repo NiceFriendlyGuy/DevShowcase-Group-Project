@@ -1,56 +1,91 @@
 [
-    {
-      "id": 1,
-      "title": "Portfolio Website",
-      "technologies": [
-        { "name": "HTML5" },
-        { "name": "CSS3" },
-        { "name": "Node.js", "version": 5 },
-        { "name": "Express" },
-        { "name": "MongoDB", "version": 11}
-      ],
-      "link": "https://example.com/portfolio",
-      "authors": [1],
-      "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
-    },
-    {
-      "id": 2,
-      "title": "E-commerce Platform",
-      "technologies": [
-        { "name": "Angular", "version": 19 },
-        { "name": "Node.js" },
-        { "name": "Express" },
-        { "name": "MongoDB" }
-      ],
-      "link": "https://example.com/ecommerce",
-      "authors": [1],
-      "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
-    },
-    {
-      "id": 3,
-      "title": "Chat Application",
-      "technologies": [
-        { "name": "React", "version": 1.2 },
-        { "name": "Node.js" },
-        { "name": "SQLite" }
-      ],
-      "link": "https://example.com/chatapp",
-      "authors": [1,2],
-      "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
-    }
-    ,
-    {
-      "id": 4,
-      "title": "Blog Platform",
-      "technologies": [
-        { "name": "Java", "version": 21 },
-        { "name": "Spring" },
-        { "name": "MySQL" },
-        { "name": "Maven" }
-      ],
-      "link": "https://example.com/blog",
-      "authors": [1,2],
-      "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
-    }
-    
-  ]
+  {
+    "id": 1,
+    "title": "Portfolio Website",
+    "technologies": [
+      { "name": "HTML5" },
+      { "name": "CSS3" },
+      { "name": "Node.js", "version": 5 },
+      { "name": "Express" },
+      { "name": "MongoDB", "version": 11 }
+    ],
+    "link": "https://example.com/portfolio",
+    "authors": [1],
+    "photos": [
+      "assets/1/Screenshot1.png",
+      "assets/1/Screenshot2.png",
+      "assets/1/Screenshot3.png"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "E-commerce Platform",
+    "technologies": [
+      { "name": "Angular", "version": 19 },
+      { "name": "Node.js" },
+      { "name": "Express" },
+      { "name": "MongoDB" }
+    ],
+    "link": "https://example.com/ecommerce",
+    "authors": [1],
+    "photos": [
+      "assets/2/Screenshot1.png",
+      "assets/2/Screenshot2.png",
+      "assets/2/Screenshot3.png"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Chat Application",
+    "technologies": [
+      { "name": "React", "version": 1.2 },
+      { "name": "Node.js" },
+      { "name": "SQLite" }
+    ],
+    "link": "https://example.com/chatapp",
+    "authors": [1, 2],
+    "photos": [
+      "assets/3/Screenshot1.png",
+      "assets/3/Screenshot2.png",
+      "assets/3/Screenshot3.png"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Blog Platform",
+    "technologies": [
+      { "name": "Java", "version": 21 },
+      { "name": "Spring" },
+      { "name": "MySQL" },
+      { "name": "Maven" }
+    ],
+    "link": "https://example.com/blog",
+    "authors": [1, 2],
+    "photos": [
+      "assets/4/Screenshot1.png",
+      "assets/4/Screenshot2.png",
+      "assets/4/Screenshot3.png"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "AppConnect",
+    "technologies": [
+      { "name": "Angular", "version": 17 },
+      { "name": "Ionic", "version": 7 },
+      { "name": "Node.js", "version": 20 },
+      { "name": "Express" },
+      { "name": "MongoDB" },
+      { "name": "Socket.io" },
+      { "name": "TypeScript" },
+      { "name": "Sass" }
+    ],
+    "link": "https://example.com/appconnect",
+    "authors": [2, 3],
+    "photos": [
+      "assets/5/Screenshot1.jpg",
+      "assets/5/Screenshot2.jpg",
+      "assets/5/Screenshot3.jpg"
+    ]
+  }
+]
