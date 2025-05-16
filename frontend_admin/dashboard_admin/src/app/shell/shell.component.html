@@ -1,11 +1,17 @@
 <div class="main-container">
   <!-- Menu Vertical (4 icônes) -->
   <div class="menu">
-    <button class="menu-item"><mat-icon>logout</mat-icon></button>
-    <button class="menu-item" (click)="openProfileDialog()">
+    <button class="menu-item" matTooltip="Se déconnecter">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button class="menu-item" (click)="openProfileDialog()" matTooltip="Profil">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button class="menu-item" (click)="openSettingsDialog()">
+    <button
+      class="menu-item"
+      (click)="openSettingsDialog()"
+      matTooltip="Paramètres"
+    >
       <mat-icon>settings</mat-icon>
     </button>
   </div>

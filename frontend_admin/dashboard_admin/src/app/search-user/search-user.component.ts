@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-search-user',
@@ -30,8 +32,20 @@ export class SearchUserComponent {
   public users = signal<User[]>([]);
   public searchQuery = signal<string>('');
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.loadUsers();
+  }
+
+  public openDeleteDialog(user: User) {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: { user },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteUser(user);
+      }
+    });
   }
 
   public filteredUsers = computed(() => {
