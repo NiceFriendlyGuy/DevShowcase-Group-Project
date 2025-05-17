@@ -3,16 +3,20 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 400px; /* Hauteur maximale de la carte */
-  overflow: hidden;
+  /*max-height: 400px; /* Hauteur maximale de la carte */
+  overflow: auto;
+}
+
+.mat-card-content{
+  overflow: auto;
 }
 
 .requests-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 300px; /* Limite la hauteur de la liste */
-  overflow-y: auto; /* Scroll vertical uniquement */
+  /*max-height: 300px; /* Limite la hauteur de la liste */
+  /*overflow: auto; /* Scroll vertical uniquement */
   padding-right: 8px; /* Laisse de l'espace pour la scrollbar */
 }
 

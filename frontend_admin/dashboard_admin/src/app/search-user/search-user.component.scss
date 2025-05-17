@@ -5,9 +5,12 @@
   margin-bottom: 16px;
 }
 
+.search-box{
+  width: 100%;
+}
+
 .search-field {
-  width: 300px;
-  max-width: 100%;
+  width: 100%;
   font-size: 14px;
 
   .search-icon {
@@ -29,10 +32,11 @@
 
 /* Conteneur Scrollable pour les Utilisateurs */
 .scrollable-container {
-  max-height: 735px;
   overflow-y: auto;
   padding-right: 8px;
+  padding-top: 8px;
   border-top: 1px solid #e0e0e0;
+
 }
 
 /* Cartes Utilisateur compactes */
