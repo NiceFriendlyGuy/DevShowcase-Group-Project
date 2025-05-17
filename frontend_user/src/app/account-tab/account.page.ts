@@ -31,7 +31,7 @@ export class AccountPage {
   
   logout() {
     this.auth.isLoggedIn = false;
-    this.router.navigate(['/tabs/account/login']);
+    this.router.navigate(['/tabs/account/login'], { queryParams: { reload: true } }); // Add a query parameter
   }
 
   async deleteAccount() {
