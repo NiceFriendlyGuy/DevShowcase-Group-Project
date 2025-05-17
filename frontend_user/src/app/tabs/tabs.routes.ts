@@ -15,7 +15,7 @@ export const routes: Routes = [
       {
         path: 'profiles',
         loadComponent: () =>
-          import('../profiles-tab/profiles.page').then((m) => m.ProfilesPage),
+          import('../tab-profiles/profiles.page').then((m) => m.ProfilesPage),
       },
       {
         path: 'account',
@@ -23,7 +23,7 @@ export const routes: Routes = [
           {
             path: '',
             loadComponent: () =>
-              import('../account-tab/account.page').then((m) => m.AccountPage),
+              import('../tab-account/account.page').then((m) => m.AccountPage),
             canActivate: [AuthGuard], // Protect the account route
           },
           {
