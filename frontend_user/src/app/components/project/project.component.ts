@@ -16,7 +16,6 @@ export class ProjectComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.project);
   }
 
   getIcon(technology: string, type:string): string {

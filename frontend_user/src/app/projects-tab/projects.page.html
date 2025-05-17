@@ -7,9 +7,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  @for(project of projects; track project){
-      <app-project [project]="project"></app-project>
+  <div class="cat-container">
+  @for (cat of categories; track cat) {
+    <div
+      class="cat"
+      [class.selected]="isSelected(cat)"
+      (click)="toggleTech(cat)"
+    >
+      <img [src]="'assets/icon/categories/' + cat.icon" [alt]="cat.name + ' icon'" />
+      <p>{{ cat.name }}</p>
+    </div>
   }
+  </div>
+  
+  <div class="project-grid" [class.empty]="filteredProjects.length === 0">
+    @if (filteredProjects.length === 0) {
+      <div class="no-projects-message">
+        <img src="assets/icon/no-result.png" alt="No projects found" />
+        <p>No projects found.</p>
+      </div>
+    } @else {
+      @for(project of filteredProjects; track project){
+        <app-project [project]="project" class="project-card"></app-project>
+      }
+    }
+  </div>
+
 
 </ion-content>

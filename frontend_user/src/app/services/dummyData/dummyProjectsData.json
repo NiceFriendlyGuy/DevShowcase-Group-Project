@@ -2,6 +2,7 @@
   {
     "id": 1,
     "title": "Portfolio Website",
+    "category": "Technology",
     "technologies": [
       { "name": "HTML5" },
       { "name": "CSS3" },
@@ -20,6 +21,7 @@
   {
     "id": 2,
     "title": "E-commerce Platform",
+    "category": "E-Commerce",
     "technologies": [
       { "name": "Angular", "version": 19 },
       { "name": "Node.js" },
@@ -37,6 +39,7 @@
   {
     "id": 3,
     "title": "Chat Application",
+    "category": "Social Media",
     "technologies": [
       { "name": "React", "version": 1.2 },
       { "name": "Node.js" },
@@ -53,6 +56,7 @@
   {
     "id": 4,
     "title": "Blog Platform",
+    "category": "News",
     "technologies": [
       { "name": "Java", "version": 21 },
       { "name": "Spring" },
@@ -70,6 +74,7 @@
   {
     "id": 5,
     "title": "AppConnect",
+    "category": "Business",
     "technologies": [
       { "name": "Angular", "version": 17 },
       { "name": "Ionic", "version": 7 },

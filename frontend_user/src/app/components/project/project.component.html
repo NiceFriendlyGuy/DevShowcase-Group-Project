@@ -36,6 +36,10 @@
         <img [src]="screenshot" [alt]="project.title + ' screenshot ' + project.id" class="screenshot">
       }
     </div>
-  </ion-card-content>
 
+  </ion-card-content>
+  <div class="project-category-badge">
+    <img class="project-category-badge-img" [src]="'assets/icon/categories/' + project.category + '.png'" [alt]="project.category + ' icon'">
+    <span class="project-category-badge-label">{{ project.category }}</span>
+  </div>
 </ion-card>

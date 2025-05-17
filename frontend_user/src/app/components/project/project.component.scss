@@ -14,7 +14,7 @@
 .project-header {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   align-items: center;
   text-align: center;
 }
@@ -34,6 +34,7 @@
 
 .project-info {
   width: 100%;
+  gap: 8px;
 }
 
 /* Technologies scroll horizontal */
@@ -42,29 +43,29 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 4px;
-  padding-right: 16px; /* petit espace à droite */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE/Edge */
+  padding-right: 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 4px;
 }
 
 .tech-list::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 
 .tech-chip {
-  flex: 0 0 auto; /* empêche de s'étirer, reste compact */
-  max-width: 140px; /* limite la taille pour garder l'effet "cut" */
+  flex: 0 0 auto;
+  max-width: 140px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-
 .author-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin: 8px 0;
 }
 
@@ -80,6 +81,7 @@
   text-align: justify;
   margin-top: 12px;
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -88,7 +90,7 @@
 
 .project-screenshots {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-top: 16px;
   overflow-x: auto;
   justify-content: center;
@@ -101,8 +103,8 @@
   object-fit: contain;
 }
 
-/* --- Adaptation pour écrans larges (desktop/tablette) --- */
-@media (min-width: 768px) {
+/* --- Adaptation pour écrans larges (desktop) --- */
+@media (min-width: 1025px) {
   .project-card {
     max-width: 100%;
     padding: 24px;
@@ -137,14 +139,14 @@
 
   .tech-list {
     display: flex;
-    flex-wrap: wrap; /* retour à la ligne auto */
-    overflow-x: unset; /* pas de scroll */
+    flex-wrap: wrap;
+    overflow-x: unset;
     max-height: unset;
     gap: 8px;
   }
 
   .author-section {
-    flex-direction: column; /* tout à la ligne */
+    flex-direction: column;
     align-items: flex-start;
     gap: 4px;
     margin-top: 12px;
@@ -159,17 +161,55 @@
 
   .project-description {
     margin-top: 16px;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     width: 100%;
   }
 
   .project-screenshots {
     justify-content: flex-start;
+    gap: 10px;
   }
 
   .screenshot {
     height: 160px;
     object-fit: contain;
     border-radius: 6px;
+  }
+}
+
+
+/* --- Badge catégorie en bas à droite --- */
+.project-category-badge {
+  position: absolute;
+  right: 4px;    // réduit la distance au bord droit
+  bottom: 4px;   // réduit la distance au bord bas
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 2px 8px 2px 4px;
+  z-index: 10;
+  min-width: 0;
+  max-width: 90%;
+  pointer-events: none;
+
+  .project-category-badge-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .project-category-badge-label {
+    font-size: 0.95em;
+    color: #333;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
   }
 }

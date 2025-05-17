@@ -1,0 +1,22 @@
+[
+  {"name": "E-Commerce", "icon": "E-Commerce.png"},
+  {"name": "Social Media", "icon": "Social Media.png"},
+  {"name": "Education", "icon": "Education.png"},
+  {"name": "Entertainment", "icon": "Entertainment.png"},
+  {"name": "Productivity", "icon": "Productivity.png"},
+  {"name": "Healthcare", "icon": "Healthcare.png"},
+  {"name": "Finance", "icon": "Finance.png"},
+  {"name": "Travel", "icon": "Travel.png"},
+  {"name": "News", "icon": "News.png"},
+  {"name": "Utilities", "icon": "Utilities.png"},
+  {"name": "Business", "icon": "Business.png"},
+  {"name": "Non-Profit", "icon": "Non-Profit.png"},
+  {"name": "Real Estate", "icon": "Real Estate.png"},
+  {"name": "Food & Drink", "icon": "Food & Drink.png"},
+  {"name": "Sports", "icon": "Sports.png"},
+  {"name": "Technology", "icon": "Technology.png"},
+  {"name": "Public Services", "icon": "Public Services.png"},
+  {"name": "Art & Design", "icon": "Art & Design.png"},
+  {"name": "Lifestyle", "icon": "Lifestyle.png"},
+  {"name": "Others", "icon": "Others.png"}
+]
