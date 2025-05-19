@@ -4,10 +4,13 @@ import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } fr
 import { Router, RouterLink } from '@angular/router';
 import { IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
+import { ProjectsService } from 'src/app/services/projects.service';
 import { addIcons } from 'ionicons';
 import { close, add } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AlertController, ToastController } from '@ionic/angular';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-profile-edit',
@@ -26,15 +29,19 @@ export class ProfileEditComponent implements OnInit {
   public profileForm: FormGroup;
   private router = inject(Router);
   private profilesService = inject(ProfilesService);
+  private projectsService = inject(ProjectsService);
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
   public avatarPreview: string | ArrayBuffer | null = null;
   public techName: string = '';
   public techVersion: string = '';
   public techIconUrl: string = '';
+  private alertController = inject(AlertController);
+  public projectsPreview = (id: number): any[] => 
+    this.projectsService.getProjectsByAuthor(id);
 
-  constructor() {
-        addIcons({ close, add });
+constructor() {
+        addIcons({ close, add, pencil });
 
     this.profileForm = this.fb.group({
       userId: [''],
@@ -73,9 +80,9 @@ export class ProfileEditComponent implements OnInit {
     });
   }
 
-get technologies(): FormArray {
-  return this.profileForm.get('technologies') as FormArray;
-}
+  get technologies(): FormArray {
+    return this.profileForm.get('technologies') as FormArray;
+  }
 
   createTechnologyGroup(tech: any): FormGroup {
     return this.fb.group({
@@ -163,6 +170,40 @@ get technologies(): FormArray {
         }
       }
     );
+  }
+
+  removeProject(projectId: number) {
+    console.log('Project ID to delete:', projectId);
+  }
+
+  async confirmDeleteProject(projectId: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirm Delete',
+      message: 'Are you sure you want to delete this project?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Delete canceled');
+          },
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.removeProject(projectId); // Call the delete method
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+
+  editProject(projectId: number) {
+
   }
 
    

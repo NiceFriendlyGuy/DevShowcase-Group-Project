@@ -74,7 +74,9 @@
         <!-- Technologies -->
         <div class="technologies">
           <div class="technologies-inline">
-            <ion-label>Add new: </ion-label>
+            <div class="label-container">
+              <ion-label>Add new:</ion-label>
+            </div>
             <ion-item>
               <ion-label position="floating">Name</ion-label>
               <ion-input 
@@ -110,14 +112,23 @@
         </div>
       </ion-card>
 
-      <div class="section-title">Other Infos</div>
+   <!--    <div class="section-title">Other Infos</div>
       <ion-card class="category-card">
-      </ion-card>
+      </ion-card> -->
 
       <div class="section-title">Projects</div>
       <ion-card class="category-card">
-      </ion-card>
+        @for(project of projectsPreview(profile.userId); track project.id){
+            <div class="project-item">
+              <ion-label class="project-title">{{ project.title }}</ion-label>
+              <div class="project-icons">
+                <ion-icon name="pencil" (click)="editProject(project.id)"></ion-icon>
+                <ion-icon name="close" (click)="confirmDeleteProject(project.id)"></ion-icon>
+              </div>
+            </div>
 
+        }
+      </ion-card>
 
     </ion-card-content>
 

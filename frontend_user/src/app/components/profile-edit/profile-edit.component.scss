@@ -87,19 +87,24 @@ ion-card {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
+.label-container {
+  margin-bottom: 5px; /* Add spacing below the label */
+  font-weight: bold; /* Optional: Make the label bold */
+}
 
 .technologies-inline {
   display: flex; /* Enables flexbox layout */
-  gap: 15px; /* Adds space between the inputs */
-  justify-content: space-between; /* Distributes the inputs evenly */
-  align-items: center; /* Aligns inputs vertically */
-  justify-content: left;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 15px; /* Adds space between the items */
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center; /* Vertically aligns items */
 }
 
 .technologies-inline ion-item {
   flex: 1; /* Ensures both inputs take equal width */
   max-width: 200px; /* Maximum width for each input */
- 
+  min-width: 150px; /* Sets a minimum width for each item */
+
 }
 .technologies-inline ion-item.version {
   flex: 1; /* Ensures both inputs take equal width */
@@ -165,13 +170,61 @@ ion-button[disabled] {
   text-align: center;
 }
 
+.project-item {
+  display: flex; /* Enables flexbox layout */
+  justify-content: space-between; /* Pushes title to the left and icons to the right */
+  align-items: center; /* Vertically aligns the title and icons */
+  padding: 10px 0; /* Adds spacing between project items */
+  border-bottom: 1px solid #e0e0e0; /* Optional: Adds a separator between items */
+}
+
+.project-title {
+  flex: 1; /* Ensures the title takes up available space */
+  font-size: 1rem; /* Adjust font size for better readability */
+  font-weight: bold; /* Makes the title bold */
+  color: #333; /* Sets a dark color for the title */
+}
+
+.project-icons {
+  display: flex; /* Enables flexbox for the icons */
+  gap: 10px; /* Adds spacing between the icons */
+}
+
+.project-icons ion-icon {
+  font-size: 1.2rem; /* Adjusts the size of the icons */
+  color: #666; /* Sets a neutral color for the icons */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  transition: color 0.3s ease; /* Adds a smooth color transition on hover */
+}
+
+.project-icons ion-icon:hover {
+  color: #d9534f; /* Changes the icon color on hover (e.g., red for delete) */
+}
+
 
 @media (max-width: 768px) {
+  ion-card-title {
+    font-size: 1.5rem; /* Adjusted font size for smaller screens */
+    text-align: left;;
+  }
   .share-line-container {
     flex-direction: column; /* Stacks the fields vertically on smaller screens */
   }
   .save-button,
   .cancel-button {
     width: 100%; /* Full width for smaller screens */
+  }
+
+   .technologies-inline {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: flex-start; /* Align items to the left */    
+  }
+
+  .label-container {
+    margin-bottom: 10px; /* Add more spacing below the label for mobile */
+  }
+
+  .technologies-inline ion-item {
+    max-width: 100%; /* Allow inputs to take full width on mobile */
   }
 }

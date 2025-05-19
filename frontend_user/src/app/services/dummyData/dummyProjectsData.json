@@ -35,7 +35,7 @@
         { "name": "SQLite" }
       ],
       "link": "https://example.com/chatapp",
-      "authors": [1,2],
+      "authors": [1,2,6],
       "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
     }
     ,
