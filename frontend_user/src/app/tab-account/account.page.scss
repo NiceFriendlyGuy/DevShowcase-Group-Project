@@ -18,8 +18,7 @@ ion-toolbar {
   }
   
   .actions {
-  margin-top: 10px;
-  margin-right:20px;
+  margin: 20px;
   display: flex; /* Enables flexbox layout */
   justify-content: flex-end; /* Aligns the content to the right */
   align-items: center; /* Vertically aligns the checkbox and button text */

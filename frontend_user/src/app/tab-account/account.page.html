@@ -12,10 +12,13 @@
   <div class="actions">
     <ion-button class="edit-button" (click)="editMode=true">Edit</ion-button>
     <ion-button class="delete-button" color="danger" (click)="deleteAccount()">Delete</ion-button>
-    <ion-checkbox [checked]="true">Availability</ion-checkbox>
   </div>
 
   <app-profile [profile]="profile"></app-profile>
+  <!-- <ion-label class="projects-label">MY PROJECTS</ion-label>
+  @for (project of projects; track project.id) {
+    <app-project [project]="project"></app-project>
+  } -->
 </ion-content>
 
 <ion-content *ngIf="editMode">

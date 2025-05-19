@@ -132,20 +132,26 @@ ion-card {
     align-items: center; /* Vertically aligns the icon and text */
     gap: 15px; /* Adds spacing between the icon and the text */
     text-align: center; /* Ensures text inside is centered */
-
+    max-width: 100%; /* Ensures the container doesn't exceed its parent width */
+    overflow: hidden; /* Hides overflowing content */
   }
 
   .contact-icon {
-    width: 60px; /* Adjusts the size of the icon */
-    height: 60px;
+    width: 40px; /* Adjusts the size of the icon */
+    height: 40px;
+      flex-shrink: 0; /* Prevents the icon from shrinking */
+
     
   }
 
   .contact-details{
-    font-size: 1rem; /* Adjusts the font size */
     font-style: italic;
-    line-height: 1.6; /* Improves readability */
     color: #333; /* Sets a darker text color */
+      flex: 1; /* Allows the text to take up remaining space */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  overflow: hidden; /* Hides overflowing text */
+  text-overflow: ellipsis; /* Adds "..." to truncated text */
+  font-size: 0.9rem; /* Adjusts font size for better fit */
 
   }
 
