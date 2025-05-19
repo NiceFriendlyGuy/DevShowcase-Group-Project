@@ -73,4 +73,18 @@ export class ProfilesService {
     return allTechnologies;
   }
 
+  changePassword(userId: string, data: any) {
+    const { currentPassword, newPassword } = data;
+    const profile = this.profiles.find(profile => profile.userId === userId);
+    if (profile) {
+      if (profile.password === currentPassword) {
+        profile.password = newPassword;
+        return true; // Password changed successfully
+      } else {
+        return false; // Current password is incorrect
+      }
+    }
+    return false; // Profile not found
+  }
+
 }

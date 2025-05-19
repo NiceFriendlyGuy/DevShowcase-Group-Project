@@ -2,21 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import { ModalController, IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { addIcons } from 'ionicons';
-import { close, add } from 'ionicons/icons';
+import { close, add, pencil } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 
+
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.scss'],
-    imports: [CommonModule,FormsModule,RouterLink, ReactiveFormsModule, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
+  imports: [CommonModule,FormsModule,RouterLink, ReactiveFormsModule, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
 
 })
 export class ProfileEditComponent implements OnInit {
@@ -37,6 +38,9 @@ export class ProfileEditComponent implements OnInit {
   public techVersion: string = '';
   public techIconUrl: string = '';
   private alertController = inject(AlertController);
+  private modalController = inject(ModalController);
+  private toastController = inject(ToastController);
+
   public projectsPreview = (id: number): any[] => 
     this.projectsService.getProjectsByAuthor(id);
 
@@ -78,6 +82,41 @@ constructor() {
         })
       );
     });
+
+  }
+
+  async openChangePasswordModal() {
+    const modal = await this.modalController.create({
+      component: ChangePasswordComponent,
+    });
+
+    await modal.present();
+
+    // Retrieve data when the modal is dismissed
+    const { data } = await modal.onDidDismiss();
+    if (data && typeof data  === 'object') {
+      const result = this.profilesService.changePassword(this.profile.userId, data);
+      if (result) {
+        // Handle successful password change
+        console.log('Password changed successfully');
+        this.presentToast('Password changed successfully!', 'success');
+
+      } else {
+        // Handle password change failure
+        console.log('Failed to change password');
+        this.presentToast('Failed to change password', 'danger');
+      }
+    }
+    else if (data && typeof data === 'string') {
+      // Handle modal dismissal with error
+      console.log(data);
+      this.presentToast(data, 'danger');
+    }
+    else {
+      // Handle modal dismissal without data
+      console.log('Cancelled password change');
+      this.presentToast('Cancelled password change', 'warning');
+    }
   }
 
   get technologies(): FormArray {
@@ -205,6 +244,17 @@ constructor() {
   editProject(projectId: number) {
 
   }
+
+  async presentToast(message: string, color: string = 'success') {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 2000, // Toast will disappear after 2 seconds
+    position: 'bottom', // Position of the toast
+    color: color, // Success, danger, etc.
+  });
+
+  await toast.present();
+}
 
    
 }
