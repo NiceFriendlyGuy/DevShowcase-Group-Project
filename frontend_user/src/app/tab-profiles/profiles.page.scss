@@ -28,3 +28,61 @@ ion-toolbar {
     max-width: 400px;
     --background: #bed0f7; /* Sets a light background color */
   }
+
+//////////// STYLE BULLES DE TECHNOLOGIES ////////////
+.tech-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* ne bloque pas le scroll vertical */
+  gap: 12px;
+  padding: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* pour un scroll fluide sur mobile */
+}
+
+.tech-container::-webkit-scrollbar {
+  display: none; /* Masquer la scrollbar */
+}
+
+.tech {
+  flex: 0 0 auto; /* empêcher la réduction */
+  width: 80px;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.tech img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-bottom: 8px;
+  transition: transform 0.3s;
+}
+
+.tech img:hover {
+  transform: scale(1.05);
+}
+
+.tech p {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html, body {
+  height: auto;
+  overflow-y: auto;
+}
+
+.tech.selected p {
+  color: #007bff; /* Bleu Bootstrap / Instagram-like */
+}
+
+.tech.selected img {
+  border-color: #007bff;
+}
+////////////////////////////////////////////////////////

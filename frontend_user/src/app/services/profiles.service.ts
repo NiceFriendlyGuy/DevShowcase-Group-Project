@@ -59,4 +59,18 @@ export class ProfilesService {
     return false;
   }
 
+  getTechnologiesFromUsers() {
+    const allTechnologies: any[] = [];
+    this.profiles.forEach(profile => {
+      if (profile.technologies) {
+        profile.technologies.forEach((tech: any) => {
+          if (!allTechnologies.some((t: any) => t.name === tech.name)) {
+            allTechnologies.push(tech);
+          }
+        });
+      }
+    });
+    return allTechnologies;
+  }
+
 }
