@@ -1,7 +1,8 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/portfoliodb')
-.then(() => console.log('connection to database: successful'))
-.catch((err) => console.error('Database error: ', err))
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log('connection to MongoDB Atlas: successful'))
+.catch((err) => console.error('MongoDB Atlas error: ', err))
 
 module.exports = mongoose;
