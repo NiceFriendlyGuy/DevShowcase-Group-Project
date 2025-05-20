@@ -37,6 +37,7 @@
     id: string;
     title: string;
     link: string;
+    category: string; // 
     technologies: Technology[];
     authors: string[];
     description: string;
