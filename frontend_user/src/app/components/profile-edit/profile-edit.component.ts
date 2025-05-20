@@ -87,7 +87,7 @@ export class ProfileEditComponent implements OnInit {
     addIcons({ close, add, pencil, save });
 
     this.profileForm = this.fb.group({
-      userId: [''],
+      id: [''],
       name: ['', Validators.required],
       surname: ['', Validators.required],
       role: [''],
@@ -103,7 +103,7 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit() {
     this.profileForm.patchValue({
-      userId: this.profile?.userId,
+      id: this.profile?.id,
       name: this.profile?.name,
       surname: this.profile?.surname,
       role: this.profile?.role,
@@ -135,10 +135,7 @@ export class ProfileEditComponent implements OnInit {
     // Retrieve data when the modal is dismissed
     const { data } = await modal.onDidDismiss();
     if (data && typeof data === 'object') {
-      const result = this.profilesService.changePassword(
-        this.profile.userId,
-        data
-      );
+      const result = this.profilesService.changePassword(this.profile.id, data);
       if (result) {
         // Handle successful password change
         console.log('Password changed successfully');
@@ -296,7 +293,7 @@ export class ProfileEditComponent implements OnInit {
           role: 'destructive',
           handler: () => {
             //console.log('deleting', this.profile);
-            this.profilesService.deleteProfile(this.profile.userId);
+            this.profilesService.deleteProfile(this.profile.id);
             this.logout();
           },
         },

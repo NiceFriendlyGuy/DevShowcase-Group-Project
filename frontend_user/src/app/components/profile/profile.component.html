@@ -17,7 +17,7 @@
     <p class="biographie">{{ profile.bio }}</p>
 
     <swiper-container [breakpoints]="swiperBreakpoints" space-between="10">
-      @for (preview of projectsPreview(profile.userId); track $index){
+      @for (preview of projectsPreview(profile.id); track $index){
       <swiper-slide>
         <div class="image-container">
           <ion-img

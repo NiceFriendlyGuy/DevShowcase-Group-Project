@@ -68,7 +68,7 @@ export class AccountPage {
   }
 
   refreshProfile() {
-    this.profile = this.profilesService.getProfilesById(this.profile.userId)[0];
+    this.profile = this.profilesService.getProfilesById(this.profile.id)[0];
     this.editMode = false;
     //console.log('Profile:', this.profile);
   }

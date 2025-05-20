@@ -17,7 +17,7 @@ export class ProfilesService {
   }
 
   getProfilesById(authorId: number) {
-    return this.profiles.filter((profile) => profile.userId === authorId);
+    return this.profiles.filter((profile) => profile.id === authorId);
   }
 
   addProfile(profile: any) {
@@ -30,7 +30,7 @@ export class ProfilesService {
     //console.log('updateProfile', profile);
 
     const index = this.profiles.findIndex(
-      (profileToUpdate) => profileToUpdate.userId === profile.userId
+      (profileToUpdate) => profileToUpdate.id === profile.id
     );
     if (index !== -1) {
       for (const key in profile) {
@@ -55,7 +55,7 @@ export class ProfilesService {
   }
 
   deleteProfile(id: number) {
-    const index = this.profiles.findIndex((profile) => profile.userId === id);
+    const index = this.profiles.findIndex((profile) => profile.id === id);
     if (index !== -1) {
       this.profiles.splice(index, 1);
       return true;
@@ -77,9 +77,9 @@ export class ProfilesService {
     return allTechnologies;
   }
 
-  changePassword(userId: string, data: any) {
+  changePassword(id: string, data: any) {
     const { currentPassword, newPassword } = data;
-    const profile = this.profiles.find((profile) => profile.userId === userId);
+    const profile = this.profiles.find((profile) => profile.id === id);
     if (profile) {
       if (profile.password === currentPassword) {
         profile.password = newPassword;
