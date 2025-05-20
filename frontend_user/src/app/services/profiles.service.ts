@@ -21,13 +21,13 @@ export class ProfilesService {
   }
 
   addProfile(profile: any) {
-    console.log('addProfile', profile);
+    //console.log('addProfile', profile);
     this.profiles.push(profile);
     return profile;
   }
 
   updateProfile(profile: any) {
-    console.log('updateProfile', profile);
+    //console.log('updateProfile', profile);
 
     const index = this.profiles.findIndex(
       (profileToUpdate) => profileToUpdate.userId === profile.userId

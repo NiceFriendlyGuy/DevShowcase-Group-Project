@@ -43,7 +43,7 @@ export class AppComponent {
     // Subscribe to profile updates
     this.auth.profile$.subscribe((updatedProfile) => {
       this.profile = updatedProfile;
-      console.log('Profile updated:', this.profile);
+      //console.log('Profile updated:', this.profile);
     });
   }
 

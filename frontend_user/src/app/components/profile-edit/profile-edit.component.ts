@@ -191,7 +191,7 @@ export class ProfileEditComponent implements OnInit {
       delete formValue.techName; // Remove techName
       delete formValue.techVersion; // Remove techVersion (if needed)
 
-      console.log('Updated Profile:', formValue);
+      //console.log('Updated Profile:', formValue);
 
       this.profilesService.updateProfile(formValue);
       this.doneEdit.emit(); // Emit the cancel event to the parent
@@ -295,7 +295,7 @@ export class ProfileEditComponent implements OnInit {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            console.log('delering', this.profile);
+            //console.log('deleting', this.profile);
             this.profilesService.deleteProfile(this.profile.userId);
             this.logout();
           },

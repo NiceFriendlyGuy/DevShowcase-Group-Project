@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
       formData.email,
       formData.password
     );
-    console.log('Logged: ', result);
+    //console.log('Logged: ', result);
     if (result) {
       this.authService.setProfileInfo(result);
       this.router.navigate(['/tabs/account/']);
@@ -115,9 +115,9 @@ export class LoginComponent implements OnInit {
           email: formData.email,
           password: formData.password, // You may want to hash the password before sending it to the backend
         };
-        console.log(newProfile);
+        //console.log(newProfile);
         const result = this.profilesService.addProfile(newProfile); //await firstValueFrom(this.profilesService.addProfile(newProfile));
-        console.log(result);
+        //console.log(result);
         // Redirect to the login page after successful registration
         alert('Profile registered successfully!');
         this.enableLogIn(); // Redirect to the login page
