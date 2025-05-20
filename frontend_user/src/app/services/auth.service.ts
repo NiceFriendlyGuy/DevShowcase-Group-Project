@@ -7,6 +7,7 @@ import { ProfilesService } from './profiles.service'; // Import the ProfileServi
 })
 export class AuthService {
   private userInfoSubject = new BehaviorSubject<any>(null); // Holds user information
+  public profile$ = this.userInfoSubject.asObservable();
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private router = inject(Router);  
   private profileService = inject(ProfilesService); // Inject the ProfileService
