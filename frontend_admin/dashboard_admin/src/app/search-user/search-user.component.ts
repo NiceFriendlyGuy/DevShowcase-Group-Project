@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
+import { UserSettingsComponent } from '../user-settings/user-settings.component';
 
 @Component({
   selector: 'app-search-user',
@@ -36,8 +37,8 @@ export class SearchUserComponent {
     this.loadUsers();
   }
 
-  public openDeleteDialog(user: User) {
-    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+  public openUserSettingsDialog(user: User) {
+    const dialogRef = this.dialog.open(UserSettingsComponent, {
       data: { user },
     });
 

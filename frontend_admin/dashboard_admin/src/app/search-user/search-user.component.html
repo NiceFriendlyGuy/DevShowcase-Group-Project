@@ -21,13 +21,8 @@
           <mat-card-title>{{ user.nom }}</mat-card-title>
           <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
         </div>
-        <button
-          mat-mini-fab
-          color="warn"
-          matTooltip="Supprimer définitivement"
-          (click)="openDeleteDialog(user)"
-        >
-          <mat-icon>delete</mat-icon>
+        <button mat-icon-button (click)="openUserSettingsDialog(user)">
+          <mat-icon>more_vert</mat-icon>
         </button>
       </mat-card-header>
     </mat-card>

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Paramètres</h2>
+<mat-dialog-content>
+  <p>
+    <strong>Nom : {{ data.user.nom }}</strong>
+  </p>
+  <p><strong>Rôle :</strong></p>
+  <p><strong>Date d'inscription :</strong></p>
+  <p><strong>Dernière activité :</strong> il y a 3 jours</p>
+
+  <mat-divider class="my-2"></mat-divider>
+
+  <button mat-button color="primary">Réinitialiser le mot de passe</button>
+  <button mat-button color="accent">Modifier le rôle</button>
+  <button mat-button color="warn" (click)="confirmDeletion()">
+    Supprimer cet utilisateur
+  </button>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="confirmClose()">Fermer</button>
+</mat-dialog-actions>
