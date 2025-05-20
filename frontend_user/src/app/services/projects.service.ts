@@ -12,6 +12,10 @@ export class ProjectsService {
     return dummyProjectsData
   }
 
+  getProjectById(id: number) {
+    return dummyProjectsData.find(project => project.id === id);
+  }
+  
   getProjectsByAuthor(authorId: number) {
     return dummyProjectsData.filter(project => project.authors.includes(authorId));
   }

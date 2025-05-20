@@ -13,6 +13,7 @@ import { ProfilesService } from '../services/profiles.service';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ProjectComponent],
 })
 export class ProjectsPage {
+  private router = inject(Router);
   private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
   private profilesService: ProfilesService = inject<ProfilesService>(ProfilesService);
   public projects: any[] = [];
@@ -79,5 +80,8 @@ export class ProjectsPage {
       project.authors = previewAuthors;
     });
   }
-    
+  
+  showProject(projectId: number) {
+    this.router.navigate(['tabs/projects/projectDetails',projectId]);
+  }
 }

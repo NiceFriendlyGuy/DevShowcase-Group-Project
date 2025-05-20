@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/projects"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<ion-card class="project-details-card">
+  <ion-card-header>
+    <ion-card-title>{{ project.title }}</ion-card-title>
+    <ion-card-subtitle>{{ project.category }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ project.description }}</p>
+  </ion-card-content>
+</ion-card>
+
+  <ion-segment [value]="selectedTab" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="overview" layout="icon-start">
+      <ion-label>Overview</ion-label>
+      <ion-icon name="information-circle-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="gallery" layout="icon-start">
+      <ion-label>Gallery</ion-label>
+      <ion-icon name="images-outline"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+  @if(selectedTab === 'overview'){
+    <p>Affichage données</p>
+  } @else {
+    <p>Affichage galerie</p>
+  }
+
+</ion-content>

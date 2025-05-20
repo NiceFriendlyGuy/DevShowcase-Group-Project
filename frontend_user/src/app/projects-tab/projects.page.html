@@ -28,7 +28,7 @@
       </div>
     } @else {
       @for(project of filteredProjects; track project){
-        <app-project [project]="project" class="project-card"></app-project>
+        <app-project [project]="project" class="project-card" (click)="showProject(project.id)"></app-project>
       }
     }
   </div>
