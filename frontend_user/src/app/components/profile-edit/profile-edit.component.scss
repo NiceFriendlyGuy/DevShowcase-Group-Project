@@ -6,12 +6,31 @@ ion-card {
   background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient background */
 }
 
-ion-card-title {
-  font-size: 1.8rem; /* Slightly larger font size */
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-  color: #333; /* Darker text color for better readability */
+ion-card-header {
+  display: flex;
+  flex-direction: column; /* Stacks elements vertically */
+  align-items: flex-start; /* Aligns all child elements to the left */
+  padding: 10px; /* Adds padding inside the header */
+}
+
+.actions {
+  display: flex; /* Enables flexbox layout */
+  justify-content: flex-start; /* Aligns buttons to the left */
+  align-items: center; /* Vertically aligns the buttons */
+  margin: 10px; /* Adds spacing around the actions container */
+
+  ion-button {
+    --background: #white; /* Blue background for buttons */
+    --color: white; /* White text color */
+    --border-radius: 8px; /* Rounded corners */
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+ion-icon[name="arrow-back-outline"],
+ion-icon[name="save"] {
+  font-size: 35px; /* Larger size for these specific icons */
 }
 
 ion-item {
@@ -36,6 +55,7 @@ ion-card {
     padding: 0px
 
 }
+
 
   .top-right-avatar {
     position: absolute;
@@ -143,11 +163,12 @@ ion-button[disabled] {
   --border-radius: 8px; /* Rounded corners */
   font-size: 1rem;
   font-weight: bold;
-  width: 10%; /* Default width for larger screens */
+  width: 20%; /* Default width for larger screens */
 }
 
 .cancel-button {
   --background: #dc3545; /* Red background for cancel button */
+  max-width: 80px;;
 }
 
 .avatar-upload {
@@ -170,42 +191,22 @@ ion-button[disabled] {
   text-align: center;
 }
 
-.project-item {
-  display: flex; /* Enables flexbox layout */
-  justify-content: space-between; /* Pushes title to the left and icons to the right */
-  align-items: center; /* Vertically aligns the title and icons */
-  padding: 10px 0; /* Adds spacing between project items */
-  border-bottom: 1px solid #e0e0e0; /* Optional: Adds a separator between items */
+.delete-label {
+    padding: 10px 20px; /* Adds padding */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+
+
 }
 
-.project-title {
-  flex: 1; /* Ensures the title takes up available space */
-  font-size: 1rem; /* Adjust font size for better readability */
-  font-weight: bold; /* Makes the title bold */
-  color: #333; /* Sets a dark color for the title */
-}
-
-.project-icons {
-  display: flex; /* Enables flexbox for the icons */
-  gap: 10px; /* Adds spacing between the icons */
-}
-
-.project-icons ion-icon {
-  font-size: 1.2rem; /* Adjusts the size of the icons */
-  color: #666; /* Sets a neutral color for the icons */
-  cursor: pointer; /* Changes the cursor to a pointer on hover */
-  transition: color 0.3s ease; /* Adds a smooth color transition on hover */
-}
-
-.project-icons ion-icon:hover {
-  color: #d9534f; /* Changes the icon color on hover (e.g., red for delete) */
-}
 
 
 @media (max-width: 768px) {
   ion-card-title {
     font-size: 1.5rem; /* Adjusted font size for smaller screens */
-    text-align: left;;
+    text-align: left;
+    flex-direction: column; /* Stack elements vertically on mobile */
+    align-items: flex-start; /* Align items to the left */
   }
   .share-line-container {
     flex-direction: column; /* Stacks the fields vertically on smaller screens */

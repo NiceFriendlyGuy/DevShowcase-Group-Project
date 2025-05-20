@@ -9,18 +9,37 @@
 </ion-header>
 
 <ion-content *ngIf="!editMode">
-  <div class="actions">
-    <ion-button class="edit-button" (click)="editMode=true">Edit</ion-button>
-    <ion-button class="delete-button" color="danger" (click)="deleteAccount()">Delete</ion-button>
-  </div>
+  
+  
 
   <app-profile [profile]="profile"></app-profile>
-  <!-- <ion-label class="projects-label">MY PROJECTS</ion-label>
-  @for (project of projects; track project.id) {
-    <app-project [project]="project"></app-project>
-  } -->
+  
+   <div class="actions">
+    <ion-fab>
+  <ion-fab-button color="success" (click)="editMode=true">
+    <ion-icon name="pencil" ></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+  </div>
+
+  <div class="section-title">MY PROJECTS</div>
+  <ion-card class="category-card">
+    @for(project of projectsPreview(profile.userId); track project.id){
+      <div class="project-item">
+        <ion-label class="project-title">{{ project.title }}</ion-label>
+        <div class="project-icons">
+          <ion-icon name="pencil" (click)="editProject(project.id)"></ion-icon>
+          <ion-icon name="close" (click)="confirmDeleteProject(project.id)"></ion-icon>
+        </div>
+      </div>
+    }
+  </ion-card>
+ 
 </ion-content>
 
 <ion-content *ngIf="editMode">
+    <ion-label class="edit-label">
+      Edit Profile
+    </ion-label>
   <app-profile-edit [profile]="profile" (cancelEdit)="editMode = false" (doneEdit)="refreshProfile()"></app-profile-edit>
 </ion-content>

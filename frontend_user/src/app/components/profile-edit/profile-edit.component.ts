@@ -2,22 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ModalController, IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import { ModalController, IonCard, IonButtons, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { addIcons } from 'ionicons';
-import { close, add, pencil } from 'ionicons/icons';
+import { close, add, pencil, save } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.scss'],
-  imports: [CommonModule,FormsModule,RouterLink, ReactiveFormsModule, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
+  imports: [CommonModule,FormsModule,RouterLink, ReactiveFormsModule, IonButtons, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
 
 })
 export class ProfileEditComponent implements OnInit {
@@ -40,12 +41,11 @@ export class ProfileEditComponent implements OnInit {
   private alertController = inject(AlertController);
   private modalController = inject(ModalController);
   private toastController = inject(ToastController);
+  private auth = inject(AuthService);
 
-  public projectsPreview = (id: number): any[] => 
-    this.projectsService.getProjectsByAuthor(id);
-
+  
 constructor() {
-        addIcons({ close, add, pencil });
+        addIcons({ close, add, pencil, save });
 
     this.profileForm = this.fb.group({
       userId: [''],
@@ -214,14 +214,25 @@ constructor() {
     );
   }
 
-  removeProject(projectId: number) {
-    console.log('Project ID to delete:', projectId);
+  async presentToast(message: string, color: string = 'success') {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 2000, // Toast will disappear after 2 seconds
+    position: 'bottom', // Position of the toast
+    color: color, // Success, danger, etc.
+  });
+
+  await toast.present();
+}
+logout() {
+    this.auth.isLoggedIn = false;
+    this.router.navigate(['/tabs/account/login'], { queryParams: { reload: true } }); // Add a query parameter
   }
 
-  async confirmDeleteProject(projectId: number) {
+async deleteAccount() {
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
-      message: 'Are you sure you want to delete this project?',
+      message: 'Are you sure you want to delete your account? This action cannot be undone.',
       buttons: [
         {
           text: 'Cancel',
@@ -234,7 +245,9 @@ constructor() {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.removeProject(projectId); // Call the delete method
+            console.log('delering', this.profile);
+            this.profilesService.deleteProfile(this.profile.userId);
+            this.logout();
           },
         },
       ],
@@ -243,21 +256,7 @@ constructor() {
     await alert.present();
   }
 
-
-  editProject(projectId: number) {
-
-  }
-
-  async presentToast(message: string, color: string = 'success') {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 2000, // Toast will disappear after 2 seconds
-    position: 'bottom', // Position of the toast
-    color: color, // Success, danger, etc.
-  });
-
-  await toast.present();
-}
+  
 
    
 }
