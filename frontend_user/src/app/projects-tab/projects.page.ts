@@ -1,8 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import {ProjectComponent} from '../components/project/project.component';
+import { ProjectComponent } from '../components/project/project.component';
 import { ProjectsService } from '../services/projects.service';
 import { ProfilesService } from '../services/profiles.service';
 
@@ -10,22 +15,30 @@ import { ProfilesService } from '../services/profiles.service';
   selector: 'app-projects',
   templateUrl: 'projects.page.html',
   styleUrls: ['projects.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ProjectComponent],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    CommonModule,
+    ProjectComponent,
+  ],
 })
 export class ProjectsPage {
   private router = inject(Router);
-  private projectsService: ProjectsService = inject<ProjectsService>(ProjectsService);
-  private profilesService: ProfilesService = inject<ProfilesService>(ProfilesService);
+  private projectsService: ProjectsService =
+    inject<ProjectsService>(ProjectsService);
+  private profilesService: ProfilesService =
+    inject<ProfilesService>(ProfilesService);
   public projects: any[] = [];
   public filteredProjects: any[] = [];
   public categories: any[] = [];
   public selectedCategories: any[] = [];
 
-
   constructor() {}
 
   ngOnInit() {
-    this.projects= this.projectsService.getProjectsAll();
+    this.projects = this.projectsService.getProjectsAll();
     this.filteredProjects = this.projects;
     this.categories = this.projectsService.getCategoriesAll();
     this.getPreviewAuthors();
@@ -47,12 +60,14 @@ export class ProjectsPage {
     }
   }
 
-  updateFilteredProjects(){
-    if(this.selectedCategories.length === 0){
+  updateFilteredProjects() {
+    if (this.selectedCategories.length === 0) {
       this.filteredProjects = this.projects;
-    } else{
+    } else {
       this.filteredProjects = this.projects.filter((project) => {
-        return this.selectedCategories.some((cat: any) => cat.name === project.category);
+        return this.selectedCategories.some(
+          (cat: any) => cat.name === project.category
+        );
       });
     }
   }
@@ -62,10 +77,14 @@ export class ProjectsPage {
   }
 
   //CHANGER LE TYPE DE LA VARIABLE AUTHOR EN STRING PEUT ETRE ??
-  //Peut etre renvoyer direment le profile pour le getprofilebyid car il y aura tjrs que 1 profile retourner 
+  //Peut etre renvoyer direment le profile pour le getprofilebyid car il y aura tjrs que 1 profile retourner
   public getPreviewAuthors() {
     this.projects.forEach((project) => {
-      const previewAuthors: { userId: string; name: string; surname: string }[] = [];
+      const previewAuthors: {
+        userId: string;
+        name: string;
+        surname: string;
+      }[] = [];
       project.authors.forEach((authorId: number) => {
         const profiles = this.profilesService.getProfilesById(authorId);
         const profile = Array.isArray(profiles) ? profiles[0] : profiles;
@@ -73,15 +92,15 @@ export class ProjectsPage {
           previewAuthors.push({
             userId: profile.userId,
             name: profile.name,
-            surname: profile.surname
+            surname: profile.surname,
           });
         }
       });
       project.authors = previewAuthors;
     });
   }
-  
+
   showProject(projectId: number) {
-    this.router.navigate(['tabs/projects/projectDetails',projectId]);
+    this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 }

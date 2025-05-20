@@ -1,10 +1,22 @@
 <ion-card>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <ion-card-header>
-      <ion-card-title>Edit Profile</ion-card-title>
-      <ion-avatar *ngIf="profile.photo || avatarPreview" class="top-right-avatar">
-          <img [src]="avatarPreview || profile.photo" />
-          <div class="avatar-upload">
+      <!-- Buttons at the top-left corner -->
+      <div class="actions">
+        <ion-button (click)="onCancel()">
+          <ion-icon color="danger" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-button type="submit" [disabled]="profileForm.invalid">
+          <ion-icon color="success" name="save"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-avatar
+        *ngIf="profile.photo || avatarPreview"
+        class="top-right-avatar"
+      >
+        <img [src]="avatarPreview || profile.photo" />
+        <div class="avatar-upload">
           <label for="avatarInput" class="upload-label">Change</label>
           <input
             id="avatarInput"
@@ -14,8 +26,7 @@
             hidden
           />
         </div>
-        </ion-avatar>
-        
+      </ion-avatar>
     </ion-card-header>
 
     <ion-card-content>
@@ -47,11 +58,11 @@
           <ion-textarea formControlName="bio"></ion-textarea>
         </ion-item>
 
-        <ion-button>Change Password</ion-button>
-
+        <ion-button (click)="openChangePasswordModal()"
+          >Change Password</ion-button
+        >
       </ion-card>
 
-      
       <div class="section-title">Contact</div>
       <ion-card class="category-card">
         <div class="share-line-container">
@@ -68,41 +79,46 @@
           </ion-item>
         </div>
       </ion-card>
-      
+
       <div class="section-title">Technologies</div>
       <ion-card class="category-card">
         <!-- Technologies -->
         <div class="technologies">
           <div class="technologies-inline">
-            <ion-label>Add new: </ion-label>
+            <div class="label-container">
+              <ion-label>Add new:</ion-label>
+            </div>
             <ion-item>
               <ion-label position="floating">Name</ion-label>
-              <ion-input 
-                formControlName="techName" 
+              <ion-input
+                formControlName="techName"
                 (ngModelChange)="checkUrlExists()"
-                >
+              >
               </ion-input>
             </ion-item>
             <ion-item class="version">
-              <ion-label position="floating" >Version</ion-label>
-              <ion-input 
-                formControlName="techVersion" 
-                >
-              </ion-input>
+              <ion-label position="floating">Version</ion-label>
+              <ion-input formControlName="techVersion"> </ion-input>
             </ion-item>
             <ion-chip (click)="addTech()" color="danger" slot="end">
-                <ion-icon 
-                [src]="techIconUrl"     
-                ></ion-icon>
-                <ion-label >{{profileForm.value.techName}} {{profileForm.value.techVersion}}</ion-label>
-                <ion-icon name="add"></ion-icon>
-              </ion-chip>
+              <ion-icon [src]="techIconUrl"></ion-icon>
+              <ion-label
+                >{{ profileForm.value.techName }}
+                {{ profileForm.value.techVersion }}</ion-label
+              >
+              <ion-icon name="add"></ion-icon>
+            </ion-chip>
           </div>
           <div formArrayName="technologies" class="technologies-list">
-            <div *ngFor="let tech of technologies.controls; let i = index" [formGroupName]="i">
+            <div
+              *ngFor="let tech of technologies.controls; let i = index"
+              [formGroupName]="i"
+            >
               <ion-chip (click)="removeTech(i)" color="danger" slot="end">
-                <ion-icon [src]="getIconUrl(tech.value.name) "></ion-icon>
-                <ion-label >{{tech.value.name}} {{tech.value.version}}</ion-label>
+                <ion-icon [src]="getIconUrl(tech.value.name)"></ion-icon>
+                <ion-label
+                  >{{ tech.value.name }} {{ tech.value.version }}</ion-label
+                >
                 <ion-icon name="close"></ion-icon>
               </ion-chip>
             </div>
@@ -110,21 +126,12 @@
         </div>
       </ion-card>
 
-      <div class="section-title">Other Infos</div>
+      <!--    <div class="section-title">Other Infos</div>
       <ion-card class="category-card">
-      </ion-card>
-
-      <div class="section-title">Projects</div>
-      <ion-card class="category-card">
-      </ion-card>
-
-
+      </ion-card> -->
     </ion-card-content>
-
-    <div class="actions">
-      <ion-button  type="submit" class="save-button" [disabled]="profileForm.invalid">Save</ion-button>
-      <ion-button  class="cancel-button" (click)="onCancel()">Cancel</ion-button>
-
-    </div>
   </form>
 </ion-card>
+<ion-label class="delete-label" color="danger" (click)="deleteAccount()"
+  >Delete Account</ion-label
+>

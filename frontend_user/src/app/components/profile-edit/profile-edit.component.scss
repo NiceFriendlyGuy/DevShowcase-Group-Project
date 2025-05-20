@@ -3,15 +3,38 @@ ion-card {
   padding: 20px;
   border-radius: 12px; /* Slightly more rounded corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
-  background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient background */
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9f9f9
+  ); /* Subtle gradient background */
 }
 
-ion-card-title {
-  font-size: 1.8rem; /* Slightly larger font size */
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-  color: #333; /* Darker text color for better readability */
+ion-card-header {
+  display: flex;
+  flex-direction: column; /* Stacks elements vertically */
+  align-items: flex-start; /* Aligns all child elements to the left */
+  padding: 10px; /* Adds padding inside the header */
+}
+
+.actions {
+  display: flex; /* Enables flexbox layout */
+  justify-content: flex-start; /* Aligns buttons to the left */
+  align-items: center; /* Vertically aligns the buttons */
+  margin: 10px; /* Adds spacing around the actions container */
+
+  ion-button {
+    --background: #white; /* Blue background for buttons */
+    --color: white; /* White text color */
+    --border-radius: 8px; /* Rounded corners */
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+ion-icon[name="arrow-back-outline"],
+ion-icon[name="save"] {
+  font-size: 35px; /* Larger size for these specific icons */
 }
 
 ion-item {
@@ -33,17 +56,16 @@ ion-textarea {
 }
 
 ion-card {
-    padding: 0px
-
+  padding: 0px;
 }
 
-  .top-right-avatar {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 30px; /* Adjust as needed */
-    width: 90px; /* Set a fixed size for the avatar */
-    height: 90px;
-  }
+.top-right-avatar {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 30px; /* Adjust as needed */
+  width: 90px; /* Set a fixed size for the avatar */
+  height: 90px;
+}
 
 .section-title {
   font-size: 1.2rem;
@@ -54,7 +76,6 @@ ion-card {
 }
 
 .category-card {
-
   border-radius: 12px; /* Slightly more rounded corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
   margin: 0px;
@@ -65,14 +86,11 @@ ion-card {
 .share-line-container {
   display: flex; /* Enables flexbox layout */
   gap: 15px; /* Adds space between the fields */
-
 }
 
 .share-line-container ion-item {
   flex: 1; /* Ensures both fields take equal width */
 }
-
-
 
 .technologies-list {
   display: flex; /* Enables flexbox layout */
@@ -87,26 +105,28 @@ ion-card {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
+.label-container {
+  margin-bottom: 5px; /* Add spacing below the label */
+  font-weight: bold; /* Optional: Make the label bold */
+}
 
 .technologies-inline {
   display: flex; /* Enables flexbox layout */
-  gap: 15px; /* Adds space between the inputs */
-  justify-content: space-between; /* Distributes the inputs evenly */
-  align-items: center; /* Aligns inputs vertically */
-  justify-content: left;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 15px; /* Adds space between the items */
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center; /* Vertically aligns items */
 }
 
 .technologies-inline ion-item {
   flex: 1; /* Ensures both inputs take equal width */
   max-width: 200px; /* Maximum width for each input */
- 
+  min-width: 150px; /* Sets a minimum width for each item */
 }
 .technologies-inline ion-item.version {
   flex: 1; /* Ensures both inputs take equal width */
   max-width: 80px; /* Maximum width for each input */
- 
 }
-
 
 .technology-item {
   margin-bottom: 20px;
@@ -115,8 +135,6 @@ ion-card {
   border-radius: 8px;
   background: #ffffff;
 }
-
-
 
 ion-button[disabled] {
   --background: #ccc; /* Grey background for disabled state */
@@ -128,7 +146,7 @@ ion-button[disabled] {
   justify-content: flex-end; /* Aligns buttons to the right */
   align-items: center; /* Vertically aligns the buttons */
   gap: 10px; /* Adds space between buttons */
-  margin: 10px
+  margin: 10px;
 }
 
 .save-button,
@@ -138,11 +156,12 @@ ion-button[disabled] {
   --border-radius: 8px; /* Rounded corners */
   font-size: 1rem;
   font-weight: bold;
-  width: 10%; /* Default width for larger screens */
+  width: 20%; /* Default width for larger screens */
 }
 
 .cancel-button {
   --background: #dc3545; /* Red background for cancel button */
+  max-width: 80px;
 }
 
 .avatar-upload {
@@ -154,24 +173,47 @@ ion-button[disabled] {
 
 .upload-label {
   position: absolute;
-  color:white;
+  color: white;
   top: 60px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to the text */
 
-  
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;
   text-align: center;
 }
 
+.delete-label {
+  padding: 10px 20px; /* Adds padding */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
 
 @media (max-width: 768px) {
+  ion-card-title {
+    font-size: 1.5rem; /* Adjusted font size for smaller screens */
+    text-align: left;
+    flex-direction: column; /* Stack elements vertically on mobile */
+    align-items: flex-start; /* Align items to the left */
+  }
   .share-line-container {
     flex-direction: column; /* Stacks the fields vertically on smaller screens */
   }
   .save-button,
   .cancel-button {
     width: 100%; /* Full width for smaller screens */
+  }
+
+  .technologies-inline {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  .label-container {
+    margin-bottom: 10px; /* Add more spacing below the label for mobile */
+  }
+
+  .technologies-inline ion-item {
+    max-width: 100%; /* Allow inputs to take full width on mobile */
   }
 }

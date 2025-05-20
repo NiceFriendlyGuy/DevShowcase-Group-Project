@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Profiles </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Search Field -->
+  <app-search
+    [profiles]="profiles"
+    [selectedTechnologies]="selectedTechnologies"
+    (filteredProfiles)="onFilteredProfiles($event)"
+  >
+  </app-search>
+
+  <!-- Technologies Filter -->
+  <div class="tech-container">
+    @for (tech of listTechnologies; track tech) {
+    <div
+      class="tech"
+      [class.selected]="isSelected(tech)"
+      (click)="toggleTech(tech)"
+    >
+      <ion-icon
+        class="technology-icon"
+        [src]="getIconUrl(tech.name)"
+        title="{{ tech.name}}"
+      >
+      </ion-icon>
+
+      <p>{{ tech.name }}</p>
+    </div>
+    }
+  </div>
+
+  @for (profile of filteredProfiles; track profile.name) {
+  <app-profile [profile]="profile"></app-profile>
+  }
+</ion-content>

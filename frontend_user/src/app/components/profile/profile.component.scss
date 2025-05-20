@@ -1,166 +1,161 @@
-
 ion-card {
+  margin: 20px;
+  padding: 10px;
+  background-color: #ebf0f5; /* Light background for the card */
+}
 
-    margin: 20px;
-    padding: 10px;
-    background-color: #ebf0f5; /* Light background for the card */
-  }
-  
-  ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-  }
-  
-  ion-card-title {
-    font-size: 1.5em; /* Larger title font size */
-    color: #333; /* Darker text color */
-  }
+ion-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+}
 
+ion-card-title {
+  font-size: 1.5em; /* Larger title font size */
+  color: #333; /* Darker text color */
+}
 
-  .biographie {
-    text-align: justify; /* Justifies the text */
-    font-size: 1em; /* Adjusts the font size for better readability */
-    line-height: 1.6; /* Improves line spacing */
-    color: #555; /* Sets a slightly lighter text color */
-    margin: 10px 0; /* Adds spacing above and below the paragraph */
-    font-style: italic; /* Optional: Adds a subtle italic style */
-    background-color: #f9f9f9; /* Optional: Adds a light background for emphasis */
-    padding: 10px; /* Adds padding inside the background */
-    border-radius: 8px; /* Rounds the corners of the background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+.biographie {
+  text-align: justify; /* Justifies the text */
+  font-size: 1em; /* Adjusts the font size for better readability */
+  line-height: 1.6; /* Improves line spacing */
+  color: #555; /* Sets a slightly lighter text color */
+  margin: 10px 0; /* Adds spacing above and below the paragraph */
+  font-style: italic; /* Optional: Adds a subtle italic style */
+  background-color: #f9f9f9; /* Optional: Adds a light background for emphasis */
+  padding: 10px; /* Adds padding inside the background */
+  border-radius: 8px; /* Rounds the corners of the background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
 
-  }  
+ion-chip {
+  background-color: #f0f4f8; /* Light background for the chip */
+  color: #333; /* Darker text color */
+  border-radius: 20px; /* Makes the chip more rounded */
+  padding: 5px 10px; /* Adds padding inside the chip */
+  font-size: 0.9em; /* Adjusts the font size */
+  font-weight: 500; /* Makes the text slightly bold */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  margin: 5px; /* Adds spacing between chips */
+  align-items: center; /* Vertically centers the content */
+}
 
-  
- 
-  ion-chip {
-    background-color: #f0f4f8; /* Light background for the chip */
-    color: #333; /* Darker text color */
-    border-radius: 20px; /* Makes the chip more rounded */
-    padding: 5px 10px; /* Adds padding inside the chip */
-    font-size: 0.9em; /* Adjusts the font size */
-    font-weight: 500; /* Makes the text slightly bold */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-    margin: 5px; /* Adds spacing between chips */
-    align-items: center; /* Vertically centers the content */
-  }
-  
+ion-chip ion-icon {
+  margin-right: 5px; /* Adds spacing between the icon and the label */
+  width: 40px; /* Adjusts the icon size */
+  height: 40px;
+}
+
+ion-chip ion-label {
+  font-size: 0.85em; /* Adjusts the label font size */
+  color: #555; /* Slightly lighter text color for the label */
+}
+
+.top-right-avatar {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 75px; /* Set a fixed size for the avatar */
+  height: 75px;
+}
+
+.image-container {
+  position: relative; /* Enables positioning of child elements */
+  width: 100%; /* Ensures the container takes up the full column width */
+  height: 100%; /* Ensures the container matches the image height */
+}
+
+.image-container ion-img {
+  width: 100%; /* Ensures the image fills the container */
+  height: auto; /* Maintains the aspect ratio */
+  display: block; /* Removes inline spacing issues */
+}
+
+.icons-container {
+  width: 97%; /* Adjust the width of the image container */
+  height: auto; /* Maintain aspect ratio */
+  position: relative; /* Enables positioning of child elements */
+  bottom: 30px; /* Aligns the icons to the bottom */
+  display: flex; /* Aligns icons in a row */
+  justify-content: flex-end; /* Aligns icons to the right */
+  gap: 5px; /* Adds spacing between icons */
+}
+
+.technology-icon {
+  width: 30px; /* Set the size of the icon */
+  height: 30px;
+  background-color: white; /* Optional: Add a background for better visibility */
+  border-radius: 50%; /* Optional: Make the icon circular */
+  padding: 3px; /* Optional: Add padding inside the icon */
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+}
+
+.title-container {
+  text-align: center; /* Centers the title horizontally */
+  margin-top: -30px; /* Adds spacing above the title */
+  font-size: 1em; /* Adjusts the font size */
+  font-weight: bold; /* Makes the title bold */
+  color: #333; /* Sets a darker color for better visibility */
+}
+swiper-container {
+  width: 100%; /* Ensures the carousel spans the full width */
+  height: 100%; /* Adjusts the height based on content */
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically */
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically */
+  margin-top: 20px; /* Adds spacing above the contact section */
+  padding: 5px; /* Adds padding around the contact section */
+  background-color: #f9f9f9; /* Light background for emphasis */
+  border-radius: 8px; /* Rounds the corners */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.contact-container {
+  display: flex; /* Enables flexbox layout */
+  align-items: center; /* Vertically aligns the icon and text */
+  gap: 15px; /* Adds spacing between the icon and the text */
+  text-align: center; /* Ensures text inside is centered */
+  max-width: 100%; /* Ensures the container doesn't exceed its parent width */
+  overflow: hidden; /* Hides overflowing content */
+}
+
+.contact-icon {
+  width: 40px; /* Adjusts the size of the icon */
+  height: 40px;
+  flex-shrink: 0; /* Prevents the icon from shrinking */
+}
+
+.contact-details {
+  font-style: italic;
+  color: #333; /* Sets a darker text color */
+  flex: 1; /* Allows the text to take up remaining space */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  overflow: hidden; /* Hides overflowing text */
+  text-overflow: ellipsis; /* Adds "..." to truncated text */
+  font-size: 0.9rem; /* Adjusts font size for better fit */
+}
+
+.contact-details a {
+  color: #007bff; /* Makes the email link blue */
+  text-decoration: none; /* Removes underline from the link */
+}
+
+.contact-details a:hover {
+  text-decoration: underline; /* Adds underline on hover for better UX */
+}
+
+@media (max-width: 768px) {
   ion-chip ion-icon {
-    margin-right: 5px; /* Adds spacing between the icon and the label */
-    width: 40px; /* Adjusts the icon size */
-    height: 40px;
+    width: 20px; /* Adjusts the icon size */
+    height: 20px;
   }
-  
-  ion-chip ion-label {
-    font-size: 0.85em; /* Adjusts the label font size */
-    color: #555; /* Slightly lighter text color for the label */
-  }
-  
-  .top-right-avatar {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    width: 75px; /* Set a fixed size for the avatar */
-    height: 75px;
-  }
-
-  .image-container {
-    position: relative; /* Enables positioning of child elements */
-    width: 100%; /* Ensures the container takes up the full column width */
-    height: 100%; /* Ensures the container matches the image height */
-  }
-  
-  .image-container ion-img {
-    width: 100%; /* Ensures the image fills the container */
-    height: auto; /* Maintains the aspect ratio */
-    display: block; /* Removes inline spacing issues */
-  }
-  
-
-  .icons-container {
-    width: 97%; /* Adjust the width of the image container */
-    height: auto; /* Maintain aspect ratio */
-    position: relative; /* Enables positioning of child elements */
-    bottom: 30px; /* Aligns the icons to the bottom */
-    display: flex; /* Aligns icons in a row */
-    justify-content: flex-end; /* Aligns icons to the right */
-    gap: 5px; /* Adds spacing between icons */
-
-  }
-  
-  .technology-icon {
-    width: 30px; /* Set the size of the icon */
-    height: 30px;
-    background-color: white; /* Optional: Add a background for better visibility */
-    border-radius: 50%; /* Optional: Make the icon circular */
-    padding: 3px; /* Optional: Add padding inside the icon */
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
-  }
-
-  .title-container {
-    text-align: center; /* Centers the title horizontally */
-    margin-top: -30px; /* Adds spacing above the title */
-    font-size: 1em; /* Adjusts the font size */
-    font-weight: bold; /* Makes the title bold */
-    color: #333; /* Sets a darker color for better visibility */
-  }
-  swiper-container {
-    width: 100%; /* Ensures the carousel spans the full width */
-    height: 100%; /* Adjusts the height based on content */
-  }
-  
-  swiper-slide {
-    display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the content vertically */
-  }
-
-  .contact-info {
-    display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the content vertically */
-    margin-top: 20px; /* Adds spacing above the contact section */
-    padding: 5px; /* Adds padding around the contact section */
-    background-color: #f9f9f9; /* Light background for emphasis */
-    border-radius: 8px; /* Rounds the corners */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-  }
-
-  .contact-container {
-    display: flex; /* Enables flexbox layout */
-    align-items: center; /* Vertically aligns the icon and text */
-    gap: 15px; /* Adds spacing between the icon and the text */
-    text-align: center; /* Ensures text inside is centered */
-
-  }
-
-  .contact-icon {
-    width: 60px; /* Adjusts the size of the icon */
-    height: 60px;
-    
-  }
-
-  .contact-details{
-    font-size: 1rem; /* Adjusts the font size */
-    font-style: italic;
-    line-height: 1.6; /* Improves readability */
-    color: #333; /* Sets a darker text color */
-
-  }
-
-  .contact-details a {
-    color: #007bff; /* Makes the email link blue */
-    text-decoration: none; /* Removes underline from the link */
-  }
-
-  .contact-details a:hover {
-    text-decoration: underline; /* Adds underline on hover for better UX */
-  }
-
-  @media (max-width: 768px) {
-    ion-chip ion-icon {
-      width: 20px; /* Adjusts the icon size */
-      height: 20px;
-    }
-  }   
+}

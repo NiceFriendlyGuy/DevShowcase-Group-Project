@@ -2,47 +2,51 @@ import { Injectable } from '@angular/core';
 import dummyProfilesData from 'src/app/services/dummyData/dummyProfilesData.json'; // Import JSON file
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfilesService {
   private profiles: any[] = [];
 
-  constructor() { 
+  constructor() {
     // Initialize profiles with dummy data
     this.profiles = dummyProfilesData;
   }
 
-  getProfilesAll(){
+  getProfilesAll() {
     return this.profiles;
   }
 
   getProfilesById(authorId: number) {
-    return this.profiles.filter(profile => profile.userId === authorId);
+    return this.profiles.filter((profile) => profile.id === authorId);
   }
 
   addProfile(profile: any) {
-    console.log('addProfile', profile);
+    //console.log('addProfile', profile);
     this.profiles.push(profile);
     return profile;
   }
 
   updateProfile(profile: any) {
-  console.log('updateProfile', profile);
+    //console.log('updateProfile', profile);
 
-  const index = this.profiles.findIndex(profileToUpdate => profileToUpdate.userId === profile.userId);
-  if (index !== -1) {
-    for (const key in profile) {
-      if (profile.hasOwnProperty(key)) {
-        this.profiles[index][key] = profile[key]; // Update the field
+    const index = this.profiles.findIndex(
+      (profileToUpdate) => profileToUpdate.id === profile.id
+    );
+    if (index !== -1) {
+      for (const key in profile) {
+        if (profile.hasOwnProperty(key)) {
+          this.profiles[index][key] = profile[key]; // Update the field
+        }
       }
+      return this.profiles[index];
     }
-    return this.profiles[index];
+    return null;
   }
-  return null;
-}
 
   authProfile(email: string, password: string) {
-    const profile = this.profiles.find(profile => profile.email === email && profile.password === password);
+    const profile = this.profiles.find(
+      (profile) => profile.email === email && profile.password === password
+    );
     if (profile) {
       return profile;
     } else {
@@ -51,7 +55,7 @@ export class ProfilesService {
   }
 
   deleteProfile(id: number) {
-    const index = this.profiles.findIndex(profile => profile.userId === id);
+    const index = this.profiles.findIndex((profile) => profile.id === id);
     if (index !== -1) {
       this.profiles.splice(index, 1);
       return true;
@@ -59,4 +63,31 @@ export class ProfilesService {
     return false;
   }
 
+  getTechnologiesFromUsers() {
+    const allTechnologies: any[] = [];
+    this.profiles.forEach((profile) => {
+      if (profile.technologies) {
+        profile.technologies.forEach((tech: any) => {
+          if (!allTechnologies.some((t: any) => t.name === tech.name)) {
+            allTechnologies.push(tech);
+          }
+        });
+      }
+    });
+    return allTechnologies;
+  }
+
+  changePassword(id: string, data: any) {
+    const { currentPassword, newPassword } = data;
+    const profile = this.profiles.find((profile) => profile.id === id);
+    if (profile) {
+      if (profile.password === currentPassword) {
+        profile.password = newPassword;
+        return true; // Password changed successfully
+      } else {
+        return false; // Current password is incorrect
+      }
+    }
+    return false; // Profile not found
+  }
 }

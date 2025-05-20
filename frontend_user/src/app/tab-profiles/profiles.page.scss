@@ -1,7 +1,7 @@
 ion-toolbar {
   --background: linear-gradient(
     45deg,
-    #149139,
+    #4d65b4,
     #fdfdfd
   ); /* Adds a gradient background */
   --color: rgb(250, 249, 249); /* Sets the text color */
@@ -15,10 +15,14 @@ ion-title {
   font-weight: bold; /* Makes the title bold */
   text-align: left; /* Centers the title */
 }
-////////////Filters /////////////
-///
-//////////// STYLE BULLES DE categories ////////////
-.cat-container {
+
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+//////////// STYLE BULLES DE TECHNOLOGIES ////////////
+.tech-container {
   display: flex;
   overflow-x: auto;
   overflow-y: hidden; /* ne bloque pas le scroll vertical */
@@ -28,31 +32,32 @@ ion-title {
   -webkit-overflow-scrolling: touch; /* pour un scroll fluide sur mobile */
 }
 
-.cat-container::-webkit-scrollbar {
+.tech-container::-webkit-scrollbar {
   display: none; /* Masquer la scrollbar */
 }
 
-.cat {
+.tech {
   flex: 0 0 auto; /* empêcher la réduction */
   width: 80px;
   text-align: center;
   scroll-snap-align: start;
 }
 
-.cat img {
-  width: 48px;
-  height: 48px;
+.tech img {
+  width: 64px;
+  height: 64px;
   object-fit: cover;
-
+  border-radius: 50%;
+  border: 2px solid #ccc;
   margin-bottom: 8px;
   transition: transform 0.3s;
 }
 
-.cat img:hover {
+.tech img:hover {
   transform: scale(1.05);
 }
 
-.cat p {
+.tech p {
   font-size: 12px;
   margin: 0;
   white-space: nowrap;
@@ -66,55 +71,11 @@ body {
   overflow-y: auto;
 }
 
-.cat.selected p {
+.tech.selected p {
   color: #007bff; /* Bleu Bootstrap / Instagram-like */
 }
 
-.cat.selected img {
+.tech.selected img {
   border-color: #007bff;
 }
-
-/////////// app-project ///////////
-///Affichage de 2 par lignes pour tablette et desktop
-@media (min-width: 768px) {
-  .project-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .project-card {
-    width: calc(50% - 4px); /* Moins d'espace latéral */
-    box-sizing: border-box;
-    margin: 0; /* Supprime les marges autour de la carte */
-  }
-}
-
-.no-projects-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 280px;
-  text-align: center;
-  color: #888;
-  font-size: 1.2rem;
-  font-weight: 500;
-  gap: 16px;
-
-  img {
-    width: 90px;
-    height: 90px;
-    opacity: 0.7;
-    margin-bottom: 8px;
-  }
-}
-
-.project-grid.empty {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 320px;
-  width: 100%;
-}
+////////////////////////////////////////////////////////

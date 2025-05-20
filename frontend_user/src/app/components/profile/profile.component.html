@@ -1,57 +1,58 @@
+<ion-card>
+  <ion-card-header>
+    <ion-avatar *ngIf="profile.photo" class="top-right-avatar">
+      <img [src]="profile.photo" />
+    </ion-avatar>
+    <ion-card-title>{{ profile.name }} {{ profile.surname }}</ion-card-title>
+    <ion-card-subtitle>{{ profile.role }}</ion-card-subtitle>
+  </ion-card-header>
 
- 
-    <ion-card>
-      <ion-card-header>
-        <ion-avatar *ngIf="profile.photo" class="top-right-avatar">
-          <img [src]="profile.photo" />
-        </ion-avatar>
-        <ion-card-title>{{ profile.name }} {{ profile.surname }}</ion-card-title>
-        <ion-card-subtitle>{{ profile.role }}</ion-card-subtitle>
-      </ion-card-header>
+  <ion-card-content>
+    @for (skill of profile.technologies; track skill.name){
+    <ion-chip>
+      <ion-icon [src]="getIconUrl(skill.name)"></ion-icon>
+      <ion-label>{{ skill.name }} {{ skill.version }} </ion-label>
+    </ion-chip>
+    }
+    <p class="biographie">{{ profile.bio }}</p>
 
-      <ion-card-content>
-        @for (skill of profile.technologies; track skill.name){
-          <ion-chip >
-            <ion-icon [src]="getIconUrl(skill.name) "></ion-icon>
-            <ion-label>{{ skill.name }} {{skill.version}} </ion-label>
-          </ion-chip>
-        }
-        <p class="biographie">{{ profile.bio }}</p>
-        
-            <swiper-container [breakpoints]="swiperBreakpoints" space-between=10  navigation  >
-
-
-              @for (preview of projectsPreview(profile.userId); track $index){
-                <swiper-slide>
-                  <div class="image-container">
-                    <ion-img [src]="'assets/' + preview.id + '/' + preview.photos[0]"></ion-img>
-                    <div class="icons-container">
-
-                      @for(technology of preview.technologies; track technology){
-                        <ion-icon class="technology-icon" [src]="getIconUrl(technology.name)" title="{{ technology.name}} {{technology.version }}"></ion-icon>
-                      }
-                      
-                    </div>
-                    <div class="title-container">
-                      {{ preview.title }}
-                    </div>
-                   
-                  </div>
-                </swiper-slide>
-              }
-            </swiper-container>
-            
-            <div class="contact-info">
-              <div class="contact-container">
-                <ion-img class="contact-icon" [src]="'assets/contact-us-' + randomImageIndex + '.gif'"></ion-img>              <div class="contact-details">
-                <strong>Email:</strong> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a><br>
-                <strong>Phone:</strong> {{ profile.phone }}
-              </div>
-            </div>
+    <swiper-container [breakpoints]="swiperBreakpoints" space-between="10">
+      @for (preview of projectsPreview(profile.id); track $index){
+      <swiper-slide>
+        <div class="image-container">
+          <ion-img
+            [src]="'assets/' + preview.id + '/' + preview.photos[0]"
+          ></ion-img>
+          <div class="icons-container">
+            @for(technology of preview.technologies; track technology){
+            <ion-icon
+              class="technology-icon"
+              [src]="getIconUrl(technology.name)"
+              title="{{ technology.name }} {{ technology.version }}"
+            ></ion-icon>
+            }
           </div>
+          <div class="title-container">
+            {{ preview.title }}
+          </div>
+        </div>
+      </swiper-slide>
+      }
+    </swiper-container>
 
-      </ion-card-content>
-    </ion-card>
-
-
-
+    <div class="contact-info">
+      <div class="contact-container">
+        <ion-img
+          class="contact-icon"
+          [src]="'assets/contact-us-' + randomImageIndex + '.gif'"
+        ></ion-img>
+        <div class="contact-details">
+          <strong>Email: </strong>
+          <a href="mailto:{{ profile.email }}">{{ profile.email }}</a
+          ><br />
+          <strong>Phone: </strong> {{ profile.phone }}
+        </div>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
