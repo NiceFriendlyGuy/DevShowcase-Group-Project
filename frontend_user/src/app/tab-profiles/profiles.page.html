@@ -6,17 +6,12 @@
 
 <ion-content>
   <!-- Search Field -->
-  <div class="search-container">
-    <ion-item class="search-field">
-      <ion-input
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="updateFilteredProfiles()"
-        placeholder="Search by ..."
-        clearInput
-      >
-      </ion-input>
-    </ion-item>
-  </div>
+  <app-search
+    [profiles]="profiles"
+    [selectedTechnologies]="selectedTechnologies"
+    (filteredProfiles)="onFilteredProfiles($event)"
+  >
+  </app-search>
 
   <!-- Technologies Filter -->
   <div class="tech-container">
