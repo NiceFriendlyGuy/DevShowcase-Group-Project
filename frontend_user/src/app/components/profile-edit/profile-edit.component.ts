@@ -55,8 +55,9 @@ constructor() {
       email: ['', [Validators.email]],
       phone: ['' ],
       bio: [''],
+      photo: [''],
       technologies: this.fb.array([]), // Initialize as a FormArray
-      techName: ['' ],
+      techName: [''],
       techVersion: [''],
     });
   }
@@ -70,6 +71,7 @@ constructor() {
       email: this.profile?.email,
       phone: this.profile?.phone,
       bio: this.profile?.bio,
+      photo: this.profile?.photo,
     });
     // Populate the technologies FormArray
     const technologiesArray = this.profile?.technologies || [];
@@ -138,6 +140,7 @@ constructor() {
 
       reader.onload = () => {
         this.avatarPreview = reader.result; // Preview the selected image
+        this.profileForm.patchValue({ photo :  this.avatarPreview }); // Update the form value with the selected image
       };
 
       reader.readAsDataURL(file); // Read the file as a data URL
