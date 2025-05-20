@@ -14,9 +14,8 @@ ion-header {
   width: auto; /* Automatically adjust the width to maintain aspect ratio */
   margin-right: 5px; /* Add spacing between the logo and the title */
   vertical-align: middle; /* Align the logo with the text */
-    display: inline-block; /* Ensures the logo and text are on the same line */
-    margin-left: 5px; /* Add spacing between the logo and the title */
-
+  display: inline-block; /* Ensures the logo and text are on the same line */
+  margin-left: 5px; /* Add spacing between the logo and the title */
 }
 
 .user-info {

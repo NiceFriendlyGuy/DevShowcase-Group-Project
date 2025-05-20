@@ -1,8 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { ModalController, IonCard, IonButtons, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+  ModalController,
+  IonCard,
+  IonAvatar,
+  IonChip,
+  IonIcon,
+  IonLabel,
+  IonCardContent,
+  IonCardHeader,
+  IonItem,
+  IonButton,
+  IonInput,
+  IonTextarea,
+} from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { addIcons } from 'ionicons';
@@ -13,39 +39,52 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.scss'],
-  imports: [CommonModule,FormsModule,RouterLink, ReactiveFormsModule, IonButtons, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
-
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonTextarea,
+    IonAvatar,
+    IonCard,
+    IonChip,
+    IonIcon,
+    IonLabel,
+    IonCardContent,
+    IonCardHeader,
+    IonItem,
+    IonButton,
+    IonInput,
+    IonLabel,
+  ],
 })
 export class ProfileEditComponent implements OnInit {
-
-
   @Input() profile: any;
   @Output() cancelEdit = new EventEmitter<void>(); // Event emitter to notify the parent
   @Output() doneEdit = new EventEmitter<void>(); // Event emitter to notify the parent
 
-  public profileForm: FormGroup;
   private router = inject(Router);
   private profilesService = inject(ProfilesService);
-  private projectsService = inject(ProjectsService);
+  private auth = inject(AuthService);
+
+  private alertController = inject(AlertController);
+  private modalController = inject(ModalController);
+  private toastController = inject(ToastController);
+
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
+
+  public profileForm: FormGroup;
   public avatarPreview: string | ArrayBuffer | null = null;
   public techName: string = '';
   public techVersion: string = '';
   public techIconUrl: string = '';
-  private alertController = inject(AlertController);
-  private modalController = inject(ModalController);
-  private toastController = inject(ToastController);
-  private auth = inject(AuthService);
 
-  
-constructor() {
-        addIcons({ close, add, pencil, save });
+  constructor() {
+    addIcons({ close, add, pencil, save });
 
     this.profileForm = this.fb.group({
       userId: [''],
@@ -53,7 +92,7 @@ constructor() {
       surname: ['', Validators.required],
       role: [''],
       email: ['', [Validators.email]],
-      phone: ['' ],
+      phone: [''],
       bio: [''],
       photo: [''],
       technologies: this.fb.array([]), // Initialize as a FormArray
@@ -64,7 +103,7 @@ constructor() {
 
   ngOnInit() {
     this.profileForm.patchValue({
-      userId: this.profile?.userId, 
+      userId: this.profile?.userId,
       name: this.profile?.name,
       surname: this.profile?.surname,
       role: this.profile?.role,
@@ -84,7 +123,6 @@ constructor() {
         })
       );
     });
-
   }
 
   async openChangePasswordModal() {
@@ -96,25 +134,25 @@ constructor() {
 
     // Retrieve data when the modal is dismissed
     const { data } = await modal.onDidDismiss();
-    if (data && typeof data  === 'object') {
-      const result = this.profilesService.changePassword(this.profile.userId, data);
+    if (data && typeof data === 'object') {
+      const result = this.profilesService.changePassword(
+        this.profile.userId,
+        data
+      );
       if (result) {
         // Handle successful password change
         console.log('Password changed successfully');
         this.presentToast('Password changed successfully!', 'success');
-
       } else {
         // Handle password change failure
         console.log('Failed to change password');
         this.presentToast('Failed to change password', 'danger');
       }
-    }
-    else if (data && typeof data === 'string') {
+    } else if (data && typeof data === 'string') {
       // Handle modal dismissal with error
       console.log(data);
       this.presentToast(data, 'danger');
-    }
-    else {
+    } else {
       // Handle modal dismissal without data
       console.log('Cancelled password change');
       this.presentToast('Cancelled password change', 'warning');
@@ -128,11 +166,11 @@ constructor() {
   createTechnologyGroup(tech: any): FormGroup {
     return this.fb.group({
       name: [tech.name || '', Validators.required],
-      version: [tech.version || '']
+      version: [tech.version || ''],
     });
   }
 
-    onAvatarChange(event: Event) {
+  onAvatarChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
@@ -140,7 +178,7 @@ constructor() {
 
       reader.onload = () => {
         this.avatarPreview = reader.result; // Preview the selected image
-        this.profileForm.patchValue({ photo :  this.avatarPreview }); // Update the form value with the selected image
+        this.profileForm.patchValue({ photo: this.avatarPreview }); // Update the form value with the selected image
       };
 
       reader.readAsDataURL(file); // Read the file as a data URL
@@ -155,9 +193,8 @@ constructor() {
 
       console.log('Updated Profile:', formValue);
 
-      this.profilesService.updateProfile(formValue)
+      this.profilesService.updateProfile(formValue);
       this.doneEdit.emit(); // Emit the cancel event to the parent
-
     } else {
       console.log('Invalid form data');
     }
@@ -168,8 +205,13 @@ constructor() {
   }
 
   getIconUrl(skillName: string): string {
-    const baseUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
-    const primaryUrl = `${baseUrl}${skillName.toLowerCase().replace('.','')}/${skillName.toLowerCase().replace('.','')}-original.svg`;
+    const baseUrl =
+      'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
+    const primaryUrl = `${baseUrl}${skillName
+      .toLowerCase()
+      .replace('.', '')}/${skillName
+      .toLowerCase()
+      .replace('.', '')}-original.svg`;
     return primaryUrl;
   }
 
@@ -178,7 +220,7 @@ constructor() {
     technologies.removeAt(index);
   }
 
-   addTech() {
+  addTech() {
     const technologies = this.profileForm.get('technologies') as FormArray;
     technologies.push(
       this.fb.group({
@@ -187,52 +229,60 @@ constructor() {
       })
     );
   }
- 
-  async checkUrlExists(){
+
+  async checkUrlExists() {
     let url = this.getIconUrl(this.profileForm.value.techName);
     if (this.profileForm.value.techName === '') {
       this.techIconUrl = 'assets/icon/favicon.png'; // Default icon URL
       return;
     }
 
-    await this.http.head(url).toPromise().then(
-      (response) => {
-        this.techIconUrl = url; // Store the response data
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 403) {
-          // Suppress the error log for 403 Forbidden
-          console.log('tech "', this.profileForm.value.techName, '" does not exist. Please try again.');
+    await this.http
+      .head(url)
+      .toPromise()
+      .then(
+        (response) => {
+          this.techIconUrl = url; // Store the response data
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 403) {
+            // Suppress the error log for 403 Forbidden
+            console.log(
+              'tech "',
+              this.profileForm.value.techName,
+              '" does not exist. Please try again.'
+            );
             //this.techIconUrl = 'assets/icon/favicon.png';
-
+          } else {
+            // Log other errors for debugging purposes
+            console.error('Error fetching URL:', error);
+          }
         }
-        else {
-          // Log other errors for debugging purposes
-          console.error('Error fetching URL:', error);
-        }
-      }
-    );
+      );
   }
 
   async presentToast(message: string, color: string = 'success') {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 2000, // Toast will disappear after 2 seconds
-    position: 'bottom', // Position of the toast
-    color: color, // Success, danger, etc.
-  });
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Toast will disappear after 2 seconds
+      position: 'bottom', // Position of the toast
+      color: color, // Success, danger, etc.
+    });
 
-  await toast.present();
-}
-logout() {
+    await toast.present();
+  }
+  logout() {
     this.auth.isLoggedIn = false;
-    this.router.navigate(['/tabs/account/login'], { queryParams: { reload: true } }); // Add a query parameter
+    this.router.navigate(['/tabs/account/login'], {
+      queryParams: { reload: true },
+    }); // Add a query parameter
   }
 
-async deleteAccount() {
+  async deleteAccount() {
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
-      message: 'Are you sure you want to delete your account? This action cannot be undone.',
+      message:
+        'Are you sure you want to delete your account? This action cannot be undone.',
       buttons: [
         {
           text: 'Cancel',
@@ -255,8 +305,4 @@ async deleteAccount() {
 
     await alert.present();
   }
-
-  
-
-   
 }

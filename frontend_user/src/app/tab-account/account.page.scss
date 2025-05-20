@@ -1,43 +1,45 @@
 ion-toolbar {
-    --background: linear-gradient(45deg,  #4d65b4, #fdfdfd); /* Adds a gradient background */
-    --color: rgb(250, 249, 249); /* Sets the text color */
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow below the header */
-    --padding-start: 16px; /* Adds padding to the toolbar */
-    --padding-end: 16px;
-  }
-  
-  ion-title {
-    font-size: 1.5rem; /* Increases the font size of the title */
-    font-weight: bold; /* Makes the title bold */
-    text-align: left; /* Centers the title */
-  }
-  
-  ion-content {
+  --background: linear-gradient(
+    45deg,
+    #4d65b4,
+    #fdfdfd
+  ); /* Adds a gradient background */
+  --color: rgb(250, 249, 249); /* Sets the text color */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow below the header */
+  --padding-start: 16px; /* Adds padding to the toolbar */
+  --padding-end: 16px;
+}
 
-    --background: #bed0f7; /* Sets a light background color */
-    padding: 20px; /* Adds padding around the content */
-  }
-  
-  .actions {
+ion-title {
+  font-size: 1.5rem; /* Increases the font size of the title */
+  font-weight: bold; /* Makes the title bold */
+  text-align: left; /* Centers the title */
+}
+
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+.actions {
   margin-top: -55px;
   margin-right: 30px;
   margin-bottom: 50px;
   display: flex; /* Enables flexbox layout */
   justify-content: flex-end; /* Aligns the content to the right */
   align-items: center; /* Vertically aligns the checkbox and button text */
+}
 
-  }
+.logout-icon {
+  color: black;
+}
 
-    .logout-icon {
-    color: black;
-  }
+.Wellcome {
+  color: #3f3d3d;
+  margin-right: 10px;
+}
 
-  .Wellcome {
-    color: #3f3d3d;
-    margin-right: 10px;
-  }
-
-  .section-title {
+.section-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #4a4a4a; /* Darker text color for better readability */
@@ -53,7 +55,7 @@ ion-toolbar {
   margin: 20px 0; /* Adds vertical spacing above and below the label */
 }
 
-  .project-item {
+.project-item {
   display: flex; /* Enables flexbox layout */
   justify-content: space-between; /* Pushes title to the left and icons to the right */
   align-items: center; /* Vertically aligns the title and icons */
@@ -84,7 +86,5 @@ ion-toolbar {
   color: #d9534f; /* Changes the icon color on hover (e.g., red for delete) */
 }
 
-
-  @media (max-width: 768px) {
-    
-  }
+@media (max-width: 768px) {
+}

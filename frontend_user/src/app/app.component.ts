@@ -1,5 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { IonApp, IonContent, IonHeader, IonIcon, IonImg, IonLabel, IonRouterOutlet, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonApp,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonLabel,
+  IonRouterOutlet,
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,12 +19,22 @@ import { logOut } from 'ionicons/icons';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [CommonModule, IonApp, IonRouterOutlet, IonLabel, IonIcon, IonHeader, IonContent, IonTitle, IonToolbar, IonImg],
+  imports: [
+    CommonModule,
+    IonApp,
+    IonRouterOutlet,
+    IonLabel,
+    IonIcon,
+    IonHeader,
+    IonContent,
+    IonToolbar,
+    IonImg,
+  ],
 })
 export class AppComponent {
   public auth = inject(AuthService);
   private router = inject(Router);
-  public profile: any 
+  public profile: any;
   constructor() {
     addIcons({ logOut });
   }
@@ -30,6 +49,8 @@ export class AppComponent {
 
   logout() {
     this.auth.isLoggedIn = false;
-    this.router.navigate(['/tabs/account/login'], { queryParams: { reload: true } }); // Add a query parameter
+    this.router.navigate(['/tabs/account/login'], {
+      queryParams: { reload: true },
+    }); // Add a query parameter
   }
 }

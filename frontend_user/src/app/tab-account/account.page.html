@@ -1,43 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Account
-    </ion-title>
-     </ion-toolbar>
+    <ion-title> Account </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="!editMode">
-  
-  
-
   <app-profile [profile]="profile"></app-profile>
-  
-   <div class="actions">
+
+  <div class="actions">
     <ion-fab>
-  <ion-fab-button color="success" (click)="editMode=true">
-    <ion-icon name="pencil" ></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+      <ion-fab-button color="success" (click)="editMode=true">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 
   <div class="section-title">MY PROJECTS</div>
   <ion-card class="category-card">
     @for(project of projectsPreview(profile.userId); track project.id){
-      <div class="project-item">
-        <ion-label class="project-title">{{ project.title }}</ion-label>
-        <div class="project-icons">
-          <ion-icon name="pencil" (click)="editProject(project.id)"></ion-icon>
-          <ion-icon name="close" (click)="confirmDeleteProject(project.id)"></ion-icon>
-        </div>
+    <div class="project-item">
+      <ion-label class="project-title">{{ project.title }}</ion-label>
+      <div class="project-icons">
+        <ion-icon name="pencil" (click)="editProject(project.id)"></ion-icon>
+        <ion-icon
+          name="close"
+          (click)="confirmDeleteProject(project.id)"
+        ></ion-icon>
       </div>
+    </div>
     }
   </ion-card>
- 
 </ion-content>
 
 <ion-content *ngIf="editMode">
-    <ion-label class="edit-label">
-      Edit Profile
-    </ion-label>
-  <app-profile-edit [profile]="profile" (cancelEdit)="editMode = false" (doneEdit)="refreshProfile()"></app-profile-edit>
+  <ion-label class="edit-label"> Edit Profile </ion-label>
+  <app-profile-edit
+    [profile]="profile"
+    (cancelEdit)="editMode = false"
+    (doneEdit)="refreshProfile()"
+  ></app-profile-edit>
 </ion-content>

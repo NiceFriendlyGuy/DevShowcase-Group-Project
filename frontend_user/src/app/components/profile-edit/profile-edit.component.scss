@@ -3,7 +3,11 @@ ion-card {
   padding: 20px;
   border-radius: 12px; /* Slightly more rounded corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
-  background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient background */
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9f9f9
+  ); /* Subtle gradient background */
 }
 
 ion-card-header {
@@ -52,18 +56,16 @@ ion-textarea {
 }
 
 ion-card {
-    padding: 0px
-
+  padding: 0px;
 }
 
-
-  .top-right-avatar {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 30px; /* Adjust as needed */
-    width: 90px; /* Set a fixed size for the avatar */
-    height: 90px;
-  }
+.top-right-avatar {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 30px; /* Adjust as needed */
+  width: 90px; /* Set a fixed size for the avatar */
+  height: 90px;
+}
 
 .section-title {
   font-size: 1.2rem;
@@ -74,7 +76,6 @@ ion-card {
 }
 
 .category-card {
-
   border-radius: 12px; /* Slightly more rounded corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
   margin: 0px;
@@ -85,14 +86,11 @@ ion-card {
 .share-line-container {
   display: flex; /* Enables flexbox layout */
   gap: 15px; /* Adds space between the fields */
-
 }
 
 .share-line-container ion-item {
   flex: 1; /* Ensures both fields take equal width */
 }
-
-
 
 .technologies-list {
   display: flex; /* Enables flexbox layout */
@@ -124,14 +122,11 @@ ion-card {
   flex: 1; /* Ensures both inputs take equal width */
   max-width: 200px; /* Maximum width for each input */
   min-width: 150px; /* Sets a minimum width for each item */
-
 }
 .technologies-inline ion-item.version {
   flex: 1; /* Ensures both inputs take equal width */
   max-width: 80px; /* Maximum width for each input */
- 
 }
-
 
 .technology-item {
   margin-bottom: 20px;
@@ -140,8 +135,6 @@ ion-card {
   border-radius: 8px;
   background: #ffffff;
 }
-
-
 
 ion-button[disabled] {
   --background: #ccc; /* Grey background for disabled state */
@@ -153,7 +146,7 @@ ion-button[disabled] {
   justify-content: flex-end; /* Aligns buttons to the right */
   align-items: center; /* Vertically aligns the buttons */
   gap: 10px; /* Adds space between buttons */
-  margin: 10px
+  margin: 10px;
 }
 
 .save-button,
@@ -168,7 +161,7 @@ ion-button[disabled] {
 
 .cancel-button {
   --background: #dc3545; /* Red background for cancel button */
-  max-width: 80px;;
+  max-width: 80px;
 }
 
 .avatar-upload {
@@ -180,11 +173,10 @@ ion-button[disabled] {
 
 .upload-label {
   position: absolute;
-  color:white;
+  color: white;
   top: 60px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to the text */
 
-  
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;
@@ -192,14 +184,10 @@ ion-button[disabled] {
 }
 
 .delete-label {
-    padding: 10px 20px; /* Adds padding */
-    font-size: 1rem; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-
-
+  padding: 10px 20px; /* Adds padding */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
 }
-
-
 
 @media (max-width: 768px) {
   ion-card-title {
@@ -216,9 +204,9 @@ ion-button[disabled] {
     width: 100%; /* Full width for smaller screens */
   }
 
-   .technologies-inline {
+  .technologies-inline {
     flex-direction: column; /* Stack items vertically on mobile */
-    align-items: flex-start; /* Align items to the left */    
+    align-items: flex-start; /* Align items to the left */
   }
 
   .label-container {

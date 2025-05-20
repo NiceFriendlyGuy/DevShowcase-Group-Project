@@ -1,6 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, IonHeader, IonToolbar,IonTitle, IonContent, IonButtons, IonCard, IonAvatar, IonChip, IonIcon, IonLabel, IonImg, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonFooter, IonButton, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import {
+  ModalController,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonLabel,
+  IonItem,
+  IonButton,
+  IonInput,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -8,14 +19,27 @@ import { ReactiveFormsModule } from '@angular/forms';
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonTextarea, IonAvatar, IonCard, IonChip, IonIcon, IonLabel,  IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonImg, IonItem, IonFooter, IonButton, IonInput, IonLabel, IonSelect, IonSelectOption],
-
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonLabel,
+    IonItem,
+    IonButton,
+    IonInput,
+    IonLabel,
+  ],
 })
 export class ChangePasswordComponent {
   passwordForm: FormGroup;
   private modalController = inject(ModalController);
+  private fb = inject(FormBuilder);
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.passwordForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -29,15 +53,15 @@ export class ChangePasswordComponent {
 
   onSubmit() {
     if (this.passwordForm.valid) {
-      const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
+      const { currentPassword, newPassword, confirmPassword } =
+        this.passwordForm.value;
 
       if (newPassword !== confirmPassword) {
         console.error('Passwords do not match!');
-        this.dismissModal("Passwords do not match"); // Close the modal after successful submission
+        this.dismissModal('Passwords do not match'); // Close the modal after successful submission
       }
       console.log('Saving Password..');
       this.dismissModal(this.passwordForm.value); // Close the modal after successful submission
-      
     }
   }
 }
