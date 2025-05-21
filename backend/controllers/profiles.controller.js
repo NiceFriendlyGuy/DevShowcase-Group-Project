@@ -1,5 +1,6 @@
 const Profile = require('../models/profile.model');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 
 const profileController = {}
 
@@ -18,7 +19,8 @@ profileController.findAll = async function (req, res) {
 profileController.findAll = async function (req, res) {
     const filter = req.body || {};
     try {
-        const profiles = await Profile.find(filter);
+        // add .select() to avoid display the hashed password for security
+        const profiles = await Profile.find(filter).select('-password');
         res.status(200).json(profiles);
     } catch(err) {
         res.status(400).json( {message: 'Filter failed', error: err.message});
@@ -27,6 +29,9 @@ profileController.findAll = async function (req, res) {
 
 profileController.create = async function (req, res) {
     try {
+        // add bcrypt for password hash before storing
+        const pass = await bcrypt.hash(req.body.password, 10);
+        req.body.password = pass;
         const newProfile = new Profile(req.body);
         await newProfile.save();
         res.status(201).json(newProfile);
