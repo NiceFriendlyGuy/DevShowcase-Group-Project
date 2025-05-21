@@ -1,4 +1,4 @@
-const Account = require('../models/accounts.model');
+const Account = require('../models/profile.model');
 const mongoose = require('mongoose');
 
 const accountController = {}
@@ -7,7 +7,7 @@ accountController.findAll = async function (req, res) {
     try {
         const accounts = await Account.find();
         res.status(200).json(accounts);
-    } catch(err) {
+    } catch(err){
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 }
