@@ -14,6 +14,8 @@ const profileSchema = new mongoose.Schema ({
       name: String,
       version: String
     }]       
+  }, {
+    timestamps: true // adds createdAt & updatedAt automatically
   })
 
 
