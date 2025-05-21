@@ -1,8 +1,12 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const dbUri =  process.env.USE_ATLAS === 'true' ? process.env.MONGO_URI : 'mongodb://localhost:27017/portfoliodb'
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('connection to MongoDB Atlas: successful'))
-.catch((err) => console.error('MongoDB Atlas error: ', err))
+mongoose.connect(dbUri)
+.then(() => {
+    const source = process.env.USE_ATLAS === 'true' ? 'MongoDB Atlas' : 'MongoDB local';
+    console.log(`connection to ${source}: successful`);
+})
+.catch((err) => console.error('MongoDB error: ', err))
 
 module.exports = mongoose;
