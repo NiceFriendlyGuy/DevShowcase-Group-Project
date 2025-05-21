@@ -3,12 +3,25 @@ const mongoose = require('mongoose');
 
 const profileController = {}
 
+
+/*
 profileController.findAll = async function (req, res) {
     try {
         const profiles = await Profile.find();
         res.status(200).json(profiles);
     } catch(err){
         res.status(500).json({ message: 'Server error', error: err.message });
+    }
+}
+*/ 
+
+profileController.findAll = async function (req, res) {
+    const filter = req.body || {};
+    try {
+        const profiles = await Profile.find(filter);
+        res.status(200).json(profiles);
+    } catch(err) {
+        res.status(400).json( {message: 'Filter failed', error: err.message});
     }
 }
 
