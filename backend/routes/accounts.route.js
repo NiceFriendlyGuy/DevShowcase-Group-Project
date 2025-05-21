@@ -1,4 +1,4 @@
-const accountController = require('../controllers/accounts.controller');
+const accountController = require('../controllers/profiles.controller');
 const express = require('express');
 const router = express.Router();
 

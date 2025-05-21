@@ -1,0 +1,59 @@
+const Profile = require('../models/profile.model');
+const mongoose = require('mongoose');
+
+const profileController = {}
+
+profileController.findAll = async function (req, res) {
+    try {
+        const profiles = await Profile.find();
+        res.status(200).json(profiles);
+    } catch(err){
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+}
+
+profileController.create = async function (req, res) {
+    try {
+        const newProfile = new Profile(req.body);
+        await newProfile.save();
+        res.status(201).json(newProfile);
+    }
+    catch (err) {
+        res.status(400).json({message:"Unable to create profile", error: err.message });
+    }
+}
+
+profileController.update = async function (req, res) {
+    const id = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({message:'Id not existant'});
+        }
+        const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, {new: true});
+        if (!updatedProfile) {
+            return res.status(404).json({message:'profile to update: not found'});
+        }
+        res.status(200).json(updatedProfile);
+    } catch(err) {
+        res.status(400).json({message:"failure to update profile", error: err.message});
+    }
+}
+
+profileController.delete = async function (req, res) {
+    const id = req.params.id;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({message:"Id not existant"});
+        }
+        const deletedProfile = await Profile.findByIdAndDelete(id);
+        if (!deletedProfile) {
+            return res.status(400).json({message: "failed to delete profile"});
+        }
+        res.status(200).json({message:"Profile deleted successfully"});
+    } catch(err) {
+        res.status(400).json({message:"failure to delete profile", error:err.message});
+    }
+}
+
+module.exports = profileController;
