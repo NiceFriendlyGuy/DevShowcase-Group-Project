@@ -46,7 +46,7 @@
       { "name": "SQLite" }
     ],
     "link": "https://example.com/chatapp",
-    "authors": [1, 2],
+    "authors": [1, 2, 6],
     "photos": [
       "assets/3/Screenshot1.png",
       "assets/3/Screenshot2.png",
@@ -64,7 +64,7 @@
       { "name": "Maven" }
     ],
     "link": "https://example.com/blog",
-    "authors": [1, 2],
+    "authors": [1, 2, 6],
     "photos": [
       "assets/4/Screenshot1.png",
       "assets/4/Screenshot2.png",
@@ -79,14 +79,11 @@
       { "name": "Angular", "version": 17 },
       { "name": "Ionic", "version": 7 },
       { "name": "Node.js", "version": 20 },
-      { "name": "Express" },
-      { "name": "MongoDB" },
-      { "name": "Socket.io" },
-      { "name": "TypeScript" },
+
       { "name": "Sass" }
     ],
     "link": "https://example.com/appconnect",
-    "authors": [2, 3],
+    "authors": [2, 3, 6],
     "photos": [
       "assets/5/Screenshot1.jpg",
       "assets/5/Screenshot2.jpg",

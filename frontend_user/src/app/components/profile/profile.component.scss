@@ -66,9 +66,12 @@ ion-chip ion-label {
 }
 
 .image-container ion-img {
-  width: 100%; /* Ensures the image fills the container */
-  height: auto; /* Maintains the aspect ratio */
-  display: block; /* Removes inline spacing issues */
+  position: relative;
+  height: 225px; /* Hauteur fixe pour toutes les images */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .icons-container {
@@ -157,5 +160,8 @@ swiper-slide {
   ion-chip ion-icon {
     width: 20px; /* Adjusts the icon size */
     height: 20px;
+  }
+  .image-container ion-img {
+    height: 125px; /* Hauteur fixe pour toutes les images */
   }
 }
