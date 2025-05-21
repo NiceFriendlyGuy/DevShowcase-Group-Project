@@ -20,9 +20,7 @@
       @for (preview of projectsPreview(profile.id); track $index){
       <swiper-slide>
         <div class="image-container">
-          <ion-img
-            [src]="'assets/' + preview.id + '/' + preview.photos[0]"
-          ></ion-img>
+          <ion-img [src]="preview.photos[0]"></ion-img>
           <div class="icons-container">
             @for(technology of preview.technologies; track technology){
             <ion-icon
