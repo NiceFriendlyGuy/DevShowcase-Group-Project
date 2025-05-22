@@ -21,12 +21,16 @@
     admin: boolean;
     name: string;
     surname: string;
+    password: string;
     role: string;
     bio: string;
     email: string;
     phone: string;
     photo: string;
     technologies: Technology[];
+    isDeleted: boolean;
+    createdAt: date;
+    updatedAt: date;
   }
 ```
 
@@ -36,12 +40,16 @@
   {
     id: string;
     title: string;
+    category: string;
+    date: date;
     link: string;
     technologies: Technology[];
     authors: string[];
     description: string;
     photos: string[];
-    creationDate: Date;
+    isDeleted: boolean;
+    createdAt: date;
+    updatedAt: date;
   }
 ```
 
@@ -60,7 +68,6 @@
       "name": "John",
       "surname": "Smith",
       "email": "john.smith@email.com",
-      "password": "1234",
       "phone": "+1 444 987 6543",
       "role": "Full Stack Developer",
       "photo": "",
@@ -113,7 +120,6 @@
     "name": "John",
     "surname": "Smith",
     "email": "john.smith@email.com",
-    "password": "1234",
     "phone": "+1 444 987 6543",
     "role": "Full Stack Developer",
     "photo": "",
@@ -131,6 +137,45 @@
   {}
   ```
 
+### Change password
+
+- **POST** `/api/profiles/changePassword`
+- **Body**
+  ```json
+  {
+    "id": "1",
+    "password": "1234",
+    "newPassword": "12345678"
+  }
+  ```
+- **Answer :**
+  ```json
+  {
+    "valid": true
+  }
+  ```
+
+### Authenticate a user
+
+- **POST** `/api/profiles/auth`
+- **Body**
+  ```json
+  {
+    "email": "john.smith@email.com",
+    "password": "1234"
+  }
+  ``
+  ```
+- **Answer :**
+
+```json
+{
+  "valid": true
+}
+```
+
+(Change the status of the project with the field isDeleted to true)
+
 ## Endpoints Projects
 
 ### Request all the projects
@@ -143,6 +188,9 @@
     {
     "id": 1,
     "title": "Portfolio Website",
+    "category": "Technology",
+    "description": "A portfolio website for a developer",
+    "date": "2024-05-01T10:00:00Z",
     "technologies": [
       { "name": "HTML5" },
       { "name": "CSS3" },
@@ -153,7 +201,6 @@
     "link": "https://example.com/portfolio",
     "authors": ["1","2"],
     "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-    "creation" : "2022-01-01T00:00:00.000Z"
   },
     ...
   ]
@@ -166,11 +213,13 @@
   ```json
   {
     "title": "Portfolio Website",
+    "category": "Technology",
+    "description": "A portfolio website for a developer",
     "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
     "link": "https://example.com/portfolio",
     "authors": ["1", "2"],
     "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-    "creation": "2022-01-01T00:00:00.000Z"
+    "date": "2022-01-01T00:00:00.000Z"
   }
   ```
 - **Answer :**
@@ -198,8 +247,8 @@
     "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
     "link": "https://example.com/portfolio",
     "authors": ["1", "2"],
-    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-    "creation": "2022-01-01T00:00:00.000Z"
+    "photos": ["assets/1/Screenshot1.png", "assets/1/Screenshot2.png", "assets/1/Screenshot3.png"],
+    "date": "2022-01-01T00:00:00.000Z"
   }
   ```
 
@@ -211,3 +260,5 @@
   ```json
   {}
   ```
+
+  (Change the status of the project with the field isDeleted to true)
