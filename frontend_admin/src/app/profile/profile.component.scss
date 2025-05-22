@@ -1,0 +1,42 @@
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.profile-item {
+  font-size: 14px;
+  color: #333;
+}
+
+.status-active {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.privileges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.privilege-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.privilege-item mat-icon {
+  font-size: 20px;
+  color: #4caf50;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

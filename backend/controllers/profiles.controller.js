@@ -47,11 +47,15 @@ profileController.update = async function (req, res) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({message:'Id not existant'});
         }
+        // add bcrypt for password hash if updated
+        if (req.body.password) {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+          }
         const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, {new: true});
         if (!updatedProfile) {
             return res.status(404).json({message:'profile to update: not found'});
         }
-        res.status(200).json(updatedProfile);
+        res.status(200).json({ message: `the profile of ${updatedProfile.name} was successfully updated` });
     } catch(err) {
         res.status(400).json({message:"failure to update profile", error: err.message});
     }
