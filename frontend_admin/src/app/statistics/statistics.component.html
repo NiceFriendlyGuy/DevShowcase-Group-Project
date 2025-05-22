@@ -4,30 +4,35 @@
   </mat-card-header>
   <mat-card-content>
     <div class="statistics-content">
-      <div class="stat-item">
+      <div class="stat-item" (click)="toggleLineChart('users')">
         <mat-icon color="primary">group</mat-icon>
-        <div>
+        <div class="stat-item-text">
           <h3>1 245</h3>
           <p>Utilisateurs inscrits</p>
         </div>
+        <app-doughnut-chart></app-doughnut-chart>
       </div>
 
-      <div class="stat-item">
+      <div class="stat-item" (click)="toggleLineChart('active')">
         <mat-icon color="primary">show_chart</mat-icon>
-        <div>
+        <div class="stat-item-text">
           <h3>320</h3>
           <p>Utilisateurs actifs cette semaine</p>
         </div>
+        <app-doughnut-chart></app-doughnut-chart>
       </div>
 
-      <div class="stat-item">
+      <div class="stat-item" (click)="toggleLineChart('growth')">
         <mat-icon color="primary">trending_up</mat-icon>
-        <div>
+        <div class="stat-item-text">
           <h3>+12%</h3>
           <p>Croissance des utilisateurs</p>
         </div>
+        <app-doughnut-chart></app-doughnut-chart>
       </div>
     </div>
-    <app-doughnut-chart></app-doughnut-chart>
+    @if (showLineChart) {
+    <app-line-chart [datasetKey]="selectedKey"></app-line-chart>
+    }
   </mat-card-content>
 </mat-card>
