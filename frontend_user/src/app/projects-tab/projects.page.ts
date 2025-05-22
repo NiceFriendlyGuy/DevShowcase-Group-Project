@@ -1,5 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonChip,
+  IonIcon,
+  IonLabel,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProjectComponent } from '../components/project/project.component';
@@ -10,8 +18,17 @@ import { ProfilesService } from '../services/profiles.service';
   selector: 'app-projects',
   templateUrl: 'projects.page.html',
   styleUrls: ['projects.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, 
-    ProjectComponent, IonChip, IonIcon, IonLabel],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    CommonModule,
+    ProjectComponent,
+    IonChip,
+    IonIcon,
+    IonLabel,
+  ],
 })
 export class ProjectsPage {
   private router = inject(Router);
@@ -60,7 +77,7 @@ export class ProjectsPage {
     }
   }
 
-  clearFilters(){
+  clearFilters() {
     this.selectedCategories = [];
     this.filteredProjects = this.projects;
   }
@@ -69,7 +86,6 @@ export class ProjectsPage {
     return this.selectedCategories.includes(cat);
   }
 
-  
   showProject(projectId: number) {
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }

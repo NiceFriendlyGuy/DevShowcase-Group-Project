@@ -19,7 +19,7 @@
       "assets/1/Screenshot2.png",
       "assets/1/Screenshot3.png"
     ],
-    "isEnable": true, 
+    "isEnable": true,
     "isActive": true,
     "createdAt": "2024-05-01T10:00:00Z",
     "updatedAt": "2024-05-20T15:00:00Z"
@@ -36,7 +36,7 @@
       { "name": "Express" },
       { "name": "MongoDB" }
     ],
-    "authors": ["1","4"],
+    "authors": ["1", "4"],
     "link": "https://example.com/ecommerce",
     "photos": [
       "assets/2/Screenshot1.png",
@@ -59,7 +59,7 @@
       { "name": "Node.js" },
       { "name": "SQLite" }
     ],
-    "authors": ["1","2"],
+    "authors": ["1", "2"],
     "link": "https://example.com/chatapp",
     "photos": [
       "assets/3/Screenshot1.png",
@@ -83,7 +83,7 @@
       { "name": "MySQL" },
       { "name": "Maven" }
     ],
-    "authors": ["2","3"],
+    "authors": ["2", "3"],
     "link": "https://example.com/blog",
     "photos": [
       "assets/4/Screenshot1.png",
@@ -105,10 +105,7 @@
       { "name": "Angular", "version": 17 },
       { "name": "Ionic", "version": 7 },
       { "name": "Node.js", "version": 20 },
-      { "name": "Express" },
-      { "name": "MongoDB" },
-      { "name": "Socket.io" },
-      { "name": "TypeScript" },
+
       { "name": "Sass" }
     ],
     "authors": ["2", "3", "4"],
