@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
   private projectsService: ProjectsService =
     inject<ProjectsService>(ProjectsService);
 
-  public projectsPreview = (id: number): any[] =>
+  public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
 
   public randomImageIndex: number = Math.floor(Math.random() * 4) + 1;

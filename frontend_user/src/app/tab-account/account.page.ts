@@ -51,7 +51,7 @@ export class AccountPage {
   public editMode: boolean = false;
   private toastController = inject(ToastController);
 
-  public projectsPreview = (id: number): any[] =>
+  public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
 
   constructor() {
