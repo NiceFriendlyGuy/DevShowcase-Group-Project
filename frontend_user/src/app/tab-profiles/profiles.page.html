@@ -13,25 +13,11 @@
   >
   </app-search>
 
-  <!-- Technologies Filter -->
-  <div class="tech-container">
-    @for (tech of listTechnologies; track tech) {
-    <div
-      class="tech"
-      [class.selected]="isSelected(tech)"
-      (click)="toggleTech(tech)"
-    >
-      <ion-icon
-        class="technology-icon"
-        [src]="getIconUrl(tech.name)"
-        title="{{ tech.name}}"
-      >
-      </ion-icon>
-
-      <p>{{ tech.name }}</p>
-    </div>
-    }
-  </div>
+  <app-horizontal-filter
+    [listItems]="listTechnologies"
+    (filteredItems)="onFilteredItems($event)"
+  >
+  </app-horizontal-filter>
 
   @for (profile of filteredProfiles; track profile.name) {
   <app-profile [profile]="profile"></app-profile>

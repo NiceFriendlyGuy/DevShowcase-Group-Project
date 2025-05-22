@@ -1,0 +1,61 @@
+//////////// STYLE BULLES DE TECHNOLOGIES ////////////
+.items-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* ne bloque pas le scroll vertical */
+  gap: 12px;
+  padding: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* pour un scroll fluide sur mobile */
+}
+
+.items-container::-webkit-scrollbar {
+  display: none; /* Masquer la scrollbar */
+}
+
+.item {
+  flex: 0 0 auto; /* empêcher la réduction */
+  width: 80px;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  /* border-radius: 50%;
+  border: 2px solid #ccc; */
+  margin-bottom: 8px;
+  transition: transform 0.3s;
+}
+
+.item img:hover {
+  transform: scale(1.05);
+}
+
+.item p {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html,
+body {
+  height: auto;
+  overflow-y: auto;
+}
+
+.item.selected p {
+  color: #007bff; /* Bleu Bootstrap / Instagram-like */
+}
+
+.item.selected img {
+  border-radius: 20%;
+  border: 2px solid #c02424;
+  box-shadow: 0 0 10px #c02424;
+  padding: 6px; /* Ajoute un padding à l'intérieur de la bordure */
+}
+////////////////////////////////////////////////////////

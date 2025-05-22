@@ -1,0 +1,14 @@
+<!-- Items Filter -->
+<div class="items-container">
+  @for (item of listItems; track item) {
+  <div
+    class="item"
+    [class.selected]="isSelected(item)"
+    (click)="toggleItem(item)"
+  >
+    <img class="item-icon" [src]="item.src" [title]="item.name" />
+
+    <p>{{ item.name }}</p>
+  </div>
+  }
+</div>
