@@ -56,8 +56,11 @@ export class AccountPage {
 
   constructor() {
     addIcons({ logOut, close, add, pencil });
-    this.profile = this.auth.getProfileInfo();
     //console.log('Profile:', this.profile);
+  }
+
+  async ngOnInit() {
+    this.profile = this.auth.getProfileInfo();
   }
 
   logout() {

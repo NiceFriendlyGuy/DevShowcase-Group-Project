@@ -81,16 +81,16 @@ export class ProjectsPage {
   public getPreviewAuthors() {
     this.projects.forEach((project) => {
       const previewAuthors: {
-        userId: string;
+        id: string;
         name: string;
         surname: string;
       }[] = [];
-      project.authors.forEach((authorId: number) => {
-        const profiles = this.profilesService.getProfilesById(authorId);
+      project.authors.forEach((id: string) => {
+        const profiles = this.profilesService.getProfilesById(id);
         const profile = Array.isArray(profiles) ? profiles[0] : profiles;
         if (profile) {
           previewAuthors.push({
-            userId: profile.userId,
+            id: profile.id,
             name: profile.name,
             surname: profile.surname,
           });
@@ -100,7 +100,7 @@ export class ProjectsPage {
     });
   }
 
-  showProject(projectId: number) {
-    this.router.navigate(['tabs/projects/projectDetails', projectId]);
+  showProject(id: string) {
+    this.router.navigate(['tabs/projects/projectDetails', id]);
   }
 }

@@ -46,8 +46,8 @@ export class ProfilesPage {
     console.log('Selected technologies:', this.selectedTechnologies);
   }
   constructor() {}
-  ngOnInit() {
-    this.profiles = this.profilesService.getProfilesAll();
+  async ngOnInit() {
+    this.profiles = await this.profilesService.getProfilesAll();
 
     let technologiesNames: any[] = this.profilesService
       .getTechnologiesFromUsers()
