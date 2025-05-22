@@ -23,7 +23,6 @@ export class LineChartComponent implements OnChanges {
       x: {},
       y: {
         beginAtZero: true,
-        max: 20, // ✅ Flatten the chart by lowering this
       },
     }
   };
@@ -45,7 +44,7 @@ export class LineChartComponent implements OnChanges {
       users: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr'],
         datasets: [
-          { label: 'Inscrits', data: [300, 500, 800, 1245], borderColor: '#42A5F5', tension: 0.3 }
+          { label: 'Inscrits', data: [300, 500, 800, 650], borderColor: '#42A5F5', tension: 0.3 }
         ]
       },
       active: {
