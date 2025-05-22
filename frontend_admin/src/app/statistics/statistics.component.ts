@@ -4,10 +4,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-statistics',
-  standalone: true,
-  imports: [MatCardModule, MatChipsModule, MatIconModule],
-  templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.scss',
+    selector: 'app-statistics',
+    imports: [MatCardModule, MatChipsModule, MatIconModule],
+    templateUrl: './statistics.component.html',
+    styleUrl: './statistics.component.scss'
 })
 export class StatisticsComponent {}

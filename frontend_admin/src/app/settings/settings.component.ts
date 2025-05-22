@@ -9,17 +9,16 @@ import { MatOptionModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [CommonModule, 
-    MatDialogModule, 
-    MatButtonModule, 
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    FormsModule],
-  templateUrl: './settings.component.html',
+    selector: 'app-settings',
+    imports: [CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        FormsModule],
+    templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit{
   constructor(@Inject(MAT_DIALOG_DATA) public data: { params: { name: string, value: any }[] }) {}

@@ -10,11 +10,10 @@ import {
   MatDialogActions,
 } from '@angular/material/dialog';
 @Component({
-  selector: 'app-delete-user-dialog',
-  standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatDialogContent, MatDialogActions],
-  templateUrl: './delete-user-dialog.component.html',
-  styleUrl: './delete-user-dialog.component.scss',
+    selector: 'app-delete-user-dialog',
+    imports: [MatIconModule, MatButtonModule, MatDialogContent, MatDialogActions],
+    templateUrl: './delete-user-dialog.component.html',
+    styleUrl: './delete-user-dialog.component.scss'
 })
 export class DeleteUserDialogComponent {
   constructor(

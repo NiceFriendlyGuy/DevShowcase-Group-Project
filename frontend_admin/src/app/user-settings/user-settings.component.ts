@@ -14,17 +14,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-user-settings',
-  standalone: true,
-  imports: [
-    MatDialogContent,
-    MatDialogTitle,
-    MatDialogActions,
-    MatDividerModule,
-    MatButtonModule,
-  ],
-  templateUrl: './user-settings.component.html',
-  styleUrl: './user-settings.component.scss',
+    selector: 'app-user-settings',
+    imports: [
+        MatDialogContent,
+        MatDialogTitle,
+        MatDialogActions,
+        MatDividerModule,
+        MatButtonModule,
+    ],
+    templateUrl: './user-settings.component.html',
+    styleUrl: './user-settings.component.scss'
 })
 export class UserSettingsComponent {
   private readonly userService = inject(UserService);

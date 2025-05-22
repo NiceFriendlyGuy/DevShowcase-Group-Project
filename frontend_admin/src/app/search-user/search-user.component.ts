@@ -13,19 +13,18 @@ import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dia
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
 
 @Component({
-  selector: 'app-search-user',
-  standalone: true,
-  imports: [
-    MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
-  ],
-  templateUrl: './search-user.component.html',
-  styleUrl: './search-user.component.scss',
+    selector: 'app-search-user',
+    imports: [
+        MatCardModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+    ],
+    templateUrl: './search-user.component.html',
+    styleUrl: './search-user.component.scss'
 })
 export class SearchUserComponent {
   private readonly userService = inject(UserService);

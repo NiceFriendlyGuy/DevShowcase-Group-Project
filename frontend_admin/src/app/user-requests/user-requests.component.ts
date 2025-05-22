@@ -7,17 +7,16 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-user-requests',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    CommonModule,
-    MatTooltipModule,
-  ],
-  templateUrl: './user-requests.component.html',
-  styleUrl: './user-requests.component.scss',
+    selector: 'app-user-requests',
+    imports: [
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        CommonModule,
+        MatTooltipModule,
+    ],
+    templateUrl: './user-requests.component.html',
+    styleUrl: './user-requests.component.scss'
 })
 export class UserRequestsComponent {
   public requests = signal<any[]>([]);

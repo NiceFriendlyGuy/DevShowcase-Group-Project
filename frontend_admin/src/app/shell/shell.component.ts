@@ -14,23 +14,22 @@ import { ProfileComponent } from '../profile/profile.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-shell',
-  standalone: true,
-  imports: [
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatButtonModule,
-    MatInputModule,
-    StatisticsComponent,
-    UserRequestsComponent,
-    SearchUserComponent,
-    MatTooltipModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './shell.component.html',
-  styleUrl: './shell.component.scss',
+    selector: 'app-shell',
+    imports: [
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonModule,
+        MatInputModule,
+        StatisticsComponent,
+        UserRequestsComponent,
+        SearchUserComponent,
+        MatTooltipModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './shell.component.html',
+    styleUrl: './shell.component.scss'
 })
 export class ShellComponent {
   constructor(private dialog: MatDialog) {}
