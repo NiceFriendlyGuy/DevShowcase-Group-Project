@@ -55,8 +55,6 @@ export class AppComponent {
     this.auth.profile$.subscribe((updatedProfile) => {
       this.profile = updatedProfile;
       //console.log('Profile updated:', this.profile);
-      this.profileService.getProfilesAll();
-      this.projectsService.getProjectsAll();
     });
 
   }
