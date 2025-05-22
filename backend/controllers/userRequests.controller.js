@@ -14,7 +14,16 @@ userRequestController.findAll = async function (req, res) {
 }
 
 userRequestController.create = async function (req, res) {
-    //
+    if (!mongoose.Types.ObjectId.isValid(req.body.userId)) {
+        return res.status(404).json({ message: 'invalid or missing userId' });
+    }
+    try {
+        const newRequest = new UserRequest(req.body);
+        await newRequest.save()
+        res.status(201).json(newRequest)
+    } catch(err) {
+        res.status(400).json({ message: 'Unable to create new request', error: err.message})
+    }
 }
 
 userRequestController.update = async function (req, res) {
