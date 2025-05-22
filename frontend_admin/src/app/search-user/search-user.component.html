@@ -1,0 +1,33 @@
+<form class="search-form">
+  <mat-form-field appearance="outline" class="search-field">
+    <input
+      matInput
+      placeholder="Rechercher un utilisateur"
+      [value]="searchQuery()"
+      (input)="onSearch($event)"
+    />
+    <button mat-icon-button matSuffix aria-label="Search">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+
+<div class="scrollable-container">
+  <div class="card-container">
+    @for (user of filteredUsers(); track user) {
+    <mat-card class="user-card" appearance="outlined">
+      <mat-card-header class="user-card-header">
+        <div class="user-info">
+          <mat-card-title>{{ user.nom }}</mat-card-title>
+          <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
+        </div>
+        <button mat-icon-button (click)="openUserSettingsDialog(user)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-card-header>
+    </mat-card>
+    } @if (filteredUsers().length === 0) {
+    <p>Aucun utilisateur trouvé.</p>
+    }
+  </div>
+</div>

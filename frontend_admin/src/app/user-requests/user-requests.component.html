@@ -1,0 +1,45 @@
+<mat-card class="requests-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title
+      >Requêtes des Utilisateurs ({{ requests().length }})</mat-card-title
+    >
+  </mat-card-header>
+  <mat-card-content class="mat-card-content">
+    <div class="requests-list">
+      @if (isLoading()) {
+      <div class="loading">Chargement des requêtes...</div>
+      } @else { @for (request of requests(); track request) {
+      <div class="request-item" [ngClass]="request.type">
+        <mat-icon>{{ getIcon(request.type) }}</mat-icon>
+        <div class="request-text">
+          <p>
+            <strong>{{ request.title }}</strong> {{ request.content }}
+          </p>
+        </div>
+        <div class="action-buttons">
+          <button
+            matTooltip="Valider"
+            mat-icon-button
+            color="primary"
+            (click)="acceptRequest(request)"
+          >
+            <mat-icon>check</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="rejectRequest(request)"
+            matTooltip="Refuser"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      } @if (requests().length === 0) {
+      <div class="no-requests">
+        <p>Aucune requête disponible.</p>
+      </div>
+      } }
+    </div>
+  </mat-card-content>
+</mat-card>

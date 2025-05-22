@@ -1,0 +1,29 @@
+<div class="main-container">
+  <!-- Menu Vertical (4 icônes) -->
+  <div class="menu">
+    <button class="menu-item" matTooltip="Se déconnecter">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button class="menu-item" (click)="openProfileDialog()" matTooltip="Profil">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button
+      class="menu-item"
+      (click)="openSettingsDialog()"
+      matTooltip="Paramètres"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+
+  <!-- Contenu Principal (Statistiques + Demandes) -->
+  <div class="content">
+    <div class="main-content">
+      <app-statistics></app-statistics>
+      <app-user-requests class="user-request-container"></app-user-requests>
+    </div>
+    <div class="search-section">
+      <app-search-user class="search-user-container"></app-search-user>
+    </div>
+  </div>
+</div>
