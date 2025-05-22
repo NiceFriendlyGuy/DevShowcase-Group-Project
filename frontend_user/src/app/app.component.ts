@@ -1,4 +1,3 @@
-import { imagesOutline, informationCircleOutline } from 'ionicons/icons';
 import { Component, inject } from '@angular/core';
 import {
   IonApp,
@@ -15,10 +14,13 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { logOut } from 'ionicons/icons';
+import { imagesOutline, informationCircleOutline, openOutline,  close } from 'ionicons/icons';
 
 addIcons({
   'images-outline': imagesOutline,
   'information-circle-outline': informationCircleOutline,
+  'open-outline' : openOutline,
+  'close' : close,
 });
 @Component({
   selector: 'app-root',

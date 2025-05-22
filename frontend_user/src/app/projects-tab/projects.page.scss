@@ -74,6 +74,27 @@ body {
   border-color: #007bff;
 }
 
+.delete-filters-chip-row {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.delete-filters-chip {
+  font-size: 1em;
+  cursor: pointer;
+  min-width: unset;
+  width: auto;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: static; // retire le positionnement absolu
+}
+
+
+
 /////////// app-project ///////////
 ///Affichage de 2 par lignes pour tablette et desktop
 @media (min-width: 768px) {
@@ -87,6 +108,7 @@ body {
     width: calc(50% - 4px); /* Moins d'espace latéral */
     box-sizing: border-box;
     margin: 0; /* Supprime les marges autour de la carte */
+    margin-bottom: 16px
   }
 }
 

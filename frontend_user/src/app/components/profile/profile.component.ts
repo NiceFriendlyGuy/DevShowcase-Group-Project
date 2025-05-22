@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit {
 
   constructor() {}
 
+
   public ngOnInit() {}
 
   public getIcon(technology: string, type: string): string {

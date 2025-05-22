@@ -1,13 +1,22 @@
+.project-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: stretch; // important pour aligner les cartes de même hauteur
+}
+
 .project-card {
   display: flex;
   flex-direction: column;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
   padding: 16px;
   margin: 16px;
   max-width: 100%;
   overflow: hidden;
+  position: relative;
+  flex: 1 1 100%; // permet l’égalisation dans le container parent
 }
 
 /* --- Header par défaut mobile (colonne) --- */
@@ -23,8 +32,21 @@
   width: 100%;
   max-width: 320px;
   height: auto;
+  max-height: 250px;
   object-fit: contain;
   border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+/* Classes orientation dynamiques */
+.project-image.portrait {
+  max-width: 60%;
+  object-fit: contain;
+}
+
+.project-image.landscape {
+  max-width: 100%;
+  object-fit: cover;
 }
 
 .project-title {
@@ -34,7 +56,6 @@
 
 .project-info {
   width: 100%;
-  gap: 8px;
 }
 
 /* Technologies scroll horizontal */
@@ -81,7 +102,6 @@
   text-align: justify;
   margin-top: 12px;
   display: -webkit-box;
-  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -94,12 +114,29 @@
   margin-top: 16px;
   overflow-x: auto;
   padding-bottom: 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.project-screenshots::-webkit-scrollbar {
+  display: none;
 }
 
 .screenshot {
   height: 120px;
   border-radius: 6px;
   object-fit: contain;
+  transition: box-shadow 0.2s;
+
+  &.portrait {
+    max-width: 60%;
+    object-fit: contain;
+  }
+
+  &.landscape {
+    max-width: 100%;
+    object-fit: cover;
+  }
 }
 
 /* --- Adaptation pour écrans larges (desktop) --- */
@@ -107,6 +144,7 @@
   .project-card {
     max-width: 100%;
     padding: 24px;
+    height: 100%; // match height dans flex parent
   }
 
   .project-header {
@@ -119,8 +157,17 @@
   .project-image {
     width: 40%;
     max-height: 250px;
-    object-fit: cover;
     border-radius: 8px;
+    object-fit: contain;
+  }
+
+  .project-image.portrait {
+    max-height: 280px;
+    object-fit: contain;
+  }
+
+  .project-image.landscape {
+    object-fit: cover;
   }
 
   .project-info {
@@ -160,7 +207,6 @@
 
   .project-description {
     margin-top: 16px;
-    line-clamp: 3;
     -webkit-line-clamp: 3;
     width: 100%;
   }
@@ -168,6 +214,7 @@
   .project-screenshots {
     justify-content: flex-start;
     gap: 10px;
+    scrollbar-width: none;
   }
 
   .screenshot {
@@ -177,20 +224,17 @@
   }
 }
 
-
 /* --- Badge catégorie en bas à droite --- */
 .project-category-badge {
   position: absolute;
-  right: 4px;    // réduit la distance au bord droit
-  bottom: 4px;   // réduit la distance au bord bas
+  right: 4px;
+  bottom: 4px;
   display: flex;
   align-items: center;
   background: rgba(255,255,255,0.97);
   border-radius: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 2px 8px 2px 4px;
   z-index: 10;
-  min-width: 0;
   max-width: 90%;
   pointer-events: none;
 

@@ -1,10 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProjectComponent } from '../components/project/project.component';
@@ -15,14 +10,8 @@ import { ProfilesService } from '../services/profiles.service';
   selector: 'app-projects',
   templateUrl: 'projects.page.html',
   styleUrls: ['projects.page.scss'],
-  imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    CommonModule,
-    ProjectComponent,
-  ],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, 
+    ProjectComponent, IonChip, IonIcon, IonLabel],
 })
 export class ProjectsPage {
   private router = inject(Router);
@@ -41,7 +30,6 @@ export class ProjectsPage {
     this.projects = this.projectsService.getProjectsAll();
     this.filteredProjects = this.projects;
     this.categories = this.projectsService.getCategoriesAll();
-    this.getPreviewAuthors();
   }
   ////// Filtre Categories //////
 
@@ -72,34 +60,16 @@ export class ProjectsPage {
     }
   }
 
+  clearFilters(){
+    this.selectedCategories = [];
+    this.filteredProjects = this.projects;
+  }
+
   isSelected(cat: any): boolean {
     return this.selectedCategories.includes(cat);
   }
 
-  //CHANGER LE TYPE DE LA VARIABLE AUTHOR EN STRING PEUT ETRE ??
-  //Peut etre renvoyer direment le profile pour le getprofilebyid car il y aura tjrs que 1 profile retourner
-  public getPreviewAuthors() {
-    this.projects.forEach((project) => {
-      const previewAuthors: {
-        userId: string;
-        name: string;
-        surname: string;
-      }[] = [];
-      project.authors.forEach((authorId: number) => {
-        const profiles = this.profilesService.getProfilesById(authorId);
-        const profile = Array.isArray(profiles) ? profiles[0] : profiles;
-        if (profile) {
-          previewAuthors.push({
-            userId: profile.userId,
-            name: profile.name,
-            surname: profile.surname,
-          });
-        }
-      });
-      project.authors = previewAuthors;
-    });
-  }
-
+  
   showProject(projectId: number) {
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }

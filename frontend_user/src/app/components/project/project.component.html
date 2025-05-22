@@ -1,6 +1,6 @@
 <ion-card class="project-card">
   <ion-card-header class="project-header">
-    <img [src]="project.photos[0]" [alt]="project.title + ' preview'" class="project-image">
+    <img  [src]="project.photos[0]" [alt]="project.title + ' preview'" class="project-image">
 
     <div class="project-info">
       <ion-card-title class="project-title">{{ project.title }}</ion-card-title>
@@ -19,8 +19,12 @@
         <div class="author-list">
           @for(author of project.authors; track author){
             <ion-chip class="author-chip">
+              <ion-avatar>
+                <img [src]="author.photo || 'assets/default-profile.png'" alt="Author avatar" />
+              </ion-avatar>
               <ion-label>{{ author.name }} {{ author.surname }}</ion-label>
             </ion-chip>
+            
           }
         </div>
       </div>
@@ -33,7 +37,7 @@
 
     <div class="project-screenshots">
       @for(screenshot of project.photos; track screenshot) {
-        <img [src]="screenshot" [alt]="project.title + ' screenshot ' + project.id" class="screenshot">
+        <img  [src]="screenshot" [alt]="project.title + ' screenshot ' + project.id" class="screenshot">
       }
     </div>
 

@@ -1,8 +1,10 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "title": "Portfolio Website",
     "category": "Technology",
+    "date": "2024-05-01T10:00:00Z",
+    "description": "A personal portfolio website to showcase projects, skills, and experiences in web development.",
     "technologies": [
       { "name": "HTML5" },
       { "name": "CSS3" },
@@ -10,71 +12,95 @@
       { "name": "Express" },
       { "name": "MongoDB", "version": 11 }
     ],
+    "authors": ["1"],
     "link": "https://example.com/portfolio",
-    "authors": [1],
     "photos": [
       "assets/1/Screenshot1.png",
       "assets/1/Screenshot2.png",
       "assets/1/Screenshot3.png"
-    ]
+    ],
+    "isEnable": true, 
+    "isActive": true,
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-20T15:00:00Z"
   },
   {
-    "id": 2,
+    "id": "2",
     "title": "E-commerce Platform",
     "category": "E-Commerce",
+    "date": "2024-05-01T10:00:00Z",
+    "description": "A modern e-commerce platform for buying and selling products online with secure payments.",
     "technologies": [
       { "name": "Angular", "version": 19 },
       { "name": "Node.js" },
       { "name": "Express" },
       { "name": "MongoDB" }
     ],
+    "authors": ["1","4"],
     "link": "https://example.com/ecommerce",
-    "authors": [1],
     "photos": [
       "assets/2/Screenshot1.png",
       "assets/2/Screenshot2.png",
       "assets/2/Screenshot3.png"
-    ]
+    ],
+    "isEnable": true,
+    "isActive": true,
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-20T15:00:00Z"
   },
   {
-    "id": 3,
+    "id": "3",
     "title": "Chat Application",
     "category": "Social Media",
+    "date": "2024-05-01T10:00:00Z",
+    "description": "A real-time chat application allowing users to communicate instantly and share files.",
     "technologies": [
       { "name": "React", "version": 1.2 },
       { "name": "Node.js" },
       { "name": "SQLite" }
     ],
+    "authors": ["1","2"],
     "link": "https://example.com/chatapp",
-    "authors": [1, 2],
     "photos": [
       "assets/3/Screenshot1.png",
       "assets/3/Screenshot2.png",
       "assets/3/Screenshot3.png"
-    ]
+    ],
+    "isEnable": true,
+    "isActive": true,
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-20T15:00:00Z"
   },
   {
-    "id": 4,
+    "id": "4",
     "title": "Blog Platform",
     "category": "News",
+    "date": "2024-05-01T10:00:00Z",
+    "description": "A blogging platform for publishing articles, managing content, and engaging with readers.",
     "technologies": [
       { "name": "Java", "version": 21 },
       { "name": "Spring" },
       { "name": "MySQL" },
       { "name": "Maven" }
     ],
+    "authors": ["2","3"],
     "link": "https://example.com/blog",
-    "authors": [1, 2],
     "photos": [
       "assets/4/Screenshot1.png",
       "assets/4/Screenshot2.png",
       "assets/4/Screenshot3.png"
-    ]
+    ],
+    "isEnable": true,
+    "isActive": true,
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-20T15:00:00Z"
   },
   {
-    "id": 5,
+    "id": "5",
     "title": "AppConnect",
     "category": "Business",
+    "date": "2024-05-01T10:00:00Z",
+    "description": "A business networking app to connect professionals, share opportunities, and collaborate.",
     "technologies": [
       { "name": "Angular", "version": 17 },
       { "name": "Ionic", "version": 7 },
@@ -85,12 +111,16 @@
       { "name": "TypeScript" },
       { "name": "Sass" }
     ],
+    "authors": ["2", "3", "4"],
     "link": "https://example.com/appconnect",
-    "authors": [2, 3],
     "photos": [
       "assets/5/Screenshot1.jpg",
       "assets/5/Screenshot2.jpg",
       "assets/5/Screenshot3.jpg"
-    ]
+    ],
+    "isEnable": true,
+    "isActive": true,
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-20T15:00:00Z"
   }
 ]

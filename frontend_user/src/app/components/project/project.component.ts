@@ -1,11 +1,12 @@
 import {  Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonChip, IonIcon, IonAvatar, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, IonChip, IonIcon, IonLabel,IonCard, IonCardHeader, IonCardTitle, IonCardContent],
+  imports: [CommonModule, IonChip, IonIcon, IonLabel, IonCard,
+            IonCardHeader, IonCardTitle, IonCardContent, IonAvatar],
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss'],
 
