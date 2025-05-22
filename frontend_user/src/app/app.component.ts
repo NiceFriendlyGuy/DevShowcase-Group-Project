@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { logOut } from 'ionicons/icons';
 import { imagesOutline, informationCircleOutline, openOutline,  close } from 'ionicons/icons';
+import { ProfilesService } from './services/profiles.service';
+import { ProjectsService } from './services/projects.service';
 
 addIcons({
   'images-outline': imagesOutline,
@@ -42,6 +44,8 @@ export class AppComponent {
   public auth = inject(AuthService);
   private router = inject(Router);
   public profile: any;
+  private profileService = inject(ProfilesService); 
+  private projectsService = inject(ProjectsService);
   constructor() {
     addIcons({ logOut });
   }
@@ -51,7 +55,10 @@ export class AppComponent {
     this.auth.profile$.subscribe((updatedProfile) => {
       this.profile = updatedProfile;
       //console.log('Profile updated:', this.profile);
+      this.profileService.getProfilesAll();
+      this.projectsService.getProjectsAll();
     });
+
   }
 
   logout() {

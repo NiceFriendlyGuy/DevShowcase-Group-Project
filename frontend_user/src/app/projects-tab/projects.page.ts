@@ -44,8 +44,9 @@ export class ProjectsPage {
   constructor() {}
 
   ngOnInit() {
-    this.projects = this.projectsService.getProjectWithAuthorsPreview();
-
+    this.projects = this.projectsService.getProjectsAll();
+    //this.projects = this.projectsService.getProjectWithAuthorsPreview();
+  
     this.filteredProjects = this.projects;
     this.categories = this.projectsService.getCategoriesAll();
   }

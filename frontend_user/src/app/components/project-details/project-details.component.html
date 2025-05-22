@@ -66,7 +66,7 @@
 
     <h3>Authors</h3>
     <div class="chip-container">
-      @for(author of project.authors; track author) {
+      @for(author of authorsPreview; track author) {
         <ion-chip class="author-chip">
           <ion-avatar>
             <img [src]="author.photo || 'assets/default-profile.png'" alt="Author avatar" />

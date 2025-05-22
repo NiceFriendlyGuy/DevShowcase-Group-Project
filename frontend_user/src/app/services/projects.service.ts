@@ -13,7 +13,6 @@ export class ProjectsService {
   constructor() {
     this.projects = dummyProjectsData;
     this.categories = dummyCategoriesData;
-    //this.addPreviewProfileToProjects();
   }
 
   getProjectWithAuthorsPreview() {

@@ -173,4 +173,21 @@ export class ProfilesService {
     }
     return false; // Profile not found
   }
+
+  getPreviewProfile(profiles: string[]): any[] {
+  const authorsPreview: any[] = [];
+  profiles.forEach((authorId: string) => {
+    const foundProfile = this.getProfilesById(authorId);
+    const profile = Array.isArray(foundProfile) ? foundProfile[0] : foundProfile;
+    if (profile) {
+      authorsPreview.push({
+        id: profile.id,
+        name: profile.name,
+        surname: profile.surname,
+        photo: profile.photo,
+      });
+    }
+  });
+  return authorsPreview;
+}
 }

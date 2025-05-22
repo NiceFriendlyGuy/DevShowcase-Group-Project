@@ -29,19 +29,6 @@
     
   </div>
   
-  
-  <div class="project-grid" [class.empty]="filteredProjects.length === 0">
-    @if (filteredProjects.length === 0) {
-      <div class="no-projects-message">
-        <img src="assets/icon/no-result.png" alt="No projects found" />
-        <p>No projects found.</p>
-      </div>
-    } @else {
-      @for(project of filteredProjects; track project){
-        <app-project [project]="project" class="project-card" (click)="showProject(project.id)"></app-project>
-      }
-    }
-  </div>
 
   <div class="project-grid" [class.empty]="filteredProjects.length === 0">
     @if (filteredProjects.length === 0) {

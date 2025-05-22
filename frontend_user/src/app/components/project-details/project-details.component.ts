@@ -23,6 +23,7 @@ export class ProjectDetailsComponent  implements OnInit {
   private projectService = inject(ProjectsService);
   private profilesService = inject(ProfilesService);
   private projectId :any;
+  public authorsPreview: any[] = [];
   selectedTab: string = 'overview';
   project:any;
   
@@ -34,6 +35,7 @@ export class ProjectDetailsComponent  implements OnInit {
   ngOnInit() {
     this.project = this.projectService.getProjectById(this.projectId);
     this.project = this.project[0];
+    this.authorsPreview = this.profilesService.getPreviewProfile(this.project.authors);
   }
   
 

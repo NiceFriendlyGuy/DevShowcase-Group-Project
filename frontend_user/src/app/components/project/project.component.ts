@@ -1,6 +1,7 @@
 import {  Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonChip, IonIcon, IonAvatar, IonLabel } from '@ionic/angular/standalone';
+import { ProfilesService } from 'src/app/services/profiles.service';
 
 @Component({
   selector: 'app-project',
@@ -14,9 +15,14 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonChip, IonIcon,
 })
 export class ProjectComponent  implements OnInit {
   @Input() project:any;
+  public authorsPreview: any[] = [];
+  public profilesService = inject(ProfilesService);
   constructor() { }
 
   ngOnInit() {
+    console.log('ProjectComponent', this.project);
+    this.authorsPreview = this.getProfilePreview(this.project.authors);
+    console.log('ProjectComponent authorsPreview', this.authorsPreview);
   }
 
   getIcon(technology: string, type:string): string {
@@ -28,5 +34,10 @@ export class ProjectComponent  implements OnInit {
     const baseUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
     const primaryUrl = `${baseUrl}${skillName.toLowerCase().replace('.','')}/${skillName.toLowerCase().replace('.','')}-original.svg`;
     return primaryUrl;
+  }
+
+  getProfilePreview(profiles: any[]): any[] {
+    this.authorsPreview = this.profilesService.getPreviewProfile(profiles);
+    return this.authorsPreview
   }
 }
