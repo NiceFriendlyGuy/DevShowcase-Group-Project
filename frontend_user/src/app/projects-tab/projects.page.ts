@@ -86,7 +86,7 @@ export class ProjectsPage {
     return this.selectedCategories.includes(cat);
   }
 
-  showProject(projectId: number) {
+  showProject(projectId: string) {
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 }

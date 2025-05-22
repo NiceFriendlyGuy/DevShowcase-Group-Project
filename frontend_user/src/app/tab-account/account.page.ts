@@ -76,11 +76,11 @@ export class AccountPage {
     //console.log('Profile:', this.profile);
   }
 
-  removeProject(projectId: number) {
+  removeProject(projectId: string) {
     console.log('Project ID to delete:', projectId);
   }
 
-  async confirmDeleteProject(projectId: number) {
+  async confirmDeleteProject(projectId: string) {
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
       message:
@@ -107,7 +107,7 @@ export class AccountPage {
     await alert.present();
   }
 
-  editProject(projectId: number) {}
+  editProject(projectId: string) {}
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({

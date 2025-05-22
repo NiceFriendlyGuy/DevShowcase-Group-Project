@@ -10,21 +10,26 @@ export class ProjectsService {
   private profilesService = inject(ProfilesService);
   private projects: any[] = [];
   private categories: any[] = [];
-  constructor() { 
+  constructor() {
     this.projects = dummyProjectsData;
     this.categories = dummyCategoriesData;
-    this.addPreviewProfileToProjects();
-  } 
+    //this.addPreviewProfileToProjects();
+  }
 
-  addPreviewProfileToProjects(){
+  addPreviewProfileToProjects() {
     this.projects.forEach((project) => {
-      const previewAuthors: { userId: string; name: string; surname: string, photo : string}[] = [];
+      const previewAuthors: {
+        id: string;
+        name: string;
+        surname: string;
+        photo: string;
+      }[] = [];
       project.authors.forEach((authorId: string) => {
         const profiles = this.profilesService.getProfilesById(authorId);
         const profile = Array.isArray(profiles) ? profiles[0] : profiles;
         if (profile) {
           previewAuthors.push({
-            userId: profile.userId,
+            id: profile.id,
             name: profile.name,
             surname: profile.surname,
             photo: profile.photo,
@@ -35,20 +40,22 @@ export class ProjectsService {
     });
   }
 
-  getProjectsAll(){
-    return this.projects
+  getProjectsAll() {
+    return this.projects;
   }
 
   getProjectById(id: string) {
-    const project = this.projects.filter(project => project.id === id)
+    const project = this.projects.filter((project) => project.id === id);
     return project;
   }
-  
+
   getProjectsByAuthor(authorId: string) {
-    return this.projects.filter(project => project.authors.includes(authorId));
+    return this.projects.filter((project) =>
+      project.authors.includes(authorId)
+    );
   }
 
-  getCategoriesAll(){
+  getCategoriesAll() {
     return this.categories;
   }
 }
