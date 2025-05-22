@@ -1,0 +1,10 @@
+.chart-container {
+  width: 100px;
+  position: relative; 
+}
+
+::ng-deep .chart-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

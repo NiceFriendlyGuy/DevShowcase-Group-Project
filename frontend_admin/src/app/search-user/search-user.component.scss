@@ -1,0 +1,79 @@
+/* Formulaire de recherche compact */
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.search-box{
+  width: 100%;
+}
+
+.search-field {
+  width: 100%;
+  font-size: 14px;
+
+  .search-icon {
+    margin-right: 15px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+/* Conteneur Scrollable pour les Utilisateurs */
+.scrollable-container {
+  overflow-y: auto;
+  padding-right: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
+
+}
+
+/* Cartes Utilisateur compactes */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-card {
+  max-width: 350px;
+  padding: 8px;
+  font-size: 14px;
+
+  mat-card-header {
+    display: flex;
+    justify-content: space-between; /* Espace entre les infos et le bouton */
+    align-items: center;
+    padding: 8px;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  mat-card-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  mat-card-subtitle {
+    font-size: 14px;
+    color: #757575;
+  }
+
+  button {
+    margin-left: auto; /* Aligne le bouton à droite */
+  }
+}
