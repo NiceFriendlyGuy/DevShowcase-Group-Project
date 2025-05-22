@@ -18,7 +18,14 @@ export class StatisticsComponent {
 
 
   toggleLineChart(key: string) {
-    this.showLineChart = !this.showLineChart;
+  if (this.selectedKey === key && this.showLineChart) {
+    // Same key, already shown → close chart
+    this.showLineChart = false;
+  } else {
+    // New key or reopening chart → show with new data
     this.selectedKey = key;
+    this.showLineChart = true;
   }
+}
+
 }
