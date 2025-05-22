@@ -5,7 +5,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const projectRoutes = require('./routes/projects.route');
-const accountRoutes = require('./routes/accounts.route');
+const profileRoutes = require('./routes/profiles.route');
+const authRoutes = require('./routes/auth.route')
 
 app.get('/', (req, res) => {
     res.send(`server running on port ${port}: Portfolio Web App`);
@@ -14,7 +15,8 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 app.use('/api/projects', projectRoutes);
-app.use('/api/accounts', accountRoutes);
+app.use('/api/profiles', profileRoutes);
+app.use('/api/auth', authRoutes);
 
 app.listen(port, () => {
 console.log(`server running at http://localhost:${port}`);
