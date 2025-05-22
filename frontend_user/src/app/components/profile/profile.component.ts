@@ -39,7 +39,7 @@ export class ProfileComponent  implements OnInit {
     },
   };
 
-  public projectsPreview = (id: number): any[] => 
+  public projectsPreview = (id: string): any[] => 
   this.projectsService.getProjectsByAuthor(id);
   
   

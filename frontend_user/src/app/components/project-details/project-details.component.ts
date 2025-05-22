@@ -1,24 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {  IonHeader, IonToolbar,IonTitle,IonContent,
+import { IonHeader, IonToolbar, IonContent,
          IonSegmentButton, IonSegment, IonLabel, 
-         IonIcon, IonBackButton, IonButtons, IonCard, IonCardHeader, 
-         IonCardSubtitle, IonCardTitle,IonCardContent } from '@ionic/angular/standalone';
+         IonIcon, IonBackButton, IonButtons, 
+         IonChip, IonAvatar } from '@ionic/angular/standalone';
+import { DatePipe } from '@angular/common';
+
 import { ProjectsService } from 'src/app/services/projects.service';
+import { ProfilesService } from 'src/app/services/profiles.service';
 
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, 
-            IonSegment, IonSegmentButton, 
-            IonLabel,  IonIcon, IonBackButton, IonButtons,
-          IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle,IonCardContent],
+  imports: [IonHeader, IonToolbar, IonChip, IonContent, IonAvatar, 
+            IonSegment, IonSegmentButton, DatePipe,
+            IonLabel,  IonIcon, IonBackButton, IonButtons],
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],
 })
 export class ProjectDetailsComponent  implements OnInit {
   private projectService = inject(ProjectsService);
+  private profilesService = inject(ProfilesService);
   private projectId :any;
   selectedTab: string = 'overview';
   project:any;
@@ -26,16 +29,22 @@ export class ProjectDetailsComponent  implements OnInit {
   //Probleme avec le type et le service projects
   constructor(private route: ActivatedRoute) { 
     this.projectId = this.route.snapshot.paramMap.get('id');
-
   }
 
   ngOnInit() {
-    console.log(this.projectId);
     this.project = this.projectService.getProjectById(this.projectId);
-    console.log(this.project);
+    this.project = this.project[0];
   }
+  
 
   onSegmentChange(event: CustomEvent) {
     this.selectedTab = event.detail.value;
   }
+
+  getIconUrl(skillName: string): string {
+    const baseUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
+    const primaryUrl = `${baseUrl}${skillName.toLowerCase().replace('.','')}/${skillName.toLowerCase().replace('.','')}-original.svg`;
+    return primaryUrl;
+  }
+
 }

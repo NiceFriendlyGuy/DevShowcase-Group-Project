@@ -7,18 +7,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cat-container">
-  @for (cat of categories; track cat) {
-    <div
-      class="cat"
-      [class.selected]="isSelected(cat)"
-      (click)="toggleTech(cat)"
-    >
-      <img [src]="'assets/icon/categories/' + cat.icon" [alt]="cat.name + ' icon'" />
-      <p>{{ cat.name }}</p>
+  <div class="cat-container-wrapper">
+    <div class="cat-container">
+      @for (cat of categories; track cat) {
+        <div
+          class="cat"
+          [class.selected]="isSelected(cat)"
+          (click)="toggleTech(cat)"
+        >
+          <img [src]="'assets/icon/categories/' + cat.icon" [alt]="cat.name + ' icon'" />
+          <p>{{ cat.name }}</p>
+        </div>
+      }
     </div>
-  }
+    <div class="delete-filters-chip-row">
+    @if(selectedCategories.length > 0){
+      <ion-chip class="delete-filters-chip" color="primary" (click)="clearFilters()">
+        <ion-icon name="close"></ion-icon>
+        <ion-label>Delete filters</ion-label>
+      </ion-chip>
+    }
+    </div>
+    
   </div>
+  
   
   <div class="project-grid" [class.empty]="filteredProjects.length === 0">
     @if (filteredProjects.length === 0) {

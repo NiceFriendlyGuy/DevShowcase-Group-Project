@@ -1,6 +1,6 @@
 [
     {
-      "userId": 1,
+      "userId": "1",
       "admin": true,
       "name": "Charles",
       "surname": "Smith",
@@ -19,7 +19,7 @@
       "bio": "Full stack developer with 5+ years of experience in web application development."
     },
     {
-      "userId": 2,
+      "userId": "2",
       "admin": false,
       "name": "John",
       "surname": "Doe",
@@ -38,7 +38,7 @@
       "bio": "Frontend developer specializing in building responsive and user-friendly web interfaces."
     },
         {
-      "userId": 3,
+      "userId": "3",
       "admin": false,
       "name": "Alice",
       "surname": "Johnson",
@@ -57,7 +57,7 @@
       "bio": "Backend developer with expertise in building scalable APIs and managing databases."
     },
     {
-      "userId": 4,
+      "userId": "4",
       "admin": false,
       "name": "Emily",
       "surname": "Davis",
@@ -76,7 +76,7 @@
       "bio": "UI/UX designer passionate about creating intuitive and visually appealing user interfaces."
     },
     {
-      "userId": 5,
+      "userId": "5",
       "admin": false,
       "name": "Antonio",
       "surname": "GP",
@@ -94,7 +94,7 @@
       "bio": "Full stack developer in web application development."
     },
     {
-      "userId": 6,
+      "userId": "6",
       "admin": true,
       "name": "Tester",
       "surname": "Dummmy",

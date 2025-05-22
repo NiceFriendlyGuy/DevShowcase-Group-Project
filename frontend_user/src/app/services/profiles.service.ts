@@ -16,7 +16,7 @@ export class ProfilesService {
     return this.profiles;
   }
 
-  getProfilesById(authorId: number) {
+  getProfilesById(authorId: string) {
     return this.profiles.filter(profile => profile.userId === authorId);
   }
 
