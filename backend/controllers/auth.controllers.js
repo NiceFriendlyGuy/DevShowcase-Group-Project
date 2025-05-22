@@ -25,4 +25,6 @@ authController.login = async function (req, res) {
     }
   };
 
+// update password
+
   module.exports = authController;
