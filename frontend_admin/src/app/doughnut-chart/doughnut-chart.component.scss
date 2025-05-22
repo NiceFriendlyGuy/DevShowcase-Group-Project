@@ -1,0 +1,10 @@
+.chart-wrapper {
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+::ng-deep canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
