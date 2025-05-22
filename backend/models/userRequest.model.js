@@ -10,7 +10,8 @@ const userRequestSchema = new mongoose.Schema({
         type: String, 
         enum: [
             'pending', 
-            'solved'], 
+            'solved',
+            'cancelled'], 
         default: 'pending' 
     },
     type: { 
