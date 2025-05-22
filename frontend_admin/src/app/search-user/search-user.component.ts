@@ -13,18 +13,18 @@ import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dia
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
 
 @Component({
-    selector: 'app-search-user',
-    imports: [
-        MatCardModule,
-        MatInputModule,
-        MatFormFieldModule,
-        FormsModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltipModule,
-    ],
-    templateUrl: './search-user.component.html',
-    styleUrl: './search-user.component.scss'
+  selector: 'app-search-user',
+  imports: [
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+  ],
+  templateUrl: './search-user.component.html',
+  styleUrl: './search-user.component.scss',
 })
 export class SearchUserComponent {
   private readonly userService = inject(UserService);
@@ -37,13 +37,17 @@ export class SearchUserComponent {
   }
 
   public openUserSettingsDialog(user: User) {
-    const dialogRef = this.dialog.open(UserSettingsComponent, {
+    const ref = this.dialog.open(UserSettingsComponent, {
       data: { user },
     });
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.deleteUser(user);
+    ref.afterClosed().subscribe((result) => {
+      if (result?.delete && result.user) {
+        this.users.set(this.users().filter((u) => u !== result.user));
+      }
+
+      if (result?.update && result.user) {
+        this.users.set(this.users().map((u) => (u === user ? result.user : u)));
       }
     });
   }
@@ -56,14 +60,6 @@ export class SearchUserComponent {
         user.prenom.toLowerCase().includes(query)
     );
   });
-
-  public deleteUser(user: User) {
-    this.userService
-      .deleteUser(this.users(), user)
-      .subscribe((updatedUsers) => {
-        this.users.set(updatedUsers);
-      });
-  }
 
   // Méthode sécurisée pour gérer la recherche
   public onSearch(event: Event) {

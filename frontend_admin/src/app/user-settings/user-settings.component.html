@@ -1,22 +1,42 @@
 <h2 mat-dialog-title>Paramètres de l'utilisateur</h2>
 <mat-dialog-content>
-  <p>
-    <strong>Nom : {{ data.user.nom }}</strong>
-    <strong>Nom : {{ data.user.prenom }}</strong>
-    <strong>Nom : {{ data.user.age }}</strong>
-  </p>
-  <p><strong>Rôle :</strong></p>
-  <p><strong>Date d'inscription :</strong></p>
-  <p><strong>Dernière activité :</strong> il y a 3 jours</p>
+  @if (!isEditing()) {
+  <p><strong>Nom :</strong> {{ data.user.nom }}</p>
+  <p><strong>Prénom :</strong> {{ data.user.prenom }}</p>
+  <p><strong>Âge :</strong> {{ data.user.age }}</p>
 
   <mat-divider class="my-2"></mat-divider>
 
   <button mat-button color="primary">Réinitialiser le mot de passe</button>
-  <button mat-button color="accent">Modifier le rôle</button>
-  <button mat-button color="warn" (click)="confirmDeletion()">
+  <button mat-button color="warn" (click)="openDeleteUserDialog(data.user)">
     Supprimer cet utilisateur
   </button>
+  <button mat-button color="accent" (click)="startEditing()">Modifier</button>
+  } @else {
+  <mat-form-field appearance="fill">
+    <mat-label>Nom</mat-label>
+    <input matInput [(ngModel)]="editedUser.nom" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Prénom</mat-label>
+    <input matInput [(ngModel)]="editedUser.prenom" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Âge</mat-label>
+    <input matInput type="number" [(ngModel)]="editedUser.age" />
+  </mat-form-field>
+
+  <div class="edit-actions">
+    <button mat-raised-button color="primary" (click)="saveUserChanges()">
+      Enregistrer
+    </button>
+    <button mat-button (click)="cancelEditing()">Annuler</button>
+  </div>
+  }
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="confirmClose()">Fermer</button>
+  <button mat-button (click)="confirmClose()">Fermer</button>
 </mat-dialog-actions>
