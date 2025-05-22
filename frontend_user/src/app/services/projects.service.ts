@@ -16,10 +16,11 @@ export class ProjectsService {
     //this.addPreviewProfileToProjects();
   }
 
-  addPreviewProfileToProjects() {
-    this.projects.forEach((project) => {
+  getProjectWithAuthorsPreview() {
+    const dataReturn = this.projects;
+    dataReturn.forEach((project) => {
       const previewAuthors: {
-        id: string;
+        userId: string;
         name: string;
         surname: string;
         photo: string;
@@ -29,7 +30,7 @@ export class ProjectsService {
         const profile = Array.isArray(profiles) ? profiles[0] : profiles;
         if (profile) {
           previewAuthors.push({
-            id: profile.id,
+            userId: profile.userId,
             name: profile.name,
             surname: profile.surname,
             photo: profile.photo,
@@ -38,6 +39,7 @@ export class ProjectsService {
       });
       project.authors = previewAuthors;
     });
+    return dataReturn;
   }
 
   getProjectsAll() {
