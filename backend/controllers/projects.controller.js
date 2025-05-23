@@ -57,7 +57,7 @@ projectController.delete = async function (req, res) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json( { message: 'ID not existant for deletion'})
         }
-        const deletedProject = await Project.findByIdAndDelete(id);
+        const deletedProject = await Project.findByIdAndUpdate(id, {isDeleted: true});
         if (!deletedProject) {
             return res.status(404).json( { message: 'No project found for deletion'})
         }

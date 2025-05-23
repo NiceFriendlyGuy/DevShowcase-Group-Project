@@ -68,7 +68,7 @@ profileController.delete = async function (req, res) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({message:"Id not existant"});
         }
-        const deletedProfile = await Profile.findByIdAndDelete(id);
+        const deletedProfile = await Profile.findByIdAndUpdate(id, {isDeleted: true});
         if (!deletedProfile) {
             return res.status(400).json({message: "failed to delete profile"});
         }
