@@ -15,7 +15,10 @@ const profileSchema = new mongoose.Schema ({
       version: String,
       _id: false
     }],
-    isDeleted: Boolean
+    isDeleted: { 
+      type: Boolean,
+      default: false
+    } 
   }, {
     timestamps: true // adds createdAt & updatedAt automatically
   });
