@@ -11,6 +11,12 @@
   overflow: auto;
 }
 
+.mat-card-content .mat-mdc-icon-button{
+  width: unset;
+  height: unset;
+  padding: 0;
+}
+
 .requests-list {
   display: flex;
   flex-direction: column;
