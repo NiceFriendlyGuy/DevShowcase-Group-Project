@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const statisticsController = {};
 
 statisticsController.getStats = async function (req, res) {
-    //
     try {
         // total number of users
         const totalUsers = await profileData.countDocuments();
@@ -19,7 +18,10 @@ statisticsController.getStats = async function (req, res) {
         const usersActiveThisWeek = 'not implemented because activity needs to be defined';
 
         // user growth for the week
-        const userGrowthThisWeek = (usersCreatedThisWeek / (totalUsers - usersCreatedThisWeek) ) * 100;
+        const previousUsers = totalUsers - usersCreatedThisWeek;
+        const userGrowthThisWeek = previousUsers > 0
+        ? (usersCreatedThisWeek / previousUsers) * 100
+        : 100;
 
         res.status(200).json({
             totalUsers: totalUsers,
