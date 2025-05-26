@@ -12,3 +12,15 @@
   </div>
   }
 </div>
+<div class="delete-filters-chip-row">
+  @if(selectedItems.length > 0){
+  <ion-chip
+    class="delete-filters-chip"
+    color="primary"
+    (click)="clearFilters()"
+  >
+    <ion-icon name="close"></ion-icon>
+    <ion-label>Delete filters</ion-label>
+  </ion-chip>
+  }
+</div>

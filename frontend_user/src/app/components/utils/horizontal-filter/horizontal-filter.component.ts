@@ -1,18 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { addIcons } from 'ionicons';
+import { close } from 'ionicons/icons';
+import { IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-horizontal-filter',
   templateUrl: './horizontal-filter.component.html',
   styleUrls: ['./horizontal-filter.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, IonChip, IonIcon, IonLabel],
 })
 export class HorizontalFilterComponent implements OnInit {
   @Input() public listItems: any[] = [];
   @Output() public filteredItems = new EventEmitter<any[]>();
-  private selectedItems: any[] = [];
+  public selectedItems: any[] = [];
 
-  constructor() {}
+  constructor() {
+    addIcons({
+      close,
+    });
+  }
 
   ngOnInit() {}
 
@@ -34,5 +41,10 @@ export class HorizontalFilterComponent implements OnInit {
 
   public isSelected(item: any): boolean {
     return this.selectedItems.includes(item);
+  }
+
+  public clearFilters() {
+    this.selectedItems = [];
+    this.filteredItems.emit(this.selectedItems); // Emit to parent
   }
 }
