@@ -9,6 +9,8 @@ export class AuthService {
   public profile$ = this.userInfoSubject.asObservable();
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private profileService = inject(ProfilesService); // Inject the ProfileService
+  private isSignUpSubject = new BehaviorSubject<boolean>(false);
+  public enabledSignUp$ = this.isSignUpSubject.asObservable();
 
   constructor() {}
 
@@ -17,6 +19,13 @@ export class AuthService {
   }
   set isLoggedIn(value: boolean) {
     this.isLoggedInSubject.next(value);
+  }
+
+  get isSignUp(): boolean {
+    return this.isSignUpSubject.value;
+  }
+  set isSignUp(value: boolean) {
+    this.isSignUpSubject.next(value);
   }
 
   async authUser(email: string, password: string): Promise<any> {

@@ -64,6 +64,17 @@ export class LoginComponent implements OnInit {
         this.clearForm(); // Clear the form if "reload" is present in query params
       }
     });
+
+    this.authService.enabledSignUp$.subscribe((isSignUp) => {
+      this.clearForm(); // Clear the form when the sign-up state changes
+      if (isSignUp) {
+        this.isSignUp = true; // Set the flag to false to show the login form
+        this.loginForm.get('name')?.enable(); // Disable the name field
+      } else {
+        this.isSignUp = false; // Set the flag to false to show the login form
+        this.loginForm.get('name')?.disable(); // Disable the name field
+      }
+    });
   }
 
   public async onSubmit(): Promise<void> {
@@ -120,7 +131,7 @@ export class LoginComponent implements OnInit {
         //console.log(result);
         // Redirect to the login page after successful registration
         alert('Profile registered successfully!');
-        this.enableLogIn(); // Redirect to the login page
+        this.authService.isSignUp = false; // Reset the sign-up flag
       }
     } catch (error) {
       console.error('Error during signup:', error);
@@ -129,14 +140,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enableSignUp() {
-    this.clearForm();
-    this.isSignUp = true; // Set the flag to true to show the signup form
-    this.loginForm.get('name')?.enable(); // Enable the name field
-  }
-  public enableLogIn() {
-    this.clearForm();
-    this.isSignUp = false; // Set the flag to false to show the login form
-    this.loginForm.get('name')?.disable(); // Disable the name field
+    this.authService.isSignUp = true;
   }
 
   public clearForm(): void {

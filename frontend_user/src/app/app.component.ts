@@ -8,21 +8,28 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonToolbar,
+  IonButtons,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { logOut } from 'ionicons/icons';
-import { imagesOutline, informationCircleOutline, openOutline,  close } from 'ionicons/icons';
-import { ProfilesService } from './services/profiles.service';
-import { ProjectsService } from './services/projects.service';
+import {
+  imagesOutline,
+  informationCircleOutline,
+  openOutline,
+  close,
+} from 'ionicons/icons';
+
+import { Location } from '@angular/common';
 
 addIcons({
   'images-outline': imagesOutline,
   'information-circle-outline': informationCircleOutline,
-  'open-outline' : openOutline,
-  'close' : close,
+  'open-outline': openOutline,
+  close: close,
 });
 @Component({
   selector: 'app-root',
@@ -38,14 +45,19 @@ addIcons({
     IonContent,
     IonToolbar,
     IonImg,
+    IonButtons,
+    IonButton,
   ],
 })
 export class AppComponent {
   public auth = inject(AuthService);
   private router = inject(Router);
   public profile: any;
-  private profileService = inject(ProfilesService); 
-  private projectsService = inject(ProjectsService);
+
+  private location = inject(Location);
+  public showBackButton: boolean = false;
+  public isSignUp: boolean = false; // Flag to toggle between login and signup
+
   constructor() {
     addIcons({ logOut });
   }
@@ -57,6 +69,27 @@ export class AppComponent {
       //console.log('Profile updated:', this.profile);
     });
 
+    this.auth.enabledSignUp$.subscribe((value: any) => {
+      this.showBackButton = value;
+      this.isSignUp = value;
+      console.log('Sign up event received:', this.isSignUp);
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
+          this.showBackButton = this.isSignUp; // Hide back button on login page
+        } else {
+          this.showBackButton = false; // Show back button on other pages
+        }
+      }
+    });
+  }
+
+  goBack() {
+    if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
+      this.auth.isSignUp = false; // Reset the sign-up flag
+    }
   }
 
   logout() {
