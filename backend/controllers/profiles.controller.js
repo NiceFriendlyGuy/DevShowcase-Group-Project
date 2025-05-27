@@ -47,10 +47,6 @@ profileController.update = async function (req, res) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({message:'Id not existant'});
         }
-        // add bcrypt for password hash if updated
-        if (req.body.password) {
-            req.body.password = await bcrypt.hash(req.body.password, 10);
-          }
         const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, {new: true});
         if (!updatedProfile) {
             return res.status(404).json({message:'profile to update: not found'});
@@ -68,7 +64,7 @@ profileController.delete = async function (req, res) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({message:"Id not existant"});
         }
-        const deletedProfile = await Profile.findByIdAndDelete(id);
+        const deletedProfile = await Profile.findByIdAndUpdate(id, {isDeleted: true});
         if (!deletedProfile) {
             return res.status(400).json({message: "failed to delete profile"});
         }
