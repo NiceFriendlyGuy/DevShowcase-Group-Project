@@ -97,6 +97,13 @@ export class UserSettingsComponent {
   }
 
   public saveUserChanges() {
-    this.dialogRef.close({ update: true, user: this.editedUser });
+    this.userService.updateUser(this.editedUser).subscribe({
+      next: (updatedUser) => {
+        this.dialogRef.close({ update: true, user: updatedUser });
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour :', err);
+      },
+    });
   }
 }

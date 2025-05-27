@@ -1,7 +1,7 @@
 import { Technology } from './technology.model';
 
 export interface User {
-  id: string;
+  _id: string;
   admin: boolean;
   name: string;
   surname: string;

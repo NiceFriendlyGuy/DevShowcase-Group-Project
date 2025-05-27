@@ -19,6 +19,16 @@ export class UserService {
     );
   }
 
+  public updateUser(user: User): Observable<User> {
+    return this.http.put<User>(
+      `http://localhost:3000/api/profiles/${user._id}`,
+      user,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
   /* public deleteUser(user: User): Observable<User[]> {
     return this.http.delete<User[]>('assets/fakeusers.json', { body: user });
   } */

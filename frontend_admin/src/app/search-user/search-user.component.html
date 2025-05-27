@@ -14,7 +14,7 @@
 
 <div class="scrollable-container">
   <div class="card-container">
-    @for (user of filteredUsers(); track user) {
+    @for (user of filteredUsers(); track user._id) {
     <mat-card class="user-card" appearance="outlined">
       <mat-card-header class="user-card-header">
         <div class="user-info">
