@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DoughnutChartComponent } from '../doughnut-chart/doughnut-chart.component';
 import { LineChartComponent } from '../line-chart/line-chart.component';
 import { ProjectService } from '../services/projects.service';
+import { UserService } from '../services/user.service';
 import { Project } from '../models/projects.model';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -35,20 +36,34 @@ export class StatisticsComponent implements OnInit {
   lineChartLabels: string[] = [];
   lineChartCounts: number[] = [];
 
-  constructor(private projectService: ProjectService, private cdr: ChangeDetectorRef) {}
+  users: any[] = []; // raw users
+  userTechLabels: string[] = [];
+  userTechCounts: number[] = [];
+
+  userTechChartDataObject: any = {
+    labels: [],
+    datasets: [{ data: [] }]
+  };
+
+
+  constructor(private projectService: ProjectService, private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe({
-      next: (data) => {
-        this.projects = data;
-        this.computeTechnologyUsage();
-        this.groupProjectsBy('month'); // 👈 default
-      },
-      error: (err) => {
-        console.error('Failed to load projects:', err);
-      }
-    });
-  }
+  this.projectService.getProjects().subscribe({
+    next: (data) => {
+      this.projects = data;
+      this.computeTechnologyUsage();
+      this.groupProjectsBy('month');
+    }
+  });
+
+  this.userService.getUsers().subscribe({
+    next: (data) => {
+      this.users = data;
+      this.computeUserTechnologyUsage();
+    }
+  });
+}
 
 
   toggleLineChart(key: string): void {
@@ -115,4 +130,30 @@ export class StatisticsComponent implements OnInit {
     const days = Math.floor((+date - +firstJan) / 86400000);
     return Math.ceil((days + firstJan.getDay() + 1) / 7);
   }
+
+  computeUserTechnologyUsage(): void {
+  const techUserMap = new Map<string, Set<string>>(); // Map<techName, Set<userId>>
+
+  for (const user of this.users) {
+    for (const tech of user.technologies) {
+      const techName = tech.name;
+      if (!techUserMap.has(techName)) {
+        techUserMap.set(techName, new Set());
+      }
+      techUserMap.get(techName)!.add(user._id);
+    }
+  }
+
+  const labels = Array.from(techUserMap.keys());
+  const counts = labels.map(label => techUserMap.get(label)!.size);
+
+  this.userTechLabels = labels;
+  this.userTechCounts = counts;
+
+  this.userTechChartDataObject = {
+    labels,
+    datasets: [{ data: counts }]
+  };
+}
+
 }
