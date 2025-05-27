@@ -1,6 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const dbUri =  process.env.USE_ATLAS === 'true' ? process.env.MONGO_URI : 'mongodb://localhost:27017/portfoliodb' // 'mongodb://portfolio_database/portfoliodb'
+
+const dbUri = 'mongodb://portfolio_database/portfoliodb';
+
+// const dbUri =  process.env.USE_ATLAS === 'true' ? process.env.MONGO_URI : /* mongodb://localhost:27017/portfoliodb */ 'mongodb://portfolio_database/portfoliodb'
 
 mongoose.connect(dbUri)
 .then(() => {
