@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
@@ -10,7 +10,13 @@ export class UserService {
   private readonly http = inject(HttpClient);
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('assets/fakeusers.json');
+    return this.http.post<User[]>(
+      'http://localhost:3000/api/profiles/findAll',
+      {},
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
 
   /* public deleteUser(user: User): Observable<User[]> {

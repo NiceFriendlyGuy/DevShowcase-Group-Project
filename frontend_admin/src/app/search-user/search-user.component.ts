@@ -56,8 +56,8 @@ export class SearchUserComponent {
     const query = this.searchQuery().toLowerCase().trim();
     return this.users().filter(
       (user) =>
-        user.nom.toLowerCase().includes(query) ||
-        user.prenom.toLowerCase().includes(query)
+        user.name.toLowerCase().includes(query) ||
+        user.surname.toLowerCase().includes(query)
     );
   });
 

@@ -1,9 +1,9 @@
 <h2 mat-dialog-title>Paramètres de l'utilisateur</h2>
 <mat-dialog-content class="user-settings-dialog-container">
   @if (!isEditing()) {
-  <p><strong>Nom :</strong> {{ data.user.nom }}</p>
-  <p><strong>Prénom :</strong> {{ data.user.prenom }}</p>
-  <p><strong>Âge :</strong> {{ data.user.age }}</p>
+  <p><strong>Nom :</strong> {{ data.user.name }}</p>
+  <p><strong>Prénom :</strong> {{ data.user.surname }}</p>
+  <p><strong>Âge :</strong> {{ data.user.role }}</p>
 
   <mat-divider class="my-2"></mat-divider>
 
@@ -15,17 +15,17 @@
   } @else {
   <mat-form-field appearance="fill">
     <mat-label>Nom</mat-label>
-    <input matInput [(ngModel)]="editedUser.nom" />
+    <input matInput [(ngModel)]="editedUser.name" />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Prénom</mat-label>
-    <input matInput [(ngModel)]="editedUser.prenom" />
+    <input matInput [(ngModel)]="editedUser.surname" />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Âge</mat-label>
-    <input matInput type="number" [(ngModel)]="editedUser.age" />
+    <input matInput type="number" [(ngModel)]="editedUser.role" />
   </mat-form-field>
 
   <div class="edit-actions">
