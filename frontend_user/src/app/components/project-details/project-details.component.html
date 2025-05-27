@@ -1,94 +1,89 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/projects"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content class="ion-padding">
   <div class="project-details-container">
     <div class="project-header">
       <h2>{{ project.title }}</h2>
       @if(project.photos?.length > 0){
-        <div class="project-main-image" >
-          <img [src]="project.photos[0]" alt="Project preview image" />
-        </div>
+      <div class="project-main-image">
+        <img [src]="project.photos[0]" alt="Project preview image" />
+      </div>
       }
       <div class="project-info">
         <div class="project-meta">
-        <div class="category-badge">
-          <img class="category-badge-img" appDetectOrientation [src]="'assets/icon/categories/' + project.category + '.png'" [alt]="project.category + ' icon'">
-          <span class="category-badge-label">{{ project.category }}</span>
+          <div class="category-badge">
+            <img
+              class="category-badge-img"
+              appDetectOrientation
+              [src]="'assets/icon/categories/' + project.category + '.png'"
+              [alt]="project.category + ' icon'"
+            />
+            <span class="category-badge-label">{{ project.category }}</span>
+          </div>
+          <span class="project-date">
+            <ion-icon name="calendar-outline"></ion-icon>
+            {{ project.date | date : "longDate" }}
+          </span>
         </div>
-        <span class="project-date">
-          <ion-icon name="calendar-outline"></ion-icon>
-          {{ project.date | date:'longDate' }}
-        </span>
-      </div>
-      <p>{{ project.description || 'No description provided.' }}</p>
-      <p class="project-link">
-        @if(project.link){
+        <p>{{ project.description || "No description provided." }}</p>
+        <p class="project-link">
+          @if(project.link){
           <ion-chip color="primary" class="project-link-chip">
             <ion-icon name="open-outline"></ion-icon>
-            <a [href]="project.link" target="_blank" rel="noopener">{{project.link}}</a>
+            <a [href]="project.link" target="_blank" rel="noopener">{{
+              project.link
+            }}</a>
           </ion-chip>
-        }
-      </p>
+          }
+        </p>
       </div>
-      
     </div>
 
+    <ion-segment [value]="selectedTab" (ionChange)="onSegmentChange($event)">
+      <ion-segment-button value="overview" layout="icon-start">
+        <ion-label>Overview</ion-label>
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="gallery" layout="icon-start">
+        <ion-label>Gallery</ion-label>
+        <ion-icon name="images-outline"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
 
-  <ion-segment [value]="selectedTab" (ionChange)="onSegmentChange($event)">
-    <ion-segment-button value="overview" layout="icon-start">
-      <ion-label>Overview</ion-label>
-      <ion-icon name="information-circle-outline"></ion-icon>
-    </ion-segment-button>
-    <ion-segment-button value="gallery" layout="icon-start">
-      <ion-label>Gallery</ion-label>
-      <ion-icon name="images-outline"></ion-icon>
-    </ion-segment-button>
-  </ion-segment>
-
-  @if(selectedTab === 'overview'){
+    @if(selectedTab === 'overview'){
     <h3>Technologies</h3>
     <div class="chip-container">
       @for(tech of project.technologies; track tech) {
-        <ion-chip class="tech-chip">
-          <ion-icon [src]="getIconUrl(tech.name)"></ion-icon>
-          <ion-label>{{ tech.name }} {{ tech.version }}</ion-label>
-        </ion-chip>
-      }   
+      <ion-chip class="tech-chip">
+        <ion-icon [src]="getIconUrl(tech.name)"></ion-icon>
+        <ion-label>{{ tech.name }} {{ tech.version }}</ion-label>
+      </ion-chip>
+      }
     </div>
-    
 
     <h3>Authors</h3>
     <div class="chip-container">
       @for(author of authorsPreview; track author) {
-        <ion-chip class="author-chip">
-          <ion-avatar>
-            <img [src]="author.photo || 'assets/default-profile.png'" alt="Author avatar" />
-          </ion-avatar>
-          <ion-label>{{ author.name }} {{ author.surname }}</ion-label>
-        </ion-chip>
+      <ion-chip class="author-chip">
+        <ion-avatar>
+          <img
+            [src]="author.photo || 'assets/default-profile.png'"
+            alt="Author avatar"
+          />
+        </ion-avatar>
+        <ion-label>{{ author.name }} {{ author.surname }}</ion-label>
+      </ion-chip>
       }
     </div>
-    
-  } @else {
-    @if(project.photos?.length > 0){
-      <div class="project-gallery">
-        <div class="gallery-grid">
-          @for(photo of project.photos; track photo){
-            <div class="gallery-item">
-              <img [src]="photo" alt="Screenshot" />
-            </div>
-          }
+
+    } @else { @if(project.photos?.length > 0){
+    <div class="project-gallery">
+      <div class="gallery-grid">
+        @for(photo of project.photos; track photo){
+        <div class="gallery-item">
+          <img [src]="photo" alt="Screenshot" />
         </div>
+        }
       </div>
-    }
-  }
+    </div>
+    } }
   </div>
 </ion-content>
-

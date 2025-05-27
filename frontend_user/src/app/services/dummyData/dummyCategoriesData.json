@@ -1,22 +1,28 @@
 [
-  {"name": "E-Commerce", "icon": "E-Commerce.png"},
-  {"name": "Social Media", "icon": "Social Media.png"},
-  {"name": "Education", "icon": "Education.png"},
-  {"name": "Entertainment", "icon": "Entertainment.png"},
-  {"name": "Productivity", "icon": "Productivity.png"},
-  {"name": "Healthcare", "icon": "Healthcare.png"},
-  {"name": "Finance", "icon": "Finance.png"},
-  {"name": "Travel", "icon": "Travel.png"},
-  {"name": "News", "icon": "News.png"},
-  {"name": "Utilities", "icon": "Utilities.png"},
-  {"name": "Business", "icon": "Business.png"},
-  {"name": "Non-Profit", "icon": "Non-Profit.png"},
-  {"name": "Real Estate", "icon": "Real Estate.png"},
-  {"name": "Food & Drink", "icon": "Food & Drink.png"},
-  {"name": "Sports", "icon": "Sports.png"},
-  {"name": "Technology", "icon": "Technology.png"},
-  {"name": "Public Services", "icon": "Public Services.png"},
-  {"name": "Art & Design", "icon": "Art & Design.png"},
-  {"name": "Lifestyle", "icon": "Lifestyle.png"},
-  {"name": "Others", "icon": "Others.png"}
+  { "name": "E-Commerce", "src": "assets/icon/categories/E-Commerce.png" },
+  { "name": "Social Media", "src": "assets/icon/categories/Social Media.png" },
+  { "name": "Education", "src": "assets/icon/categories/Education.png" },
+  {
+    "name": "Entertainment",
+    "src": "assets/icon/categories/Entertainment.png"
+  },
+  { "name": "Productivity", "src": "assets/icon/categories/Productivity.png" },
+  { "name": "Healthcare", "src": "assets/icon/categories/Healthcare.png" },
+  { "name": "Finance", "src": "assets/icon/categories/Finance.png" },
+  { "name": "Travel", "src": "assets/icon/categories/Travel.png" },
+  { "name": "News", "src": "assets/icon/categories/News.png" },
+  { "name": "Utilities", "src": "assets/icon/categories/Utilities.png" },
+  { "name": "Business", "src": "assets/icon/categories/Business.png" },
+  { "name": "Non-Profit", "src": "assets/icon/categories/Non-Profit.png" },
+  { "name": "Real Estate", "src": "assets/icon/categories/Real Estate.png" },
+  { "name": "Food & Drink", "src": "assets/icon/categories/Food & Drink.png" },
+  { "name": "Sports", "src": "assets/icon/categories/Sports.png" },
+  { "name": "Technology", "src": "assets/icon/categories/Technology.png" },
+  {
+    "name": "Public Services",
+    "src": "assets/icon/categories/Public Services.png"
+  },
+  { "name": "Art & Design", "src": "assets/icon/categories/Art & Design.png" },
+  { "name": "Lifestyle", "src": "assets/icon/categories/Lifestyle.png" },
+  { "name": "Others", "src": "assets/icon/categories/Others.png" }
 ]
