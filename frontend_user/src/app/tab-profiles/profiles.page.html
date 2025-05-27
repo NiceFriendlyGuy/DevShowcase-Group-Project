@@ -15,7 +15,14 @@
   >
   </app-horizontal-filter>
 
-  @for (profile of filteredProfiles; track profile.name) {
+  @if (filteredProfiles.length === 0) {
+  <div class="no-projects-message">
+    <img src="assets/icon/no-result.png" alt="No projects found" />
+    <p>No profiles found.</p>
+  </div>
+  } @else { @for (profile of filteredProfiles; track profile.name) {
+  <app-profile [profile]="profile"></app-profile>
+  } } @for (profile of filteredProfiles; track profile.name) {
   <app-profile [profile]="profile"></app-profile>
   }
 </ion-content>
