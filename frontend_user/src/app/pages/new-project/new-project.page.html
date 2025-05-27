@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="project-edit-form">
+
+    <ion-item>
+      <ion-label position="floating">Titre</ion-label>
+      <ion-input formControlName="title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Catégorie</ion-label>
+      <ion-select formControlName="category" interface="popover" required>
+        @for(cat of categories; track cat) {
+          <ion-select-option [value]="cat.name">{{cat.name}}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-input formControlName="date" type="date" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea formControlName="description" autoGrow="true"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Technologies</ion-label>
+      <ion-input formControlName="technologies"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Auteurs</ion-label>
+      <ion-input 
+        formControlName="authors"
+        (ionInput)="onAuthorInput($event)"
+        [value]="authorsInput"
+      >
+      </ion-input>
+      <ion-list *ngIf="filteredProfiles.length > 0" class="autocomplete-list">
+        <ion-item *ngFor="let profile of filteredProfiles" (click)="selectAuthor(profile)">
+          {{profile.name}} {{profile.surname}}
+        </ion-item>
+      </ion-list>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Photos</ion-label>
+      <input type="file" multiple (change)="onPhotosSelected($event)" accept="image/*" />
+    </ion-item>
+    <div class="preview-photos" *ngIf="photos.length > 0">
+      @for(photo of photos; track photo) {
+        <img [src]="photo" class="photo-preview" />
+      }
+    </div>
+
+    <ion-button expand="block" type="submit" [disabled]="projectForm.invalid">Créer le projet</ion-button>
+  </form>
+</ion-content>
