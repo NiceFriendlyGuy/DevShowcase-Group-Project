@@ -1,11 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
-  IonHeader,
   IonCard,
-  IonToolbar,
   IonFab,
   IonFabButton,
-  IonTitle,
   IonContent,
   IonIcon,
   IonLabel,
@@ -31,9 +28,6 @@ import { ProjectsService } from '../services/projects.service';
     IonFab,
     IonFabButton,
     IonCard,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonIcon,
     IonLabel,
@@ -53,6 +47,8 @@ export class AccountPage {
 
   public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
+
+  @ViewChild('profileEdit') profileEditComponent!: ProfileEditComponent;
 
   constructor() {
     addIcons({ logOut, close, add, pencil });
@@ -108,6 +104,18 @@ export class AccountPage {
   }
 
   editProject(projectId: string) {}
+
+  public onCancelEdit() {
+    this.editMode = false;
+  }
+
+  public onSubmitEdit() {
+    console.log('Submitting profile edit');
+    if (this.profileEditComponent) {
+      console.log('Profile edit component found');
+      this.profileEditComponent.onSubmit();
+    }
+  }
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({

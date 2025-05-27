@@ -1,16 +1,6 @@
 <ion-card>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <ion-card-header>
-      <!-- Buttons at the top-left corner -->
-      <div class="actions">
-        <ion-button (click)="onCancel()">
-          <ion-icon color="danger" name="arrow-back-outline"></ion-icon>
-        </ion-button>
-        <ion-button type="submit" [disabled]="profileForm.invalid">
-          <ion-icon color="success" name="save"></ion-icon>
-        </ion-button>
-      </div>
-
       <ion-avatar
         *ngIf="profile.photo || avatarPreview"
         class="top-right-avatar"

@@ -30,7 +30,6 @@ import {
   IonTextarea,
 } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
-import { ProjectsService } from 'src/app/services/projects.service';
 import { addIcons } from 'ionicons';
 import { close, add, pencil, save } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
@@ -63,7 +62,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileEditComponent implements OnInit {
   @Input() profile: any;
-  @Output() cancelEdit = new EventEmitter<void>(); // Event emitter to notify the parent
   @Output() doneEdit = new EventEmitter<void>(); // Event emitter to notify the parent
 
   private router = inject(Router);
@@ -195,10 +193,6 @@ export class ProfileEditComponent implements OnInit {
     } else {
       console.log('Invalid form data');
     }
-  }
-
-  onCancel() {
-    this.cancelEdit.emit(); // Emit the cancel event to the parent
   }
 
   getIconUrl(skillName: string): string {
