@@ -154,6 +154,7 @@ export class StatisticsComponent implements OnInit {
     labels,
     datasets: [{ data: counts }]
   };
+  this.cdr.detectChanges(); // Force update
 }
 
 }
