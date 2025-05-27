@@ -51,6 +51,14 @@ ion-datetime {
   max-height: 180px;
   overflow-y: auto;
 }
+// autocomplete pour les profils
+.filteredProfiles{
+  background:#fff; 
+  max-height:160px; 
+  overflow-y:auto; 
+  padding:0; 
+  margin:0;
+}
 
 ion-button[disabled] {
   --background: #ccc;

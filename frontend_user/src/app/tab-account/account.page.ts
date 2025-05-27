@@ -107,7 +107,7 @@ export class AccountPage {
   editProject(projectId: string) {}
 
   newProject() {
-    console.log('New project creation initiated');
+    this.router.navigate(['/tabs/account/newProject']);
   }
 
   public onCancelEdit() {

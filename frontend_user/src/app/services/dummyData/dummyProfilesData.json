@@ -21,7 +21,7 @@
   {
     "id": "2",
     "admin": false,
-    "name": "John",
+    "name": "Chris",
     "surname": "Doe",
     "email": "john.doe@gmail.com",
     "password": "password123",
@@ -40,7 +40,7 @@
   {
     "id": "3",
     "admin": false,
-    "name": "Alice",
+    "name": "Christine",
     "surname": "Johnson",
     "email": "alice.johnson@gmail.com",
     "password": "alice2023",
@@ -59,7 +59,7 @@
   {
     "id": "4",
     "admin": false,
-    "name": "Emily",
+    "name": "Christina",
     "surname": "Davis",
     "email": "emily.davis@gmail.com",
     "password": "emily@123",
@@ -77,7 +77,7 @@
   {
     "id": "5",
     "admin": false,
-    "name": "Antonio",
+    "name": "Charlie",
     "surname": "GP",
     "email": "antonio.gonzalez.puertas@gmail.com",
     "password": "1234",
