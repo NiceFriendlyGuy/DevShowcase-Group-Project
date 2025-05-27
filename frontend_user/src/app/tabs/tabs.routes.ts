@@ -43,6 +43,13 @@ export const routes: Routes = [
                 (m) => m.LoginComponent
               ),
           },
+          {
+            path: 'newProject',
+            loadComponent: () =>
+              import('../pages/new-project/new-project.page').then(
+                (m) => m.NewProjectPage
+              ),
+          },
         ],
       },
       {
