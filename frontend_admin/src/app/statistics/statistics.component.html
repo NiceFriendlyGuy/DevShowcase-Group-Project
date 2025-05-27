@@ -30,9 +30,28 @@
         </div>
         <app-doughnut-chart></app-doughnut-chart>
       </div>
+
+      <div class="stat-item" (click)="toggleLineChart('growth')">
+        <mat-icon color="primary">trending_up</mat-icon>
+        <div class="stat-item-text">
+          <h3>@if (projects.length > 0) {
+            {{ projects.length }}
+          }</h3>
+          <p>Nombre de Projets</p>
+        </div>
+        <app-doughnut-chart
+          [chartData]="doughnutChartDataObject"
+        ></app-doughnut-chart>
+
+      </div>
     </div>
+
     @if (showLineChart) {
-    <app-line-chart [datasetKey]="selectedKey"></app-line-chart>
+      <app-line-chart
+        [labels]="lineChartLabels"
+        [data]="lineChartCounts"
+        [title]="'Projects per ' + selectedKey">
+      </app-line-chart>
     }
   </mat-card-content>
 </mat-card>
