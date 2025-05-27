@@ -11,14 +11,18 @@ export const routes: Routes = [
         path: 'projects',
         children: [
           {
-          path: '',
-          loadComponent: () =>
-            import('../projects-tab/projects.page').then((m) => m.ProjectsPage),
+            path: '',
+            loadComponent: () =>
+              import('../tab-projects/projects.page').then(
+                (m) => m.ProjectsPage
+              ),
           },
           {
-          path: 'projectDetails/:id',
-          loadComponent: () =>
-            import('../components/project-details/project-details.component').then((m) => m.ProjectDetailsComponent),
+            path: 'projectDetails/:id',
+            loadComponent: () =>
+              import(
+                '../components/project-details/project-details.component'
+              ).then((m) => m.ProjectDetailsComponent),
           },
         ],
       },
