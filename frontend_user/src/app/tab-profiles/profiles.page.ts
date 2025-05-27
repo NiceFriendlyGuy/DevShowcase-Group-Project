@@ -5,7 +5,7 @@ import { ProfileComponent } from '../components/profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from '../components/utils/search/search.component';
 import { HorizontalFilterComponent } from '../components/utils/horizontal-filter/horizontal-filter.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,6 +31,7 @@ export class ProfilesPage {
   private route = inject(ActivatedRoute);
   public profileId: string = '';
   public filteredProfiles: any[] = [];
+  private router = inject<any>(Router);
 
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
@@ -39,25 +40,28 @@ export class ProfilesPage {
   onFilteredItems(filtered: any[]) {
     this.selectedTechnologies = filtered;
   }
-  constructor() {
-    this.route.queryParams.subscribe((params) => {
-      console.log('Query params:', params);
-      if (params['id']) {
-        this.profileId = params['id'];
-      }
-    });
-  }
+  constructor() {}
 
   async ngOnInit() {
     this.profiles = await this.profilesService.getProfilesAll();
 
-    if (this.profileId) {
-      let profile = this.profilesService.getProfilesById(this.profileId);
-      console.log('Profile by ID:', profile);
-      this.filteredProfiles = profile;
-    } else {
-      this.filteredProfiles = this.profiles;
-    }
+    this.route.queryParams.subscribe((params) => {
+      console.log('Query params:', params);
+      if (params['id']) {
+        this.profileId = params['id'];
+        if (this.profileId) {
+          let profile = this.profilesService.getProfilesById(this.profileId);
+          console.log('Profile by ID:', profile);
+          this.filteredProfiles = profile;
+        } else {
+          this.filteredProfiles = this.profiles;
+          this.profileId = '';
+        }
+      } else {
+        this.filteredProfiles = this.profiles;
+        this.profileId = '';
+      }
+    });
 
     let technologiesNames: any[] = this.profilesService
       .getTechnologiesFromUsers()
@@ -80,5 +84,10 @@ export class ProfilesPage {
       .toLowerCase()
       .replace('.', '')}-original.svg`;
     return primaryUrl;
+  }
+  onProfileClick(profileId: string) {
+    this.router.navigate(['/tabs/profiles'], {
+      queryParams: { id: profileId },
+    });
   }
 }

@@ -1,33 +1,24 @@
 import { Component, inject } from '@angular/core';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonChip,
-  IonIcon,
-  IonLabel,
-} from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProjectComponent } from '../components/project/project.component';
 import { ProjectsService } from '../services/projects.service';
 import { ProfilesService } from '../services/profiles.service';
+import { SearchComponent } from '../components/utils/search/search.component';
+import { HorizontalFilterComponent } from '../components/utils/horizontal-filter/horizontal-filter.component';
 
 @Component({
   selector: 'app-projects',
   templateUrl: 'projects.page.html',
   styleUrls: ['projects.page.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     CommonModule,
     ProjectComponent,
-    IonChip,
-    IonIcon,
-    IonLabel,
+
+    SearchComponent,
+    HorizontalFilterComponent,
   ],
 })
 export class ProjectsPage {
@@ -40,6 +31,16 @@ export class ProjectsPage {
   public filteredProjects: any[] = [];
   public categories: any[] = [];
   public selectedCategories: any[] = [];
+
+  onFilteredProjects(filtered: any[]) {
+    console.log('Filtered projects:', filtered);
+    this.filteredProjects = filtered;
+  }
+
+  onFilteredItems(filtered: any[]) {
+    console.log('Filtered items:', filtered);
+    this.selectedCategories = filtered;
+  }
 
   constructor() {}
 

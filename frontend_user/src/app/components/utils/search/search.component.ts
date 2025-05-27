@@ -9,7 +9,6 @@ import {
 import { IonInput, IonItem } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProfilesService } from 'src/app/services/profiles.service';
 
 @Component({
   selector: 'app-search',
@@ -18,58 +17,62 @@ import { ProfilesService } from 'src/app/services/profiles.service';
   imports: [CommonModule, FormsModule, IonItem, IonInput],
 })
 export class SearchComponent implements OnInit {
-  @Input() public profiles: any[] = [];
-  @Input() public selectedTechnologies: any[] = [];
-  @Output() public filteredProfiles = new EventEmitter<any[]>();
+  @Input() public items: any[] = [];
+  @Input() public criteaires: any[] = [];
+  @Input() public selectedCategories: any[] = [];
+  @Output() public filteredItems = new EventEmitter<any[]>();
 
   public searchTerm: string = '';
 
   constructor() {}
 
   ngOnInit() {
-    this.updateFilteredProfiles();
+    this.updateFilteredItems();
   }
 
   ngOnChanges() {
-    this.updateFilteredProfiles(); // or any logic you want to run on input change
+    this.updateFilteredItems(); // or any logic you want to run on input change
   }
 
-  public filterProfiles() {
-    if (
-      this.searchTerm.length === 0 &&
-      this.selectedTechnologies.length === 0
-    ) {
-      return this.profiles;
+  public filterItems() {
+    if (this.searchTerm.length === 0 && this.selectedCategories.length === 0) {
+      return this.items;
     }
     const lowerCaseTerm: any[] = this.searchTerm.toLowerCase().split(' ');
-    return this.profiles.filter((profile) => {
+    return this.items.filter((item) => {
       let match = false;
       for (let term of lowerCaseTerm) {
         if (term.length > 0) {
           match =
             match ||
-            profile.name.toLowerCase().includes(term) ||
-            profile.surname.toLowerCase().includes(term) ||
-            profile.email.toLowerCase().includes(term) ||
-            profile.bio.toLowerCase().includes(term) ||
-            profile.technologies?.some((item: any) =>
+            item.name?.toLowerCase().includes(term) ||
+            item.surname?.toLowerCase().includes(term) ||
+            item.email?.toLowerCase().includes(term) ||
+            item.bio?.toLowerCase().includes(term) ||
+            item.title?.toLowerCase().includes(term) ||
+            item.category?.toLowerCase().includes(term) ||
+            item.description?.toLowerCase().includes(term) ||
+            item.technologies?.some((item: any) =>
               item.name.toLowerCase().includes(term)
             );
         }
       }
-      if (this.selectedTechnologies.length > 0) {
+      if (this.selectedCategories.length > 0) {
         match =
           match ||
-          this.selectedTechnologies.some((tech: any) =>
-            profile.technologies?.some((item: any) => item.name === tech.name)
+          this.selectedCategories.some((tech: any) =>
+            item.technologies?.some((item: any) => item.name === tech.name)
+          ) ||
+          this.selectedCategories.some(
+            (cat: any) => item.category === cat.name
           );
       }
       return match;
     });
   }
 
-  public updateFilteredProfiles() {
-    const filtered = this.filterProfiles();
-    this.filteredProfiles.emit(filtered); // Emit to parent
+  public updateFilteredItems() {
+    const filtered = this.filterItems();
+    this.filteredItems.emit(filtered); // Emit to parent
   }
 }
