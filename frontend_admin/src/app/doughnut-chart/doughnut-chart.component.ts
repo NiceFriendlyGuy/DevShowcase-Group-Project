@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartType } from 'chart.js';
@@ -11,8 +11,9 @@ import { ChartType } from 'chart.js';
   styleUrls: ['./doughnut-chart.component.scss'],
 })
 export class DoughnutChartComponent {
-  public doughnutChartLabels: string[] = ['Frontend', 'Backend', 'DevOps', 'Design'];
-  public doughnutChartData: number[] = [30, 25, 15, 30];
+  // ✅ Accept chartData from parent (labels + datasets)
+  @Input() chartData!: { labels: string[]; datasets: { data: number[] }[] };
+
   public doughnutChartType: ChartType = 'doughnut';
 
   public chartOptions = {
@@ -20,7 +21,7 @@ export class DoughnutChartComponent {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, // 👈 disable legend
+        display: false,
       },
     },
   };

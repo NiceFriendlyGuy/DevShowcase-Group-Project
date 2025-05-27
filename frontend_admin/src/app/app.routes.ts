@@ -12,8 +12,8 @@ export const routes: Routes = [
     path: '',
     component: ShellComponent,
     children: [
-      { path: '', redirectTo: 'statistics', pathMatch: 'full' },
-      { path: 'statistics', component: StatisticsComponent },
+      { path: '', redirectTo: 'shell', pathMatch: 'full' },
+      { path: 'shell', component: StatisticsComponent },
       { path: 'requests', component: UserRequestsComponent },
       { path: 'search', component: SearchUserComponent },
     ],
