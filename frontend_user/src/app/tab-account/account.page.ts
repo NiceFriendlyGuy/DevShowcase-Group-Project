@@ -110,9 +110,7 @@ export class AccountPage {
   }
 
   public onSubmitEdit() {
-    console.log('Submitting profile edit');
     if (this.profileEditComponent) {
-      console.log('Profile edit component found');
       this.profileEditComponent.onSubmit();
     }
   }

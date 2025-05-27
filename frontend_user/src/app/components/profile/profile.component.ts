@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { Router } from '@angular/router';
 import {
   IonCard,
   IonAvatar,
@@ -39,6 +40,7 @@ register();
 })
 export class ProfileComponent implements OnInit {
   @Input() profile: any;
+  private router = inject<Router>(Router);
 
   private projectsService: ProjectsService =
     inject<ProjectsService>(ProjectsService);
@@ -68,7 +70,6 @@ export class ProfileComponent implements OnInit {
 
   constructor() {}
 
-
   public ngOnInit() {}
 
   public getIcon(technology: string, type: string): string {
@@ -93,5 +94,9 @@ export class ProfileComponent implements OnInit {
       .toLowerCase()
       .replace('.', '')}-original.svg`;
     return primaryUrl;
+  }
+
+  showProject(projectId: string) {
+    this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 }
