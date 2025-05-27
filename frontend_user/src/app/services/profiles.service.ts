@@ -47,6 +47,9 @@ export class ProfilesService {
   }
 
   getProfilesById(authorId: string) {
+    if (this.profiles.length === 0) {
+      this.getProfilesAll();
+    }
     return this.profiles.filter((profile) => profile.id === authorId);
   }
 
@@ -178,7 +181,9 @@ export class ProfilesService {
     const authorsPreview: any[] = [];
     profiles.forEach((authorId: string) => {
       const foundProfile = this.getProfilesById(authorId);
-      const profile = Array.isArray(foundProfile) ? foundProfile[0] : foundProfile;
+      const profile = Array.isArray(foundProfile)
+        ? foundProfile[0]
+        : foundProfile;
       if (profile) {
         authorsPreview.push({
           id: profile.id,
@@ -189,5 +194,5 @@ export class ProfilesService {
       }
     });
     return authorsPreview;
-}
+  }
 }

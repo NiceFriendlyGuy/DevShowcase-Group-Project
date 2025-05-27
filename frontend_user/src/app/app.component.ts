@@ -15,7 +15,7 @@ import { AuthService } from './services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { logOut } from 'ionicons/icons';
+import { logOut, arrowBackOutline } from 'ionicons/icons';
 import {
   imagesOutline,
   informationCircleOutline,
@@ -59,7 +59,7 @@ export class AppComponent {
   public isSignUp: boolean = false; // Flag to toggle between login and signup
 
   constructor() {
-    addIcons({ logOut });
+    addIcons({ logOut, arrowBackOutline });
   }
 
   ngOnInit() {
@@ -79,7 +79,13 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
           this.showBackButton = this.isSignUp; // Hide back button on login page
-        } else {
+        } else if (
+          this.location.path().includes('/projectDetails/') ||
+          this.location.path().includes('/profiles?id')
+        )
+          this.showBackButton = true;
+        // Show back button on project details page
+        else {
           this.showBackButton = false; // Show back button on other pages
         }
       }
@@ -89,6 +95,11 @@ export class AppComponent {
   goBack() {
     if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
       this.auth.isSignUp = false; // Reset the sign-up flag
+    } else if (
+      this.location.path().includes('/projectDetails/') ||
+      this.location.path().includes('/profiles?id')
+    ) {
+      this.location.back(); // Navigate back to the previous page
     }
   }
 

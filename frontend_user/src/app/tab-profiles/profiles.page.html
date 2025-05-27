@@ -1,6 +1,7 @@
 <ion-content>
   <!-- Search Field -->
   <app-search
+    *ngIf="!profileId"
     [profiles]="profiles"
     [selectedTechnologies]="selectedTechnologies"
     (filteredProfiles)="onFilteredProfiles($event)"
@@ -8,6 +9,7 @@
   </app-search>
 
   <app-horizontal-filter
+    *ngIf="!profileId"
     [listItems]="listTechnologies"
     (filteredItems)="onFilteredItems($event)"
   >
