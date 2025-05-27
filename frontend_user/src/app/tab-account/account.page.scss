@@ -43,8 +43,19 @@ ion-content {
   font-size: 1.2rem;
   font-weight: bold;
   color: #4a4a4a; /* Darker text color for better readability */
+  margin-top: 40px;
+  margin-left: 20px;
+  text-align: left; /* Align the title to the left */
+}
+
+.section-description {
   margin-top: 10px;
-  text-align: center; /* Align the title to the left */
+  margin-left: 30px;
+  text-align: left; /* Align the title to the left */
+}
+.section-button {
+  margin-left: 30px;
+  text-align: left; /* Align the title to the left */
 }
 .edit-label {
   display: block; /* Ensures the label behaves as a block element */

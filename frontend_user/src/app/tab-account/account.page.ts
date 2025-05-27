@@ -18,7 +18,7 @@ import { logOut, close, add, pencil } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../services/projects.service';
-
+import { ContactAdminComponent } from '../components/contact-admin/contact-admin.component';
 @Component({
   selector: 'app-account',
   templateUrl: 'account.page.html',
@@ -33,6 +33,7 @@ import { ProjectsService } from '../services/projects.service';
     IonLabel,
     ProfileComponent,
     ProfileEditComponent,
+    ContactAdminComponent,
   ],
 })
 export class AccountPage {
@@ -105,6 +106,10 @@ export class AccountPage {
 
   editProject(projectId: string) {}
 
+  newProject() {
+    console.log('New project creation initiated');
+  }
+
   public onCancelEdit() {
     this.editMode = false;
   }
@@ -124,5 +129,10 @@ export class AccountPage {
     });
 
     await toast.present();
+  }
+
+  handleAdminMessage(event: { category: string; message: string }) {
+    // Envoyer au backend ou afficher une notification
+    console.log('Message to admin:', event);
   }
 }

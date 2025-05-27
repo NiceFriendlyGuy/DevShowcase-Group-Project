@@ -2,6 +2,12 @@
   <app-profile [profile]="profile"></app-profile>
 
   <div class="section-title">MY PROJECTS</div>
+  <div
+    class="section-description"
+    *ngIf="projectsPreview(profile.id).length === 0"
+  >
+    You do not have any projects yet
+  </div>
   <ion-card class="category-card">
     @for(project of projectsPreview(profile.id); track project.id){
     <div class="project-item">
@@ -15,10 +21,24 @@
       </div>
     </div>
     }
+    <div class="project-item">
+      <ion-label class="project-title" (click)="newProject()"
+        >Add new project</ion-label
+      >
+      <div class="project-icons">
+        <ion-icon name="add" (click)="newProject()"></ion-icon>
+      </div>
+    </div>
   </ion-card>
 
+  <div class="section-title">CONTACT ADMIN</div>
+
+  <app-contact-admin
+    (sendMessage)="handleAdminMessage($event)"
+  ></app-contact-admin>
+
   <!-- Floating Action Buttons (FAB) for Edit -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button
       color="success"
       (click)="editMode=true"
