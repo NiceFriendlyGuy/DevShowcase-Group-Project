@@ -151,6 +151,16 @@
   ```
 // update from backend: soft delete implemented -> Change the status of the profile with the field isDeleted to true
 
+## Authentification Endpoints
+
+For test purposes:
+{
+  "email": "john.doe@gmail.com",
+  "password": "newPassword321"
+}
+
+
+
 ### Change password
 
 - **PUT** `/api/auth/changePassword` 
@@ -166,7 +176,7 @@
 - **Answer :**
   ```json
   {
-    "valid": true
+    "the password of ${user.name} was successfully updated"
   }
   ```
 
@@ -186,7 +196,7 @@
 
 ```json
 {
-  "valid": true
+  "successfully authentificated"
 }
 ```
 
