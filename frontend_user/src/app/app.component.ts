@@ -72,7 +72,7 @@ export class AppComponent {
     this.auth.enabledSignUp$.subscribe((value: any) => {
       this.showBackButton = value;
       this.isSignUp = value;
-      console.log('Sign up event received:', this.isSignUp);
+      //console.log('Sign up event received:', this.isSignUp);
     });
 
     this.router.events.subscribe((event) => {
@@ -96,7 +96,7 @@ export class AppComponent {
   }
 
   goBack() {
-    if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
+    if (this.location.path().includes('/tabs/account/login')) {
       this.auth.isSignUp = false; // Reset the sign-up flag
     } else if (
       this.location.path().includes('/projectDetails/') ||
