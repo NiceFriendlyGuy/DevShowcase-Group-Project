@@ -62,6 +62,13 @@ export const routes: Routes = [
               ),
           },
           {
+            path: 'editProfile',
+            loadComponent: () =>
+              import('../pages/edit-profile/edit-profile.page').then(
+                (m) => m.EditProfilePage
+              ),
+          },
+          {
             path: 'newProject',
             loadComponent: () =>
               import('../pages/new-project/new-project.page').then(

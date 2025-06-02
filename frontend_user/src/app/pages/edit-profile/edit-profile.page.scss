@@ -1,3 +1,17 @@
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+.edit-label {
+  display: block; /* Ensures the label behaves as a block element */
+  text-align: center; /* Centers the text horizontally */
+  font-size: 1.5rem; /* Increases the font size */
+  font-weight: bold; /* Makes the text bold */
+  color: #4a4a4a; /* Sets a neutral dark color */
+  margin: 20px 0; /* Adds vertical spacing above and below the label */
+}
+
 ion-card {
   margin: 20px;
   padding: 20px;

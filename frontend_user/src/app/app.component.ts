@@ -84,7 +84,7 @@ export class AppComponent {
           this.location.path().includes('/projectDetails/') ||
           this.location.path().includes('/profileDetails/') ||
           this.location.path().includes('/newProject') ||
-          this.location.path().includes('/accountEdit/')
+          this.location.path().includes('/editProfile')
         )
           this.showBackButton = true;
         // Show back button on project details page
@@ -103,7 +103,7 @@ export class AppComponent {
       this.location.path().includes('/profiles?id') ||
       this.location.path().includes('/profileDetails/') ||
       this.location.path().includes('/newProject') ||
-      this.location.path().includes('/accountEdit/')
+      this.location.path().includes('/editProfile')
     ) {
       this.location.back(); // Navigate back to the previous page
     }
