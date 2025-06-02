@@ -180,9 +180,7 @@ export class ProfilesService {
   async getPreviewProfile(profiles: string[]): Promise<any[]> {
     const authorsPreview: any[] = [];
     profiles.forEach(async (authorId: string) => {
-      console.log(authorId);
       const foundProfile = await this.getProfilesById(authorId);
-      console.log('foundProfile', foundProfile);
       const profile = Array.isArray(foundProfile)
         ? foundProfile[0]
         : foundProfile;

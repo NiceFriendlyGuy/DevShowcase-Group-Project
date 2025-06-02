@@ -36,9 +36,9 @@ export class ProjectComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {
-    console.log('ProjectComponent', this.project);
+    //console.log('ProjectComponent', this.project);
     this.authorsPreview = await this.getProfilePreview(this.project.authors);
-    console.log('ProjectComponent authorsPreview', this.authorsPreview);
+    //console.log('ProjectComponent authorsPreview', this.authorsPreview);
   }
 
   getIcon(technology: string, type: string): string {
