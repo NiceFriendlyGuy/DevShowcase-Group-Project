@@ -81,9 +81,9 @@ export class AppComponent {
           this.showBackButton = this.isSignUp; // Hide back button on login page
         } else if (
           this.location.path().includes('/projectDetails/') ||
-          this.location.path().includes('/profiles?id') ||
-          this.location.path().includes('/newProject')
-
+          this.location.path().includes('/profileDetails/') ||
+          this.location.path().includes('/newProject') ||
+          this.location.path().includes('/accountEdit/')
         )
           this.showBackButton = true;
         // Show back button on project details page
@@ -99,9 +99,10 @@ export class AppComponent {
       this.auth.isSignUp = false; // Reset the sign-up flag
     } else if (
       this.location.path().includes('/projectDetails/') ||
-      this.location.path().includes('/profiles?id')||
-      this.location.path().includes('/newProject')
-      
+      this.location.path().includes('/profiles?id') ||
+      this.location.path().includes('/profileDetails/') ||
+      this.location.path().includes('/newProject') ||
+      this.location.path().includes('/accountEdit/')
     ) {
       this.location.back(); // Navigate back to the previous page
     }

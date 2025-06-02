@@ -1,0 +1,23 @@
+<ion-content [fullscreen]="true">
+  <app-profile [profile]="profile" [previewProjects]="false"></app-profile>
+
+  <div class="section-title">{{profile.name}}'s PROJECTS</div>
+
+  @for (project of projects; track project.id) {
+  <app-project
+    [project]="project"
+    class="project-card"
+    (click)="showProject(project.id)"
+  ></app-project>
+  } @if (noResults) {
+  <div class="no-projects-message">
+    <img src="assets/icon/no-result.png" alt="No projects found" />
+    <p>No profiles found.</p>
+  </div>
+  } @if (loadingData) {
+  <div class="no-projects-message">
+    <img src="assets/icon/loading.gif" alt="Loading data" />
+    <p>Loading data, please wait.</p>
+  </div>
+  }
+</ion-content>

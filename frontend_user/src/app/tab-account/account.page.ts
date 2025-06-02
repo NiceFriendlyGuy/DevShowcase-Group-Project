@@ -67,8 +67,8 @@ export class AccountPage {
     }); // Add a query parameter
   }
 
-  refreshProfile() {
-    this.profile = this.profilesService.getProfilesById(this.profile.id)[0];
+  async refreshProfile() {
+    this.profile = await this.profilesService.getProfilesById(this.profile.id);
     this.editMode = false;
     //console.log('Profile:', this.profile);
   }

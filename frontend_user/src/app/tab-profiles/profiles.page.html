@@ -18,6 +18,7 @@
   @for (profile of filteredProfiles; track profile.id) {
   <app-profile
     [profile]="profile"
+    [previewProjects]="true"
     (click)="onProfileClick(profile.id)"
   ></app-profile>
   } @if (noResults) {

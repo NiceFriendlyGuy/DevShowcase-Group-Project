@@ -40,6 +40,7 @@ register();
 })
 export class ProfileComponent implements OnInit {
   @Input() profile: any;
+  @Input() previewProjects: boolean | undefined;
   private router = inject<Router>(Router);
 
   private projectsService: ProjectsService =

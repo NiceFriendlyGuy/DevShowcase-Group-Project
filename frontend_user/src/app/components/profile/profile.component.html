@@ -16,6 +16,7 @@
     }
     <p class="biographie">{{ profile.bio }}</p>
 
+    @if(previewProjects){
     <swiper-container [breakpoints]="swiperBreakpoints" space-between="10">
       @for (preview of projectsPreview(profile.id); track $index){
       <swiper-slide>
@@ -40,6 +41,7 @@
       </swiper-slide>
       }
     </swiper-container>
+    }
 
     <div class="contact-info">
       <div class="contact-container">

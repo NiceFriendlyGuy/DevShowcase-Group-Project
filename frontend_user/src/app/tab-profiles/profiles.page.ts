@@ -54,24 +54,6 @@ export class ProfilesPage {
     this.profiles = await this.profilesService.getProfilesAll();
     this.loadingData = false;
 
-    this.route.queryParams.subscribe((params) => {
-      console.log('Query params:', params);
-      if (params['id']) {
-        this.profileId = params['id'];
-        if (this.profileId) {
-          let profile = this.profilesService.getProfilesById(this.profileId);
-          console.log('Profile by ID:', profile);
-          this.filteredProfiles = profile;
-        } else {
-          this.filteredProfiles = this.profiles;
-          this.profileId = '';
-        }
-      } else {
-        this.filteredProfiles = this.profiles;
-        this.profileId = '';
-      }
-    });
-
     let technologiesNames: any[] = this.profilesService
       .getTechnologiesFromUsers()
       .sort((a: any, b: any) => a.name.localeCompare(b.name));
@@ -95,8 +77,6 @@ export class ProfilesPage {
     return primaryUrl;
   }
   onProfileClick(profileId: string) {
-    this.router.navigate(['/tabs/profiles'], {
-      queryParams: { id: profileId },
-    });
+    this.router.navigate(['tabs/profiles/profileDetails', profileId]);
   }
 }

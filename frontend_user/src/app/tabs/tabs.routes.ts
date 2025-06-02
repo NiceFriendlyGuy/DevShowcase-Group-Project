@@ -28,8 +28,22 @@ export const routes: Routes = [
       },
       {
         path: 'profiles',
-        loadComponent: () =>
-          import('../tab-profiles/profiles.page').then((m) => m.ProfilesPage),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../tab-profiles/profiles.page').then(
+                (m) => m.ProfilesPage
+              ),
+          },
+          {
+            path: 'profileDetails/:id',
+            loadComponent: () =>
+              import('../pages/detail-profile/detail-profile.page').then(
+                (m) => m.DetailProfilePage
+              ),
+          },
+        ],
       },
       {
         path: 'account',

@@ -46,11 +46,11 @@ export class ProfilesService {
     return this.profiles;
   }
 
-  getProfilesById(authorId: string) {
+  async getProfilesById(authorId: string) {
     if (this.profiles.length === 0) {
-      this.getProfilesAll();
+      await this.getProfilesAll();
     }
-    return this.profiles.filter((profile) => profile.id === authorId);
+    return this.profiles.filter((profile) => profile.id === authorId)[0];
   }
 
   async addProfile(profile: any): Promise<any> {
@@ -177,10 +177,12 @@ export class ProfilesService {
     return false; // Profile not found
   }
 
-  getPreviewProfile(profiles: string[]): any[] {
+  async getPreviewProfile(profiles: string[]): Promise<any[]> {
     const authorsPreview: any[] = [];
-    profiles.forEach((authorId: string) => {
-      const foundProfile = this.getProfilesById(authorId);
+    profiles.forEach(async (authorId: string) => {
+      console.log(authorId);
+      const foundProfile = await this.getProfilesById(authorId);
+      console.log('foundProfile', foundProfile);
       const profile = Array.isArray(foundProfile)
         ? foundProfile[0]
         : foundProfile;
