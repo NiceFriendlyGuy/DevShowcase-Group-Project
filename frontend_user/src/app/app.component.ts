@@ -57,7 +57,7 @@ export class AppComponent {
   private location = inject(Location);
   public showBackButton: boolean = false;
   public isSignUp: boolean = false; // Flag to toggle between login and signup
-
+  public isAccountPage: boolean = false; // Flag to check if the current page is an account page
   constructor() {
     addIcons({ logOut, arrowBackOutline });
   }
@@ -77,6 +77,7 @@ export class AppComponent {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.isAccountPage = this.location.path().includes('/account');
         if (this.location.isCurrentPathEqualTo('/tabs/account/login')) {
           this.showBackButton = this.isSignUp; // Hide back button on login page
         } else if (
