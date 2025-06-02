@@ -32,9 +32,16 @@ export class ProfilesPage {
   public profileId: string = '';
   public filteredProfiles: any[] = [];
   private router = inject<any>(Router);
+  public noResults: boolean = false;
+  public loadingData: boolean = false;
 
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
+    if (this.filteredProfiles.length === 0 && !this.loadingData) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
   }
 
   onFilteredItems(filtered: any[]) {
@@ -43,7 +50,9 @@ export class ProfilesPage {
   constructor() {}
 
   async ngOnInit() {
+    this.loadingData = true;
     this.profiles = await this.profilesService.getProfilesAll();
+    this.loadingData = false;
 
     this.route.queryParams.subscribe((params) => {
       console.log('Query params:', params);
