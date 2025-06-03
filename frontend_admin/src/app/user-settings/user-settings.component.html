@@ -15,7 +15,7 @@
 
   @if (showPasswordForm) {
   <div class="mt-2">
-    <form [formGroup]="passwordForm" (ngSubmit)="submitPasswordChange()">
+    <form class="passwordForm" [formGroup]="passwordForm" (ngSubmit)="submitPasswordChange()">
       <mat-form-field appearance="fill">
         <mat-label>Mot de passe actuel</mat-label>
         <input

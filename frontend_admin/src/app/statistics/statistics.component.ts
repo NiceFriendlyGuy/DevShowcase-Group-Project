@@ -78,7 +78,7 @@ export class StatisticsComponent implements OnInit {
   if (key === 'projects') {
     this.groupProjectsBy('month'); // or 'day', 'week'
   } else if (key === 'users') {
-    this.groupUsersBy('month'); // or 'day', 'week'
+    this.groupUsersBy('week'); // or 'day', 'week'
   }
 }
 
