@@ -1,6 +1,11 @@
-.user-settings-dialog-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: var(--mat-dialog-content-padding, 20px 24px);
+.user-settings-dialog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--mat-dialog-content-padding, 20px 24px);
+}
+
+.mt-2 {
+  display: flex;
+  flex-direction: column;
 }

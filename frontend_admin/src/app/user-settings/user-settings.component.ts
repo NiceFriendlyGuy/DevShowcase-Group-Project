@@ -12,9 +12,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../services/user.service';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-settings',
@@ -27,17 +28,25 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss',
 })
 export class UserSettingsComponent {
-  private readonly userService = inject(UserService);
-  public readonly data = inject(MAT_DIALOG_DATA) as { user: User };
-  private readonly dialogRef = inject(MatDialogRef<UserSettingsComponent>);
-
   public users = signal<User[]>([]);
   public editedUser!: User;
+  public showPasswordForm = false;
+  public readonly data = inject(MAT_DIALOG_DATA) as { user: User };
+
+  private readonly userService = inject(UserService);
+  private readonly dialogRef = inject(MatDialogRef<UserSettingsComponent>);
+  private fb = inject(FormBuilder);
+
+  public passwordForm = this.fb.group({
+    currentPassword: ['', Validators.required],
+    newPassword: ['', [Validators.required, Validators.minLength(3)]],
+  });
 
   constructor(private dialog: MatDialog) {
     this.loadUsers();
@@ -74,7 +83,7 @@ export class UserSettingsComponent {
     });
   }
 
-  confirmClose() {
+  public confirmClose() {
     this.dialogRef.close();
   }
 
@@ -105,5 +114,35 @@ export class UserSettingsComponent {
         console.error('Erreur lors de la mise à jour :', err);
       },
     });
+  }
+
+  public togglePasswordForm() {
+    this.showPasswordForm = true;
+  }
+
+  public cancelPasswordChange() {
+    this.showPasswordForm = false;
+    this.passwordForm.reset();
+  }
+
+  public submitPasswordChange() {
+    if (this.passwordForm.invalid) return;
+
+    const { currentPassword, newPassword } = this.passwordForm.value;
+    const userId = this.data.user._id;
+
+    this.userService
+      .updateUserPassword(userId, currentPassword!, newPassword!)
+      .subscribe({
+        next: () => {
+          alert('Mot de passe mis à jour avec succès');
+          this.cancelPasswordChange();
+        },
+        error: (err) => {
+          alert(
+            err.error.message || 'Erreur lors du changement de mot de passe'
+          );
+        },
+      });
   }
 }
