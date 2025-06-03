@@ -37,7 +37,7 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('user');
-    this.userSubject.next(null); // ✅ push logout state
+    this.userSubject.next(null);
     this.router.navigate(['/login']);
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
     return userJson ? JSON.parse(userJson) : null;
   }
 
-  getUser(): any | null {
+  public getUser(): any | null {
     return this.userSubject.value;
   }
 }
