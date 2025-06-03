@@ -25,6 +25,7 @@ authController.login = async function (req, res) {
                 id: user.id,
                 name: user.name,
                 surname: user.surname,
+                admin: user.admin,
                 role: user.role,
                 email: user.email,
                 createdAt: user.createdAt
