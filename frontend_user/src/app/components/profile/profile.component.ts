@@ -4,6 +4,9 @@ import { ProjectsService } from 'src/app/services/projects.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { ToastController } from '@ionic/angular';
+
 import {
   IonCard,
   IonAvatar,
@@ -16,6 +19,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from '@ionic/angular/standalone';
+import { AuthService } from 'src/app/services/auth.service';
 
 register();
 @Component({
@@ -41,15 +45,20 @@ register();
 export class ProfileComponent implements OnInit {
   @Input() profile: any;
   @Input() previewProjects: boolean | undefined;
+  public environment = environment;
   private router = inject<Router>(Router);
+  private toastController = inject(ToastController);
 
   private projectsService: ProjectsService =
     inject<ProjectsService>(ProjectsService);
 
+  private auth = inject(AuthService); // Replace with actual AuthService type
   public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
 
   public randomImageIndex: number = Math.floor(Math.random() * 4) + 1;
+
+  public hideContactDetails: boolean = false;
 
   public swiperBreakpoints = {
     // When the screen width is >= 320px
@@ -71,7 +80,15 @@ export class ProfileComponent implements OnInit {
 
   constructor() {}
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    // Subscribe to profile updates
+    if (environment.hideContactDetails) {
+      this.auth.isLoggedIn$.subscribe((value: any) => {
+        this.hideContactDetails = !value;
+        console.log('Sign up event received:', value);
+      });
+    }
+  }
 
   public getIcon(technology: string, type: string): string {
     let name = technology.toLowerCase().replace('.', '');
@@ -99,5 +116,23 @@ export class ProfileComponent implements OnInit {
 
   showProject(projectId: string) {
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000, // duration in ms
+      position: 'bottom', // or 'top', 'middle'
+      color: 'warning', // or 'danger', 'warning', etc.
+    });
+    await toast.present();
+  }
+
+  infoContact() {
+    if (this.hideContactDetails) {
+      this.presentToast(
+        'Contact information is hidden for privacy reasons. Log in to access it.'
+      );
+    }
   }
 }

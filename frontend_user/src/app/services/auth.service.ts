@@ -7,7 +7,10 @@ import { ProfilesService } from './profiles.service'; // Import the ProfileServi
 export class AuthService {
   private userInfoSubject = new BehaviorSubject<any>(null); // Holds user information
   public profile$ = this.userInfoSubject.asObservable();
+
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   private profileService = inject(ProfilesService); // Inject the ProfileService
   private isSignUpSubject = new BehaviorSubject<boolean>(false);
   public enabledSignUp$ = this.isSignUpSubject.asObservable();

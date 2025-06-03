@@ -43,17 +43,28 @@
     </swiper-container>
     }
 
-    <div class="contact-info">
+    <div
+      class="contact-info"
+      title="{{ hideContactDetails ? 'LogIn to reveal contact details' : '' }}"
+      (click)="infoContact()"
+    >
       <div class="contact-container">
         <ion-img
           class="contact-icon"
           [src]="'assets/contact-us-' + randomImageIndex + '.gif'"
         ></ion-img>
         <div class="contact-details">
+          @if(hideContactDetails){
+          <strong>Email: </strong>
+          <span class="blur-text">email&#64;email.com </span>
+          <br />
+          <strong>Phone: </strong>
+          <span class="blur-text">+41 12 345 6789 </span> } @else{
           <strong>Email: </strong>
           <a href="mailto:{{ profile.email }}">{{ profile.email }}</a
           ><br />
           <strong>Phone: </strong> {{ profile.phone }}
+          }
         </div>
       </div>
     </div>
