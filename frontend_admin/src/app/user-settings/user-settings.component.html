@@ -4,6 +4,7 @@
   <p><strong>Nom :</strong> {{ data.user.name }}</p>
   <p><strong>Prénom :</strong> {{ data.user.surname }}</p>
   <p><strong>Role :</strong> {{ data.user.role }}</p>
+  <p><strong>Email :</strong> {{ data.user.email }}</p>
 
   <mat-divider class="my-2"></mat-divider>
 
@@ -26,6 +27,11 @@
   <mat-form-field appearance="fill">
     <mat-label>Role</mat-label>
     <input matInput [(ngModel)]="editedUser.role" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="editedUser.email" />
   </mat-form-field>
 
   <div class="edit-actions">
