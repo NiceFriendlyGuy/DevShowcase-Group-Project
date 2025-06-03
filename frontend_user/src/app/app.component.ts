@@ -15,12 +15,13 @@ import { AuthService } from './services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { logOut, arrowBackOutline } from 'ionicons/icons';
+import { logOut, arrowBackOutline, sadOutline, save } from 'ionicons/icons';
 import {
   imagesOutline,
   informationCircleOutline,
   openOutline,
   close,
+  add,
 } from 'ionicons/icons';
 
 import { Location } from '@angular/common';
@@ -30,6 +31,9 @@ addIcons({
   'information-circle-outline': informationCircleOutline,
   'open-outline': openOutline,
   close: close,
+  add: add,
+  'sad-outline': sadOutline,
+  save: save,
 });
 @Component({
   selector: 'app-root',
@@ -82,8 +86,8 @@ export class AppComponent {
         } else if (
           this.location.path().includes('/projectDetails/') ||
           this.location.path().includes('/profiles?id') ||
-          this.location.path().includes('/newProject')
-
+          this.location.path().includes('/newProject') ||
+          this.location.path().includes('/editProject')
         )
           this.showBackButton = true;
         // Show back button on project details page
@@ -99,9 +103,9 @@ export class AppComponent {
       this.auth.isSignUp = false; // Reset the sign-up flag
     } else if (
       this.location.path().includes('/projectDetails/') ||
-      this.location.path().includes('/profiles?id')||
-      this.location.path().includes('/newProject')
-      
+      this.location.path().includes('/profiles?id') ||
+      this.location.path().includes('/newProject') ||
+      this.location.path().includes('/editProject')
     ) {
       this.location.back(); // Navigate back to the previous page
     }

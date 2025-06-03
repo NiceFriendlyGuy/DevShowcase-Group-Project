@@ -104,7 +104,9 @@ export class AccountPage {
     await alert.present();
   }
 
-  editProject(projectId: string) {}
+  editProject(projectId: string) {
+    this.router.navigate(['/tabs/account/editProject', projectId]);
+  }
 
   newProject() {
     this.router.navigate(['/tabs/account/newProject']);

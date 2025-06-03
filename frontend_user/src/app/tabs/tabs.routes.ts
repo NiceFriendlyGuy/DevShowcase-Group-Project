@@ -54,6 +54,13 @@ export const routes: Routes = [
                 (m) => m.NewProjectPage
               ),
           },
+          {
+            path: 'editProject/:id',
+            loadComponent: () =>
+              import('../pages/edit-project/edit-project.page').then(
+                (m) => m.EditProjectPage
+              ),
+          },
         ],
       },
       {
