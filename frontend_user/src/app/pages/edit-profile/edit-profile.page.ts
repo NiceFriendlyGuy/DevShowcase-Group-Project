@@ -133,7 +133,10 @@ export class EditProfilePage implements OnInit {
     // Retrieve data when the modal is dismissed
     const { data } = await modal.onDidDismiss();
     if (data && typeof data === 'object') {
-      const result = this.profilesService.changePassword(this.profile.id, data);
+      const result = await this.profilesService.changePassword(
+        this.profile.id,
+        data
+      );
       if (result) {
         // Handle successful password change
         console.log('Password changed successfully');
