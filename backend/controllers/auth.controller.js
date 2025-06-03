@@ -19,7 +19,17 @@ authController.login = async function (req, res) {
         if (!isValid) {
             return res.status(401).json( { message: 'wrong password'});
         }
-        res.status(200).json( {message: 'successfully authentificated'})
+        res.status(200).json( {
+            message: 'successfully authentificated',
+            user: {
+                id: user.id,
+                name: user.name,
+                surname: user.surname,
+                role: user.role,
+                email: user.email,
+                createdAt: user.createdAt
+            }
+        })
     } catch(err) {
         res.status(400).json({message: 'failed to login', error: err.message});
     }
