@@ -27,7 +27,7 @@ export class ProfilesService {
   public async getProfilesAll(): Promise<any> {
     if (environment.production) {
       const profiles = await firstValueFrom(
-        this.httpClient.post(this.findAllProfilesUrl, this.headers)
+        this.httpClient.post(this.findAllProfilesUrl, {}, this.headers)
       );
       if (profiles) {
         this.profiles = <any>profiles;
