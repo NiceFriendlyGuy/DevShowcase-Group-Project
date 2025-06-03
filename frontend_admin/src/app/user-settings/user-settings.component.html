@@ -1,4 +1,5 @@
 <h2 mat-dialog-title>Paramètres de l'utilisateur</h2>
+
 <mat-dialog-content class="user-settings-dialog-container">
   @if (!isEditing()) {
   <p><strong>Nom :</strong> {{ data.user.name }}</p>
@@ -8,7 +9,50 @@
 
   <mat-divider class="my-2"></mat-divider>
 
-  <button mat-button color="primary">Réinitialiser le mot de passe</button>
+  <button mat-button color="primary" (click)="togglePasswordForm()">
+    Modifier le mot de passe
+  </button>
+
+  @if (showPasswordForm) {
+  <div class="mt-2">
+    <form class="passwordForm" [formGroup]="passwordForm" (ngSubmit)="submitPasswordChange()">
+      <mat-form-field appearance="fill">
+        <mat-label>Mot de passe actuel</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="currentPassword"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nouveau mot de passe</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="newPassword"
+          required
+        />
+      </mat-form-field>
+
+      <div class="edit-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="passwordForm.invalid"
+        >
+          Enregistrer
+        </button>
+        <button mat-button type="button" (click)="cancelPasswordChange()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+
   <button mat-button color="warn" (click)="openDeleteUserDialog(data.user)">
     Supprimer cet utilisateur
   </button>

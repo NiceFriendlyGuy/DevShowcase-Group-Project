@@ -29,6 +29,20 @@ export class UserService {
     );
   }
 
+  public updateUserPassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string
+  ): Observable<any> {
+    return this.http.put(
+      `http://localhost:3000/api/auth/changePassword/${userId}`,
+      {
+        currentPassword,
+        newPassword,
+      }
+    );
+  }
+
   /* public deleteUser(user: User): Observable<User[]> {
     return this.http.delete<User[]>('assets/fakeusers.json', { body: user });
   } */

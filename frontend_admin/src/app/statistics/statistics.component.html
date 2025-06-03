@@ -16,7 +16,7 @@
           [chartData]="userTechChartDataObject"
         ></app-doughnut-chart>
       </div>
-
+      <!-- TO ADD MORE STATS
       <div class="stat-item" (click)="toggleLineChart('active')">
         <mat-icon color="primary">show_chart</mat-icon>
         <div class="stat-item-text">
@@ -34,7 +34,7 @@
         </div>
         <app-doughnut-chart></app-doughnut-chart>
       </div>
-
+    -->
       <div class="stat-item" (click)="toggleLineChart('projects')">
         <mat-icon color="primary">trending_up</mat-icon>
         <div class="stat-item-text">
@@ -54,7 +54,7 @@
       <app-line-chart
         [labels]="lineChartLabels"
         [data]="lineChartCounts"
-        [title]="'Projects per ' + selectedKey">
+        [title]="selectedKey === 'projects' ? 'Projects Over Time' : 'User Registrations Over Time'">
       </app-line-chart>
     }
   </mat-card-content>
