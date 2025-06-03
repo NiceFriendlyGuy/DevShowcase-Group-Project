@@ -3,24 +3,22 @@
 
   <ion-card>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <ion-card-header>
-        <ion-avatar
-          *ngIf="profile.photo || avatarPreview"
-          class="top-right-avatar"
-        >
-          <img [src]="avatarPreview || profile.photo" />
-          <div class="avatar-upload">
-            <label for="avatarInput" class="upload-label">Change</label>
-            <input
-              id="avatarInput"
-              type="file"
-              accept="image/*"
-              (change)="onAvatarChange($event)"
-              hidden
-            />
-          </div>
-        </ion-avatar>
-      </ion-card-header>
+      <ion-avatar
+        *ngIf="profile.photo || avatarPreview"
+        class="top-center-avatar"
+      >
+        <img [src]="avatarPreview || profile.photo" />
+        <div class="avatar-upload">
+          <label for="avatarInput" class="upload-label">Change</label>
+          <input
+            id="avatarInput"
+            type="file"
+            accept="image/*"
+            (change)="onAvatarChange($event)"
+            hidden
+          />
+        </div>
+      </ion-avatar>
 
       <ion-card-content>
         <div class="section-title">User Info</div>

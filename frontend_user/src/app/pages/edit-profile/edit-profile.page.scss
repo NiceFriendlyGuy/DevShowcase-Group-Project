@@ -31,6 +31,10 @@ ion-card-header {
   padding: 10px; /* Adds padding inside the header */
 }
 
+ion-card-content {
+  padding-top: 0px;
+}
+
 ion-item {
   margin-bottom: 20px; /* Increased spacing between form fields */
   --background: #f5f5f5; /* Light background for input fields */
@@ -53,17 +57,20 @@ ion-card {
   padding: 0px;
 }
 
-.top-right-avatar {
-  margin-left: auto; /* Push avatar to the far right */
-  width: 90px; /* Set a fixed size for the avatar */
-  height: 90px;
+.top-center-avatar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  float: none;
+  width: 110px; /* Set a fixed size for the avatar */
+  height: 110px;
 }
 
 .section-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #4a4a4a; /* Darker text color for better readability */
-  margin-top: 10px;
   text-align: left; /* Align the title to the left */
 }
 
