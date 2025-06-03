@@ -67,15 +67,35 @@ export class AccountPage {
     //console.log('Profile:', this.profile);
   }
 
-  removeProject(projectId: string) {
-    console.log('Project ID to delete:', projectId);
+  async removeProject(projectId: string, isOnlyAuthor: boolean) {
+    if (isOnlyAuthor) {
+      await this.projectsService.removeProject(projectId);
+    } else {
+      await this.projectsService.removeAuthorFromProject(
+        projectId,
+        this.profile.id
+      );
+    }
   }
 
   async confirmDeleteProject(projectId: string) {
+    let project = await this.projectsService.getProjectById(projectId);
+    let warning = '';
+    let isOnlyAuthor = false;
+    if (project[0].authors.length === 1) {
+      isOnlyAuthor = true;
+      warning =
+        'You are the only author of this project. Deleting it will remove it permanently.';
+    } else {
+      isOnlyAuthor = false;
+      warning =
+        'You are going to be removed form this project. The project will not be deleted.';
+    }
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
       message:
-        'Are you sure you want to remove this author from the project? The project will not be deleted',
+        'Are you sure you want to remove this author from the project? ' +
+        warning,
 
       buttons: [
         {
@@ -89,7 +109,7 @@ export class AccountPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.removeProject(projectId); // Call the delete method
+            this.removeProject(projectId, isOnlyAuthor); // Call the delete method
           },
         },
       ],
@@ -98,7 +118,9 @@ export class AccountPage {
     await alert.present();
   }
 
-  editProject(projectId: string) {}
+  editProject(projectId: string) {
+    this.router.navigate(['/tabs/account/editProject', projectId]);
+  }
 
   newProject() {
     this.router.navigate(['/tabs/account/newProject']);

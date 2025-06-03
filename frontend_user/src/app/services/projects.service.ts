@@ -15,7 +15,7 @@ export class ProjectsService {
     this.categories = dummyCategoriesData;
   }
 
-  async getProjectsAll () : Promise<any> {
+  async getProjectsAll(): Promise<any> {
     return this.projects;
   }
 
@@ -32,5 +32,25 @@ export class ProjectsService {
 
   getCategoriesAll() {
     return this.categories;
+  }
+
+  removeAuthorFromProject(projectId: string, authorId: string) {
+    const projectIndex = this.projects.findIndex(
+      (project) => project.id === projectId
+    );
+    if (projectIndex !== -1) {
+      this.projects[projectIndex].authors = this.projects[
+        projectIndex
+      ].authors.filter((item: string) => item !== authorId);
+    }
+  }
+
+  removeProject(projectId: string) {
+    const projectIndex = this.projects.findIndex(
+      (project) => project.id === projectId
+    );
+    if (projectIndex !== -1) {
+      this.projects.splice(projectIndex, 1);
+    }
   }
 }
