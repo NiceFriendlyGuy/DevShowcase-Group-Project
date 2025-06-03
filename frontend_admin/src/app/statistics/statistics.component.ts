@@ -67,13 +67,21 @@ export class StatisticsComponent implements OnInit {
 
 
   toggleLineChart(key: string): void {
-    if (this.selectedKey === key && this.showLineChart) {
-      this.showLineChart = false;
-    } else {
-      this.selectedKey = key;
-      this.showLineChart = true;
-    }
+  if (this.selectedKey === key && this.showLineChart) {
+    this.showLineChart = false;
+    return;
   }
+
+  this.selectedKey = key;
+  this.showLineChart = true;
+
+  if (key === 'projects') {
+    this.groupProjectsBy('month'); // or 'day', 'week'
+  } else if (key === 'users') {
+    this.groupUsersBy('month'); // or 'day', 'week'
+  }
+}
+
 
   // ✅ Count tech usage
  computeTechnologyUsage(): void {
@@ -97,6 +105,33 @@ export class StatisticsComponent implements OnInit {
     this.cdr.detectChanges(); // Force update
 
   }
+
+  groupUsersBy(period: 'day' | 'week' | 'month'): void {
+    const countsMap = new Map<string, number>();
+
+    for (const user of this.users) {
+      const date = new Date(user.createdAt);
+      let key = '';
+
+      if (period === 'day') {
+        key = date.toISOString().split('T')[0]; // "2025-05-27"
+      } else if (period === 'week') {
+        const year = date.getFullYear();
+        const week = this.getWeekNumber(date);
+        key = `${year}-W${week.toString().padStart(2, '0')}`;
+      } else if (period === 'month') {
+        key = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+      }
+
+      const count = countsMap.get(key) ?? 0;
+      countsMap.set(key, count + 1);
+    }
+
+    const sortedKeys = Array.from(countsMap.keys()).sort();
+    this.lineChartLabels = sortedKeys;
+    this.lineChartCounts = sortedKeys.map(k => countsMap.get(k)!);
+  }
+
 
   groupProjectsBy(period: 'day' | 'week' | 'month'): void {
     const countsMap = new Map<string, number>();
