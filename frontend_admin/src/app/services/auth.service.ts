@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginCredentials } from '../models/login-credentials.model';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,6 @@ export class AuthService {
   private userSubject = new BehaviorSubject<any>(this.loadUser());
 
   user$ = this.userSubject.asObservable(); // components can subscribe to this
-
 
   private loadUser(): any | null {
     const user = localStorage.getItem('user');
@@ -34,19 +34,30 @@ export class AuthService {
     );
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('user');
-    this.userSubject.next(null); // ✅ push logout state
+    this.userSubject.next(null);
     this.router.navigate(['/login']);
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  getUser(): any | null {
-    return this.userSubject.value;
+  public isAdmin(): boolean {
+    const userJson = localStorage.getItem('user');
+    if (!userJson) return false;
+    const user = JSON.parse(userJson);
+    return user.admin === true;
   }
 
+  public getCurrentUser(): User | null {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) : null;
+  }
+
+  public getUser(): any | null {
+    return this.userSubject.value;
+  }
 }

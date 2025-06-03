@@ -8,9 +8,9 @@ import { Request } from '../models/request.model';
 })
 export class RequestService {
   private readonly http = inject(HttpClient);
-  private requestsUrl = 'assets/requests.json';
+  private requestsUrl = 'http://localhost:3000/api/requests/findAll';
 
-  getRequests(): Observable<Request[]> {
-    return this.http.get<Request[]>(this.requestsUrl);
+  public getRequests(): Observable<Request[]> {
+    return this.http.post<Request[]>(this.requestsUrl, {});
   }
 }
