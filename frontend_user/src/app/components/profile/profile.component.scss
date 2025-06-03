@@ -165,3 +165,7 @@ swiper-slide {
     height: 125px; /* Hauteur fixe pour toutes les images */
   }
 }
+
+.blur-text {
+  filter: blur(4px);
+}

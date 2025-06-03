@@ -17,6 +17,7 @@
   width: 80px;
   text-align: center;
   scroll-snap-align: start;
+  padding-top: 10px;
 }
 
 .item img {
@@ -74,4 +75,10 @@ body {
   align-items: center;
   gap: 6px;
   position: static; // retire le positionnement absolu
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically */
 }

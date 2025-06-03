@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import {
   ModalController,
+  IonContent,
   IonCard,
   IonAvatar,
   IonChip,
@@ -28,6 +22,8 @@ import {
   IonButton,
   IonInput,
   IonTextarea,
+  IonFab,
+  IonFabButton,
 } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { addIcons } from 'ionicons';
@@ -35,17 +31,19 @@ import { close, add, pencil, save } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
-import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ChangePasswordComponent } from '../../components/change-password/change-password.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss'],
+  selector: 'app-edit-profile',
+  standalone: true,
+  templateUrl: './edit-profile.page.html',
+  styleUrls: ['./edit-profile.page.scss'],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    IonContent,
     IonTextarea,
     IonAvatar,
     IonCard,
@@ -58,11 +56,12 @@ import { AuthService } from 'src/app/services/auth.service';
     IonButton,
     IonInput,
     IonLabel,
+    IonFab,
+    IonFabButton,
   ],
 })
-export class ProfileEditComponent implements OnInit {
-  @Input() profile: any;
-  @Output() doneEdit = new EventEmitter<void>(); // Event emitter to notify the parent
+export class EditProfilePage implements OnInit {
+  public profile: any;
 
   private router = inject(Router);
   private profilesService = inject(ProfilesService);
@@ -100,6 +99,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.profile = this.auth.getProfileInfo();
     this.profileForm.patchValue({
       id: this.profile?.id,
       name: this.profile?.name,
@@ -133,7 +133,10 @@ export class ProfileEditComponent implements OnInit {
     // Retrieve data when the modal is dismissed
     const { data } = await modal.onDidDismiss();
     if (data && typeof data === 'object') {
-      const result = this.profilesService.changePassword(this.profile.id, data);
+      const result = await this.profilesService.changePassword(
+        this.profile.id,
+        data
+      );
       if (result) {
         // Handle successful password change
         console.log('Password changed successfully');
@@ -189,7 +192,7 @@ export class ProfileEditComponent implements OnInit {
       //console.log('Updated Profile:', formValue);
 
       this.profilesService.updateProfile(formValue);
-      this.doneEdit.emit(); // Emit the cancel event to the parent
+      this.router.navigate(['/tabs/account']); // Navigate back to the account page
     } else {
       console.log('Invalid form data');
     }
@@ -262,6 +265,11 @@ export class ProfileEditComponent implements OnInit {
 
     await toast.present();
   }
+
+  public onCancelEdit() {
+    this.router.navigate(['/tabs/account']); // Navigate back to the account page
+  }
+
   logout() {
     this.auth.isLoggedIn = false;
     this.router.navigate(['/tabs/account/login'], {

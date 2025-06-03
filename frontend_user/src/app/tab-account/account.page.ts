@@ -10,7 +10,6 @@ import {
   ToastController,
 } from '@ionic/angular/standalone';
 import { ProfileComponent } from '../components/profile/profile.component';
-import { ProfileEditComponent } from '../components/profile-edit/profile-edit.component';
 import { ProfilesService } from '../services/profiles.service';
 import { AuthService } from '../services/auth.service';
 import { addIcons } from 'ionicons';
@@ -32,7 +31,6 @@ import { ContactAdminComponent } from '../components/contact-admin/contact-admin
     IonIcon,
     IonLabel,
     ProfileComponent,
-    ProfileEditComponent,
     ContactAdminComponent,
   ],
 })
@@ -43,13 +41,10 @@ export class AccountPage {
   public profile: any = null;
   private router = inject(Router);
   private alertController = inject(AlertController);
-  public editMode: boolean = false;
   private toastController = inject(ToastController);
 
   public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
-
-  @ViewChild('profileEdit') profileEditComponent!: ProfileEditComponent;
 
   constructor() {
     addIcons({ logOut, close, add, pencil });
@@ -67,21 +62,40 @@ export class AccountPage {
     }); // Add a query parameter
   }
 
-  refreshProfile() {
-    this.profile = this.profilesService.getProfilesById(this.profile.id)[0];
-    this.editMode = false;
+  async refreshProfile() {
+    this.profile = await this.profilesService.getProfilesById(this.profile.id);
     //console.log('Profile:', this.profile);
   }
 
-  removeProject(projectId: string) {
-    console.log('Project ID to delete:', projectId);
+  async removeProject(projectId: string, isOnlyAuthor: boolean) {
+    if (isOnlyAuthor) {
+      await this.projectsService.removeProject(projectId);
+    } else {
+      await this.projectsService.removeAuthorFromProject(
+        projectId,
+        this.profile.id
+      );
+    }
   }
 
   async confirmDeleteProject(projectId: string) {
+    let project = await this.projectsService.getProjectById(projectId);
+    let warning = '';
+    let isOnlyAuthor = false;
+    if (project[0].authors.length === 1) {
+      isOnlyAuthor = true;
+      warning =
+        'You are the only author of this project. Deleting it will remove it permanently.';
+    } else {
+      isOnlyAuthor = false;
+      warning =
+        'You are going to be removed form this project. The project will not be deleted.';
+    }
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
       message:
-        'Are you sure you want to remove this author from the project? The project will not be deleted',
+        'Are you sure you want to remove this author from the project? ' +
+        warning,
 
       buttons: [
         {
@@ -95,7 +109,7 @@ export class AccountPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.removeProject(projectId); // Call the delete method
+            this.removeProject(projectId, isOnlyAuthor); // Call the delete method
           },
         },
       ],
@@ -112,29 +126,21 @@ export class AccountPage {
     this.router.navigate(['/tabs/account/newProject']);
   }
 
-  public onCancelEdit() {
-    this.editMode = false;
-  }
-
-  public onSubmitEdit() {
-    if (this.profileEditComponent) {
-      this.profileEditComponent.onSubmit();
-    }
-  }
-
-  async presentToast(message: string, color: string = 'success') {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000, // Toast will disappear after 2 seconds
-      position: 'bottom', // Position of the toast
-      color: color, // Success, danger, etc.
-    });
-
-    await toast.present();
-  }
-
-  handleAdminMessage(event: { category: string; message: string }) {
+  async handleAdminMessage(event: { category: string; message: string }) {
     // Envoyer au backend ou afficher une notification
     console.log('Message to admin:', event);
+    let result = await this.profilesService.sendAdminMessage(
+      event.category,
+      event.message
+    );
+    const toast = await this.toastController.create({
+      message: <any>result,
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+  goEditProfile() {
+    this.router.navigate(['/tabs/account/editProfile']);
   }
 }

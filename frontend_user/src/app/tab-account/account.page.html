@@ -1,5 +1,5 @@
-<ion-content *ngIf="!editMode">
-  <app-profile [profile]="profile"></app-profile>
+<ion-content>
+  <app-profile [profile]="profile" [previewProjects]="true"></app-profile>
 
   <div class="section-title">MY PROJECTS</div>
   <div
@@ -41,33 +41,10 @@
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button
       color="success"
-      (click)="editMode=true"
+      (click)="goEditProfile()"
       style="margin-bottom: 10px"
     >
       <ion-icon name="pencil"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
-
-<ion-content *ngIf="editMode">
-  <ion-label class="edit-label"> Edit Profile </ion-label>
-  <app-profile-edit
-    #profileEdit
-    [profile]="profile"
-    (doneEdit)="refreshProfile()"
-  ></app-profile-edit>
-
-  <!-- Floating Action Buttons (FAB) for Save and Cancel -->
-  <ion-fab slot="fixed" vertical="top" horizontal="start">
-    <ion-fab-button
-      color="danger"
-      (click)="onCancelEdit()"
-      style="margin-bottom: 10px"
-    >
-      <ion-icon name="close"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="success" (click)="onSubmitEdit()">
-      <ion-icon name="save"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

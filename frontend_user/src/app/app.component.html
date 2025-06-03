@@ -1,7 +1,8 @@
 <ion-app>
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start" *ngIf="showBackButton">
+      @if(showBackButton){
+      <ion-buttons slot="start">
         <ion-button (click)="goBack()">
           <ion-icon
             name="arrow-back-outline"
@@ -10,9 +11,11 @@
           ></ion-icon>
         </ion-button>
       </ion-buttons>
+      }
       <div class="toolbar-content">
-        <ion-img src="./assets/logo.png" class="logo"></ion-img>
-        <div *ngIf="auth.isLoggedIn" class="user-info">
+        <ion-img src="./assets/logo_trans.png" class="logo"></ion-img>
+        @if(auth.isLoggedIn && isAccountPage){
+        <div class="user-info">
           <ion-label class="Wellcome">Wellcome {{ profile.name }}!</ion-label>
           <ion-icon
             name="log-out"
@@ -21,6 +24,7 @@
             (click)="logout()"
           ></ion-icon>
         </div>
+        }
       </div>
     </ion-toolbar>
   </ion-header>

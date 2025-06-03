@@ -32,9 +32,16 @@ export class ProfilesPage {
   public profileId: string = '';
   public filteredProfiles: any[] = [];
   private router = inject<any>(Router);
+  public noResults: boolean = false;
+  public loadingData: boolean = false;
 
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
+    if (this.filteredProfiles.length === 0 && !this.loadingData) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
   }
 
   onFilteredItems(filtered: any[]) {
@@ -43,25 +50,9 @@ export class ProfilesPage {
   constructor() {}
 
   async ngOnInit() {
+    this.loadingData = true;
     this.profiles = await this.profilesService.getProfilesAll();
-
-    this.route.queryParams.subscribe((params) => {
-      console.log('Query params:', params);
-      if (params['id']) {
-        this.profileId = params['id'];
-        if (this.profileId) {
-          let profile = this.profilesService.getProfilesById(this.profileId);
-          console.log('Profile by ID:', profile);
-          this.filteredProfiles = profile;
-        } else {
-          this.filteredProfiles = this.profiles;
-          this.profileId = '';
-        }
-      } else {
-        this.filteredProfiles = this.profiles;
-        this.profileId = '';
-      }
-    });
+    this.loadingData = false;
 
     let technologiesNames: any[] = this.profilesService
       .getTechnologiesFromUsers()
@@ -86,8 +77,6 @@ export class ProfilesPage {
     return primaryUrl;
   }
   onProfileClick(profileId: string) {
-    this.router.navigate(['/tabs/profiles'], {
-      queryParams: { id: profileId },
-    });
+    this.router.navigate(['tabs/profiles/profileDetails', profileId]);
   }
 }

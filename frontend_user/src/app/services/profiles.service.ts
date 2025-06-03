@@ -46,11 +46,11 @@ export class ProfilesService {
     return this.profiles;
   }
 
-  getProfilesById(authorId: string) {
+  async getProfilesById(authorId: string) {
     if (this.profiles.length === 0) {
-      this.getProfilesAll();
+      await this.getProfilesAll();
     }
-    return this.profiles.filter((profile) => profile.id === authorId);
+    return this.profiles.filter((profile) => profile.id === authorId)[0];
   }
 
   async addProfile(profile: any): Promise<any> {
@@ -136,16 +136,29 @@ export class ProfilesService {
   }
 
   async authProfile(email: string, password: string) {
-    if (this.profiles.length === 0) {
-      await this.getProfilesAll();
-    }
-    const profile = this.profiles.find(
-      (profile) => profile.email === email && profile.password === password
-    );
-    if (profile) {
-      return profile;
+    if (environment.production) {
+      const authData = { email: email, password: password };
+      const valid = await firstValueFrom(
+        this.httpClient.post(
+          environment.BASE_URL_PROFILES + '/auth',
+          authData,
+          this.headers
+        )
+      );
+      return valid;
     } else {
-      return null;
+      /////// Using Mock Data //////////
+      if (this.profiles.length === 0) {
+        await this.getProfilesAll();
+      }
+      const profile = this.profiles.find(
+        (profile) => profile.email === email && profile.password === password
+      );
+      if (profile) {
+        return profile;
+      } else {
+        return null;
+      }
     }
   }
 
@@ -163,24 +176,48 @@ export class ProfilesService {
     return allTechnologies;
   }
 
-  changePassword(id: string, data: any) {
-    const { currentPassword, newPassword } = data;
-    const profile = this.profiles.find((profile) => profile.id === id);
-    if (profile) {
-      if (profile.password === currentPassword) {
-        profile.password = newPassword;
-        return true; // Password changed successfully
-      } else {
-        return false; // Current password is incorrect
+  async changePassword(id: string, data: any): Promise<boolean> {
+    if (environment.production) {
+      const changePasswordData = {
+        id: id,
+        currentPassword: data.password,
+        newPassword: data.newPassword,
+      };
+      return await firstValueFrom(
+        this.httpClient.post(
+          environment.BASE_URL_PROFILES + '/changePassword',
+          changePasswordData,
+          this.headers
+        )
+      )
+        .then((response) => {
+          console.log('Password changed successfully:', response);
+          return true; // Password changed successfully
+        })
+        .catch((error) => {
+          console.error('Error changing password:', error);
+          return false; // Password change failed
+        });
+    } else {
+      /////// Using Mock Data //////////}
+      const { currentPassword, newPassword } = data;
+      const profile = this.profiles.find((profile) => profile.id === id);
+      if (profile) {
+        if (profile.password === currentPassword) {
+          profile.password = newPassword;
+          return true; // Password changed successfully
+        } else {
+          return false; // Current password is incorrect
+        }
       }
+      return false; // Profile not found
     }
-    return false; // Profile not found
   }
 
-  getPreviewProfile(profiles: string[]): any[] {
+  async getPreviewProfile(profiles: string[]): Promise<any[]> {
     const authorsPreview: any[] = [];
-    profiles.forEach((authorId: string) => {
-      const foundProfile = this.getProfilesById(authorId);
+    profiles.forEach(async (authorId: string) => {
+      const foundProfile = await this.getProfilesById(authorId);
       const profile = Array.isArray(foundProfile)
         ? foundProfile[0]
         : foundProfile;
@@ -194,5 +231,28 @@ export class ProfilesService {
       }
     });
     return authorsPreview;
+  }
+
+  async sendAdminMessage(category: string, message: string): Promise<any[]> {
+    const data = {
+      category: category,
+      message: message,
+    };
+    const result = await firstValueFrom(
+      this.httpClient.post(
+        environment.BASE_URL_PROFILES + '/contactAdmin',
+        data,
+        this.headers
+      )
+    )
+      .then((response) => {
+        console.log('Message sent to admin:', response);
+        return response as any[];
+      })
+      .catch((error) => {
+        console.error('Error sending message to admin:', error);
+        return [];
+      });
+    return result;
   }
 }

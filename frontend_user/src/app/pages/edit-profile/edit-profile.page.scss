@@ -1,3 +1,17 @@
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+.edit-label {
+  display: block; /* Ensures the label behaves as a block element */
+  text-align: center; /* Centers the text horizontally */
+  font-size: 1.5rem; /* Increases the font size */
+  font-weight: bold; /* Makes the text bold */
+  color: #4a4a4a; /* Sets a neutral dark color */
+  margin: 20px 0; /* Adds vertical spacing above and below the label */
+}
+
 ion-card {
   margin: 20px;
   padding: 20px;
@@ -15,6 +29,10 @@ ion-card-header {
   flex-direction: column; /* Stacks elements vertically */
   align-items: flex-start; /* Aligns all child elements to the left */
   padding: 10px; /* Adds padding inside the header */
+}
+
+ion-card-content {
+  padding-top: 0px;
 }
 
 ion-item {
@@ -39,17 +57,20 @@ ion-card {
   padding: 0px;
 }
 
-.top-right-avatar {
-  margin-left: auto; /* Push avatar to the far right */
-  width: 90px; /* Set a fixed size for the avatar */
-  height: 90px;
+.top-center-avatar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  float: none;
+  width: 110px; /* Set a fixed size for the avatar */
+  height: 110px;
 }
 
 .section-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #4a4a4a; /* Darker text color for better readability */
-  margin-top: 10px;
   text-align: left; /* Align the title to the left */
 }
 

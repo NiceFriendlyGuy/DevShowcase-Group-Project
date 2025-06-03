@@ -59,7 +59,7 @@
       { "name": "Node.js" },
       { "name": "SQLite" }
     ],
-    "authors": ["1", "2", "6"],
+    "authors": ["6"],
     "link": "https://example.com/chatapp",
     "photos": [
       "assets/3/Screenshot1.png",

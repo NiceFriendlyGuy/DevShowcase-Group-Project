@@ -1,0 +1,143 @@
+<ion-content [fullscreen]="true">
+  <ion-label class="edit-label"> Edit Profile </ion-label>
+
+  <ion-card>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <ion-avatar
+        *ngIf="profile.photo || avatarPreview"
+        class="top-center-avatar"
+      >
+        <img [src]="avatarPreview || profile.photo" />
+        <div class="avatar-upload">
+          <label for="avatarInput" class="upload-label">Change</label>
+          <input
+            id="avatarInput"
+            type="file"
+            accept="image/*"
+            (change)="onAvatarChange($event)"
+            hidden
+          />
+        </div>
+      </ion-avatar>
+
+      <ion-card-content>
+        <div class="section-title">User Info</div>
+        <ion-card class="category-card">
+          <div class="share-line-container">
+            <!-- Name -->
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input formControlName="name"></ion-input>
+            </ion-item>
+
+            <!-- Surname -->
+            <ion-item>
+              <ion-label position="floating">Surname</ion-label>
+              <ion-input formControlName="surname"></ion-input>
+            </ion-item>
+          </div>
+
+          <!-- Role -->
+          <ion-item>
+            <ion-label position="floating">Role</ion-label>
+            <ion-input formControlName="role"></ion-input>
+          </ion-item>
+
+          <!-- Bio -->
+          <ion-item>
+            <ion-label position="floating">Bio</ion-label>
+            <ion-textarea formControlName="bio"></ion-textarea>
+          </ion-item>
+
+          <ion-button (click)="openChangePasswordModal()"
+            >Change Password</ion-button
+          >
+        </ion-card>
+
+        <div class="section-title">Contact</div>
+        <ion-card class="category-card">
+          <div class="share-line-container">
+            <!-- Email -->
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+
+            <!-- Phone -->
+            <ion-item>
+              <ion-label position="floating">Phone</ion-label>
+              <ion-input type="tel" formControlName="phone"></ion-input>
+            </ion-item>
+          </div>
+        </ion-card>
+
+        <div class="section-title">Technologies</div>
+        <ion-card class="category-card">
+          <!-- Technologies -->
+          <div class="technologies">
+            <div class="technologies-inline">
+              <div class="label-container">
+                <ion-label>Add new:</ion-label>
+              </div>
+              <ion-item>
+                <ion-label position="floating">Name</ion-label>
+                <ion-input
+                  formControlName="techName"
+                  (ngModelChange)="checkUrlExists()"
+                >
+                </ion-input>
+              </ion-item>
+              <ion-item class="version">
+                <ion-label position="floating">Version</ion-label>
+                <ion-input formControlName="techVersion"> </ion-input>
+              </ion-item>
+              <ion-chip (click)="addTech()" color="danger" slot="end">
+                <ion-icon [src]="techIconUrl"></ion-icon>
+                <ion-label
+                  >{{ profileForm.value.techName }} {{
+                  profileForm.value.techVersion }}</ion-label
+                >
+                <ion-icon name="add"></ion-icon>
+              </ion-chip>
+            </div>
+            <div formArrayName="technologies" class="technologies-list">
+              <div
+                *ngFor="let tech of technologies.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <ion-chip (click)="removeTech(i)" color="danger" slot="end">
+                  <ion-icon [src]="getIconUrl(tech.value.name)"></ion-icon>
+                  <ion-label
+                    >{{ tech.value.name }} {{ tech.value.version }}</ion-label
+                  >
+                  <ion-icon name="close"></ion-icon>
+                </ion-chip>
+              </div>
+            </div>
+          </div>
+        </ion-card>
+
+        <!--    <div class="section-title">Other Infos</div>
+        <ion-card class="category-card">
+        </ion-card> -->
+      </ion-card-content>
+    </form>
+  </ion-card>
+  <ion-label class="delete-label" color="danger" (click)="deleteAccount()"
+    >Delete Account</ion-label
+  >
+
+  <!-- Floating Action Buttons (FAB) for Save and Cancel -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button
+      color="danger"
+      (click)="onCancelEdit()"
+      style="margin-bottom: 10px"
+    >
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="success" (click)="onSubmit()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
