@@ -7,10 +7,14 @@
       <div class="stat-item" (click)="toggleLineChart('users')">
         <mat-icon color="primary">group</mat-icon>
         <div class="stat-item-text">
-          <h3>1 245</h3>
+          @if (users.length > 0) {
+          <h3>{{ users.length }}</h3>
+          }
           <p>Utilisateurs inscrits</p>
         </div>
-        <app-doughnut-chart></app-doughnut-chart>
+        <app-doughnut-chart
+          [chartData]="userTechChartDataObject"
+        ></app-doughnut-chart>
       </div>
 
       <div class="stat-item" (click)="toggleLineChart('active')">
@@ -31,7 +35,7 @@
         <app-doughnut-chart></app-doughnut-chart>
       </div>
 
-      <div class="stat-item" (click)="toggleLineChart('growth')">
+      <div class="stat-item" (click)="toggleLineChart('projects')">
         <mat-icon color="primary">trending_up</mat-icon>
         <div class="stat-item-text">
           <h3>@if (projects.length > 0) {
