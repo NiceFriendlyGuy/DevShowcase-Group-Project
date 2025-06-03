@@ -195,4 +195,27 @@ export class ProfilesService {
     });
     return authorsPreview;
   }
+
+  async sendAdminMessage(category: string, message: string): Promise<any[]> {
+    const data = {
+      category: category,
+      message: message,
+    };
+    const result = await firstValueFrom(
+      this.httpClient.post(
+        environment.BASE_URL_PROFILES + '/contactAdmin',
+        data,
+        this.headers
+      )
+    )
+      .then((response) => {
+        console.log('Message sent to admin:', response);
+        return response as any[];
+      })
+      .catch((error) => {
+        console.error('Error sending message to admin:', error);
+        return [];
+      });
+    return result;
+  }
 }

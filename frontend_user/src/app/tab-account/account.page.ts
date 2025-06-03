@@ -126,9 +126,18 @@ export class AccountPage {
     this.router.navigate(['/tabs/account/newProject']);
   }
 
-  handleAdminMessage(event: { category: string; message: string }) {
+  async handleAdminMessage(event: { category: string; message: string }) {
     // Envoyer au backend ou afficher une notification
     console.log('Message to admin:', event);
+    let result = await this.profilesService.sendAdminMessage(
+      event.category,
+      event.message
+    );
+    const toast = await this.toastController.create({
+      message: <any>result,
+      duration: 2000,
+    });
+    toast.present();
   }
 
   goEditProfile() {
