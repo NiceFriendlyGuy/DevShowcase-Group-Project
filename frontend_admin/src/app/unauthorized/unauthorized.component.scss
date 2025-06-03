@@ -1,0 +1,29 @@
+.unauthorized-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #fafafa;
+}
+
+.unauthorized-card {
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.icon-container {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  color: #d32f2f;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  color: #444;
+}
