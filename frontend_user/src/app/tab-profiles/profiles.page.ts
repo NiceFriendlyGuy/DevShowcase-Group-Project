@@ -7,6 +7,7 @@ import { SearchComponent } from '../components/utils/search/search.component';
 import { HorizontalFilterComponent } from '../components/utils/horizontal-filter/horizontal-filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profiles',
@@ -35,6 +36,8 @@ export class ProfilesPage {
   public noResults: boolean = false;
   public loadingData: boolean = false;
 
+  private cdr = inject(ChangeDetectorRef);
+
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
     if (this.filteredProfiles.length === 0 && !this.loadingData) {
@@ -52,6 +55,7 @@ export class ProfilesPage {
   async ngOnInit() {
     this.loadingData = true;
     this.profiles = await this.profilesService.getProfilesAll();
+    this.cdr.detectChanges();
     this.loadingData = false;
 
     let technologiesNames: any[] = this.profilesService
