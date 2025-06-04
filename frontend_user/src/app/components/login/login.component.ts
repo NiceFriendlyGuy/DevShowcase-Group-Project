@@ -99,7 +99,13 @@ export class LoginComponent implements OnInit {
     );
     //console.log('Logged: ', result);
     if (result) {
-      this.authService.setProfileInfo(result);
+      // let profile = await this.profilesService.getProfilesById(
+      //   result.user.id
+      // );
+      let profile = await this.profilesService.getProfilesByEmail(
+        formData.email
+      );
+      this.authService.setProfileInfo(profile);
       this.router.navigate(['/tabs/account/']);
     } else {
       console.error('Login failed: Invalid credentials');

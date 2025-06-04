@@ -50,7 +50,12 @@ export class ProfilesService {
     if (this.profiles.length === 0) {
       await this.getProfilesAll();
     }
-    return this.profiles.filter((profile) => profile.id === authorId)[0];
+
+  async getProfilesByEmail(email: string) {
+    if (this.profiles.length === 0) {
+      await this.getProfilesAll();
+    }
+    return this.profiles.filter((profile) => profile.email === email)[0];
   }
 
   async addProfile(profile: any): Promise<any> {
