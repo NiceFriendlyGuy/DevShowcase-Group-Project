@@ -200,7 +200,16 @@ For test purposes:
 
 ```json
 {
-  "successfully authentificated"
+    "message": "successfully authentificated",
+    "user": {
+        "id": "683f341def92d5460daa0cf5",
+        "name": "John",
+        "surname": "Smith",
+        "admin": false,
+        "role": "UI/UX Designer",
+        "email": "john.smith@email.com",
+        "createdAt": "2025-05-29T17:42:53.066Z"
+    }
 }
 ```
 
