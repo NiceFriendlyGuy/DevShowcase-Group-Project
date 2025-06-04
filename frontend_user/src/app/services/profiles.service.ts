@@ -140,7 +140,7 @@ export class ProfilesService {
       const authData = { email: email, password: password };
       const valid = await firstValueFrom(
         this.httpClient.post(
-          environment.BASE_URL_PROFILES + '/auth',
+          environment.BASE_URL + '/auth/login',
           authData,
           this.headers
         )
