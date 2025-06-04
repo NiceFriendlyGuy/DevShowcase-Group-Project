@@ -50,6 +50,8 @@ export class ProfilesService {
     if (this.profiles.length === 0) {
       await this.getProfilesAll();
     }
+    return this.profiles.filter((profile) => profile._id === authorId)[0];
+  }
 
   async getProfilesByEmail(email: string) {
     if (this.profiles.length === 0) {
@@ -84,7 +86,7 @@ export class ProfilesService {
 
     if (environment.production) {
       const result = await firstValueFrom(
-        this.httpClient.post(
+        this.httpClient.put(
           this.updateProfilesUrl + profile.id,
           profile,
           this.headers
@@ -92,8 +94,19 @@ export class ProfilesService {
       );
       console.log('Profile updated:', result);
       if (result) {
-        this.profiles.push(result);
-        return profile;
+        const index = this.profiles.findIndex(
+          (profileToUpdate) => profileToUpdate._id === profile.id
+        );
+        console.log('Index:', this.profiles);
+        if (index !== -1) {
+          for (const key in profile) {
+            if (profile.hasOwnProperty(key)) {
+              this.profiles[index][key] = profile[key]; // Update the field
+            }
+          }
+          return this.profiles[index];
+        }
+        return null;
       } else {
         console.error('Error adding profile:', result);
         return null;

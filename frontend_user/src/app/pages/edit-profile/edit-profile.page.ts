@@ -101,7 +101,7 @@ export class EditProfilePage implements OnInit {
   ngOnInit() {
     this.profile = this.auth.getProfileInfo();
     this.profileForm.patchValue({
-      id: this.profile?.id,
+      id: this.profile?._id,
       name: this.profile?.name,
       surname: this.profile?.surname,
       role: this.profile?.role,
