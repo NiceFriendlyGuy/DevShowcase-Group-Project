@@ -14,9 +14,9 @@
       }
       <div class="toolbar-content">
         <ion-img src="./assets/logo_trans.png" class="logo"></ion-img>
-        @if(auth.isLoggedIn && isAccountPage){
+        @if(auth.isLoggedIn && profile?.name && isAccountPage){
         <div class="user-info">
-          <ion-label class="Wellcome">Wellcome {{ profile.name }}!</ion-label>
+          <ion-label class="Wellcome">Wellcome {{ profile?.name }}!</ion-label>
           <ion-icon
             name="log-out"
             size="large"

@@ -25,7 +25,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ProfilesPage {
   private profilesService: ProfilesService =
     inject<ProfilesService>(ProfilesService);
-  public profiles: any[] = [];
+  public profiles: any = [];
   public searchTerm: string = '';
   public listTechnologies: any = [];
   public selectedTechnologies: any[] = [];

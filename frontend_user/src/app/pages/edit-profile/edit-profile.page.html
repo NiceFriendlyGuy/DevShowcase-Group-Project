@@ -3,13 +3,16 @@
 
   <ion-card>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <ion-avatar
-        *ngIf="profile.photo || avatarPreview"
-        class="top-center-avatar"
-      >
+      <ion-avatar class="top-center-avatar">
         <img [src]="avatarPreview || profile.photo" />
         <div class="avatar-upload">
-          <label for="avatarInput" class="upload-label">Change</label>
+          <label
+            for="avatarInput"
+            class="upload-label"
+            [ngStyle]="{ color: profile.photo ? 'white' : 'black'}"
+          >
+            {{profile.photo ? "Change" : "Add Photo"}}
+          </label>
           <input
             id="avatarInput"
             type="file"

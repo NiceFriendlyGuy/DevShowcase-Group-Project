@@ -183,7 +183,7 @@ export class EditProfilePage implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.profileForm.valid) {
       const formValue = { ...this.profileForm.value }; // Create a copy of the form value
       delete formValue.techName; // Remove techName
@@ -191,8 +191,11 @@ export class EditProfilePage implements OnInit {
 
       //console.log('Updated Profile:', formValue);
 
-      this.profilesService.updateProfile(formValue);
-      this.router.navigate(['/tabs/account']); // Navigate back to the account page
+      this.profile = await this.profilesService.updateProfile(formValue);
+      this.auth.setProfileInfo(this.profile); // Update the profile in AuthService
+      this.router.navigate(['/tabs/account'], {
+        queryParams: { reload: true },
+      }); // Navigate back to the account page
     } else {
       console.log('Invalid form data');
     }

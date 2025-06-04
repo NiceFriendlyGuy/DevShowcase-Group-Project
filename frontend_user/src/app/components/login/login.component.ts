@@ -99,12 +99,7 @@ export class LoginComponent implements OnInit {
     );
     //console.log('Logged: ', result);
     if (result) {
-      // let profile = await this.profilesService.getProfilesById(
-      //   result.user.id
-      // );
-      let profile = await this.profilesService.getProfilesByEmail(
-        formData.email
-      );
+      let profile = await this.profilesService.getProfilesById(result.user.id);
       this.authService.setProfileInfo(profile);
       this.router.navigate(['/tabs/account/']);
     } else {
@@ -133,11 +128,16 @@ export class LoginComponent implements OnInit {
           password: formData.password, // You may want to hash the password before sending it to the backend
         };
         //console.log(newProfile);
-        const result = this.profilesService.addProfile(newProfile); //await firstValueFrom(this.profilesService.addProfile(newProfile));
+        const result = await this.profilesService.addProfile(newProfile); //await firstValueFrom(this.profilesService.addProfile(newProfile));
         //console.log(result);
-        // Redirect to the login page after successful registration
-        alert('Profile registered successfully!');
-        this.authService.isSignUp = false; // Reset the sign-up flag
+        if (result) {
+          // Redirect to the login page after successful registration
+          alert('Profile registered successfully!');
+          this.authService.isSignUp = false; // Reset the sign-up flag
+        } else {
+          console.error('Signup failed: Unable to create profile');
+          this.showError('Signup failed: Unable to create profile');
+        }
       }
     } catch (error) {
       console.error('Error during signup:', error);

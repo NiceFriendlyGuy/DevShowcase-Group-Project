@@ -45,7 +45,7 @@ export class ProjectsPage {
   constructor() {}
 
   async ngOnInit() {
-    await this.profilesService.getProfilesAll();
+    this.profilesService.getProfilesAll();
     this.projects = await this.projectsService.getProjectsAll();
     this.filteredProjects = this.projects;
     this.categories = this.projectsService.getCategoriesAll();

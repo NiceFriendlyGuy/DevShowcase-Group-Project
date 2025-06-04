@@ -63,15 +63,16 @@ export class ProfilesService {
   async addProfile(profile: any): Promise<any> {
     //console.log('addProfile', profile);
     if (environment.production) {
-      const id = await firstValueFrom(
+      const result: any = await firstValueFrom(
         this.httpClient.post(this.newProfilesUrl, profile, this.headers)
       );
-      console.log('Profile added with id:', id);
-      if (id) {
-        profile['id'] = id;
+      //console.log('Profile added :', result);
+      if (result) {
+        profile['_id'] = result._id;
+        //console.log('Profile added :', profile);
         this.profiles.push(profile);
       } else {
-        console.error('Error adding profile:', id);
+        console.error('Error adding profile:');
       }
     } else {
       /////// Using Mock Data //////////
@@ -92,12 +93,11 @@ export class ProfilesService {
           this.headers
         )
       );
-      console.log('Profile updated:', result);
       if (result) {
         const index = this.profiles.findIndex(
           (profileToUpdate) => profileToUpdate._id === profile.id
         );
-        console.log('Index:', this.profiles);
+        //console.log('Index:', index);
         if (index !== -1) {
           for (const key in profile) {
             if (profile.hasOwnProperty(key)) {
