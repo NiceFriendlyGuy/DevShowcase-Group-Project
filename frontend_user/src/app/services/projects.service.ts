@@ -2,21 +2,111 @@ import { inject, Injectable } from '@angular/core';
 import dummyProjectsData from 'src/app/services/dummyData/dummyProjectsData.json'; // Import JSON file
 import dummyCategoriesData from 'src/app/services/dummyData/dummyCategoriesData.json'; // Import JSON file
 import { ProfilesService } from './profiles.service';
+import { firstValueFrom, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
   private profilesService = inject(ProfilesService);
+  private httpClient = inject(HttpClient);
   private projects: any[] = [];
   private categories: any[] = [];
+
+  private headers = { headers: { 'Content-Type': 'application/json' } };
+  private findAllProjectUrl = environment.BASE_URL_PROJECTS + '/findAll';
+  private createProjectUrl = environment.BASE_URL_PROJECTS + '/';
+  private updateProjectUrl = environment.BASE_URL_PROJECTS + '/';
+
   constructor() {
-    this.projects = dummyProjectsData;
-    this.categories = dummyCategoriesData;
+    if (!environment.production) {
+      this.projects = dummyProjectsData;
+      this.categories = dummyCategoriesData;
+    }
   }
 
   async getProjectsAll(): Promise<any> {
+    if (environment.production) {
+      const projects = await firstValueFrom(
+        this.httpClient.post(this.findAllProjectUrl, {}, this.headers)
+      );
+      if (projects) {
+        this.projects = <any>projects;
+      } else {
+        console.error('Error fetching projects:', projects);
+      }
+    } else {
+      /////// Using Mock Data //////////
+      console.log('Using mock data for profiles');
+      // Dynamically import the dummy data only if useMockData is true
+      const { default: dummyProjectsData } = await import(
+        'src/app/services/dummyData/dummyProjectsData.json'
+      );
+      this.projects = dummyProjectsData;
+    }
     return this.projects;
+  }
+
+  async createProject(projectData: any): Promise<any> {
+    if (environment.production) {
+      try {
+        const response = await firstValueFrom(
+          this.httpClient.post(
+            this.createProjectUrl,
+            { projectData },
+            this.headers
+          )
+        );
+        console.log('Success:', response);
+        return response; // retourne le project
+      } catch (error) {
+        console.error('Error:', error);
+        throw error; //voir ce qu'on retourne pour la gestion des erreurs
+      }
+    } else {
+      /////// Using Mock Data //////////
+      console.log('Using mock data for profiles');
+      // Dynamically import the dummy data only if useMockData is true
+      const { default: dummyProjectsData } = await import(
+        'src/app/services/dummyData/dummyProjectsData.json'
+      );
+      return dummyProjectsData;
+    }
+  }
+
+  //tester si on a l'id dans projectData
+  async updateProject(projectData: any): Promise<any> {
+    if (environment.production) {
+      try {
+        const response = await firstValueFrom(
+          this.httpClient.put(
+            this.updateProjectUrl + projectData.id,
+            { projectData },
+            this.headers
+          )
+        );
+        console.log('Update Success:', response);
+        return response; // ✅ retourne la réponse de l’API
+      } catch (error) {
+        console.error('Update Error:', error);
+        throw error; // ou return null selon ton usage
+      }
+    } else {
+      console.log('Using mock data for update');
+      const { default: dummyProjectsData } = await import(
+        'src/app/services/dummyData/dummyProjectsData.json'
+      );
+      // Optionnel : mets à jour localement le projet si besoin
+      const index = dummyProjectsData.findIndex(
+        (p: any) => p.id === projectData.id
+      );
+      if (index !== -1) {
+        dummyProjectsData[index] = projectData;
+      }
+      return dummyProjectsData[index] || null;
+    }
   }
 
   getProjectById(id: string) {

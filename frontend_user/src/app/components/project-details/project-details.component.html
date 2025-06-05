@@ -77,13 +77,35 @@
     } @else { @if(project.photos?.length > 0){
     <div class="project-gallery">
       <div class="gallery-grid">
-        @for(photo of project.photos; track photo){
-        <div class="gallery-item">
-          <img [src]="photo" alt="Screenshot" />
+        @for(photo of project.photos; track photo) {
+        <div class="gallery-item" [ngClass]="getImageClass(photo)">
+          <img
+            [src]="photo"
+            alt="Screenshot"
+            (load)="onImageLoad($event, photo)"
+            (click)="openImageModal(photo)"
+          />
         </div>
         }
       </div>
     </div>
     } }
   </div>
+  <ion-modal
+    [isOpen]="isImageModalOpen"
+    (didDismiss)="closeImageModal()"
+    class="image-only-modal"
+    backdropDismiss="true"
+  >
+    <ng-template>
+      <div class="image-only-wrapper" (click)="closeImageModal()">
+        <img
+          [src]="selectedImageUrl"
+          class="image-only-full"
+          (click)="$event.stopPropagation()"
+          alt="Full Image"
+        />
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>

@@ -12,18 +12,18 @@ import {
   IonButtons,
   IonChip,
   IonAvatar,
+  IonModal,
 } from '@ionic/angular/standalone';
 import { DatePipe } from '@angular/common';
 
 import { ProjectsService } from 'src/app/services/projects.service';
 import { ProfilesService } from 'src/app/services/profiles.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
     IonChip,
     IonContent,
     IonAvatar,
@@ -32,8 +32,8 @@ import { ProfilesService } from 'src/app/services/profiles.service';
     DatePipe,
     IonLabel,
     IonIcon,
-    IonBackButton,
-    IonButtons,
+    NgClass,
+    IonModal,
   ],
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],
@@ -72,5 +72,30 @@ export class ProjectDetailsComponent implements OnInit {
       .toLowerCase()
       .replace('.', '')}-original.svg`;
     return primaryUrl;
+  }
+
+  imageOrientationMap: { [url: string]: 'portrait' | 'landscape' } = {};
+
+  onImageLoad(event: Event, photoUrl: string) {
+    const img = event.target as HTMLImageElement;
+    const orientation =
+      img.naturalHeight > img.naturalWidth ? 'portrait' : 'landscape';
+    this.imageOrientationMap[photoUrl] = orientation;
+  }
+
+  getImageClass(photoUrl: string): string {
+    return this.imageOrientationMap[photoUrl] || '';
+  }
+
+  selectedImageUrl = '';
+  isImageModalOpen = false;
+
+  openImageModal(photoUrl: string) {
+    this.selectedImageUrl = photoUrl;
+    this.isImageModalOpen = true;
+  }
+
+  closeImageModal() {
+    this.isImageModalOpen = false;
   }
 }

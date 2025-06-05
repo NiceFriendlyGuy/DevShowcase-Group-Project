@@ -35,6 +35,14 @@ ion-datetime {
   color: #333;
 }
 
+.error-text {
+  color: red;
+  font-size: 13px;
+  margin-left: 4px;
+  display: block;
+  margin-bottom: 12px;
+}
+
 .preview-photos {
   display: flex;
   flex-wrap: wrap;

@@ -33,7 +33,7 @@ import {
 import { ProjectsService } from 'src/app/services/projects.service';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/project.model';
 
 @Component({
@@ -65,6 +65,7 @@ import { Project } from 'src/app/models/project.model';
 export class FormProjectComponent implements OnInit {
   @Input() project: any;
   @Output() formSubmitted = new EventEmitter<Project>();
+  private router = inject(Router);
 
   pageTitle = '';
   private projectService = inject(ProjectsService);
@@ -73,7 +74,7 @@ export class FormProjectComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   categories: any[] = [];
-  projectId: any;
+
   Profiles: any[] = [];
   filteredProfiles: any[] = [];
   selectedProfiles: any[] = [];
@@ -89,6 +90,7 @@ export class FormProjectComponent implements OnInit {
 
   isToastOpen = false;
   messageToast = '';
+  colorToast = '';
   isNew: boolean = true;
 
   constructor(private route: ActivatedRoute) {}
@@ -101,6 +103,15 @@ export class FormProjectComponent implements OnInit {
         category: ['', Validators.required],
         date: ['', Validators.required],
         description: [''],
+        link: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i
+            ),
+          ],
+        ],
         techName: [''],
         techVersion: [''],
         authors: [''], //voir comment faire la validation
@@ -113,7 +124,46 @@ export class FormProjectComponent implements OnInit {
       this.chargeProject();
       this.isNew = false;
     }
-    console.log(this.isNew);
+  }
+
+  othersValidators() {
+    return (formGroup: FormGroup) => {
+      const errors: any = {};
+
+      //validation Date
+      const dateValue = formGroup.get('date')?.value;
+      if (dateValue) {
+        const inputDate = new Date(dateValue);
+        const today = new Date();
+
+        // Réinitialiser heures/minutes/secondes pour comparaison uniquement sur la date
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if (inputDate > today) {
+          errors.futureDateNotAllowed = true;
+        }
+      }
+
+      // Validation auteurs
+      if (!this.authorsId || this.authorsId.length === 0) {
+        errors.authorsRequired = true;
+      }
+
+      // Validation technologies
+      if (!this.technologies || this.technologies.length === 0) {
+        errors.technologiesRequired = true;
+      }
+
+      if (this.photos.length === 0) {
+        errors.photosRequired = true;
+      }
+
+      // Validation Photos
+
+      // S'il y a des erreurs, on les retourne, sinon null
+      return Object.keys(errors).length > 0 ? errors : null;
+    };
   }
 
   chargeProject() {
@@ -126,10 +176,11 @@ export class FormProjectComponent implements OnInit {
       category: this.project.category,
       date: dateOnly,
       description: this.project.description,
+      link: this.project.link,
     });
-    this.photos = this.project.photos;
+    this.photos = [...this.project.photos];
     this.chargeAuthors();
-    this.technologies = this.project.technologies;
+    this.technologies = [...this.project.technologies];
   }
 
   chargeAuthors() {
@@ -141,25 +192,6 @@ export class FormProjectComponent implements OnInit {
         this.authorsId.push(profile.id);
       }
     }
-  }
-
-  othersValidators() {
-    return (formGroup: FormGroup) => {
-      const errors: any = {};
-
-      // Validation auteurs
-      if (this.authorsId.length === 0) {
-        errors.authorsRequired = true;
-      }
-
-      // Validation technologies
-      if (this.technologies.length === 0) {
-        errors.technologiesRequired = true;
-      }
-
-      // S'il y a des erreurs, on les retourne, sinon null
-      return Object.keys(errors).length > 0 ? errors : null;
-    };
   }
 
   getIconUrl(skillName: string): string {
@@ -210,7 +242,8 @@ export class FormProjectComponent implements OnInit {
 
     if (!nameTech || nameTech.trim() === '') {
       this.messageToast = 'Technology name cannot be empty.';
-      this.isToastOpen = true;
+      this.colorToast = 'danger';
+      this.setOpen(true);
       return;
     }
     if (this.techFound) {
@@ -227,22 +260,24 @@ export class FormProjectComponent implements OnInit {
         });
         this.projectForm.patchValue({ techName: '', techVersion: '' });
         this.techIconUrl = '';
+        this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
       } else {
         this.messageToast = 'Technology already exists in the list.';
-        this.isToastOpen = true;
+        this.colorToast = 'danger';
+        this.setOpen(true);
       }
     } else {
       this.messageToast = 'Technology is not found';
-      this.isToastOpen = true;
+      this.colorToast = 'danger';
+      this.setOpen(true);
     }
-    this.techFound = false;
   }
 
   removeTech(tech: any) {
     this.technologies = this.technologies.filter(
       (sel) => sel.name !== tech.name
     );
-    this.projectForm.updateValueAndValidity();
+    this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
   }
 
   onAuthorInput(event: any) {
@@ -274,7 +309,7 @@ export class FormProjectComponent implements OnInit {
     );
     this.authorsId = this.authorsId.filter((id) => id !== profile.id);
     this.searchFilterProfiles(this.authorsInput);
-    this.projectForm.updateValueAndValidity();
+    this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
   }
 
   selectAuthor(profile: any) {
@@ -283,6 +318,7 @@ export class FormProjectComponent implements OnInit {
     this.authorsInput = '';
     this.filteredProfiles = [];
     this.projectForm.patchValue({ autors: '' });
+    this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
   }
 
   async onPhotosSelected(event: any) {
@@ -298,17 +334,53 @@ export class FormProjectComponent implements OnInit {
 
   removePhoto(url: string) {}
 
-  onSubmit() {
+  //Faire les requêtes necessaires
+  async onSubmit() {
+    const newProjectData = {
+      id: '',
+      title: this.projectForm.get('title')?.value,
+      category: this.projectForm.get('category')?.value,
+      date: this.projectForm.get('date')?.value,
+      description: this.projectForm.get('description')?.value,
+      technologies: this.technologies,
+      authors: this.authorsId,
+      link: this.projectForm.get('link')?.value,
+      photos: this.photos,
+    };
     //Enregistre le project
     if (this.isNew) {
+      const response = await this.projectService.createProject(newProjectData);
+      console.log(response);
+      //tester la response quand cela fonction afficher toast en fonction
       //Faire requete création
+      this.messageToast = 'Project created successfully.';
+      this.colorToast = 'success';
+      this.setOpen(true);
+      /*
+      this.messageToast = 'Failed to create the project. Please try again.';
+      this.colorToast = 'danger';
+      this.setOpen(true);
+      */
     } else {
-      //faire requete update
+      newProjectData.id = this.project.id;
+      this.messageToast = 'Project updated successfully.';
+      this.colorToast = 'success';
+      this.setOpen(true);
+
+      /*
+      this.messageToast = 'Failed to update the project. Please try again.';
+      this.colorToast = 'sucess';
+      this.setOpen(true);
+      */
     }
+    console.log(newProjectData);
+  }
+
+  onCancel() {
+    this.router.navigate(['/tabs/account']); // Navigate back to the account page
   }
 
   setOpen(isOpen: boolean) {
     this.isToastOpen = isOpen;
   }
-  onCancel() {}
 }

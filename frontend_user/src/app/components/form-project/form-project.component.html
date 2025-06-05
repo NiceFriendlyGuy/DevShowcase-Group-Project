@@ -7,14 +7,16 @@
   <ion-item>
     <ion-label position="floating">Titre*</ion-label>
     <ion-input formControlName="title" required></ion-input>
-    @if(projectForm.get('title')?.errors?.['required']){
-    <span> Le titre est obligatoire. </span>
-    }
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Catégorie*</ion-label>
-    <ion-select formControlName="category" interface="popover" required>
+    <ion-select
+      formControlName="category"
+      interface="popover"
+      required
+      label-placement="stacked"
+    >
       @for(cat of categories; track cat) {
       <ion-select-option [value]="cat.name">{{ cat.name }}</ion-select-option>
       }
@@ -25,11 +27,23 @@
     <ion-label>Date*</ion-label>
     <ion-input formControlName="date" type="date" required></ion-input>
   </ion-item>
+  @if(projectForm.errors?.['futureDateNotAllowed']){
+  <small class="error-text"> Date must be today or earlier. </small>
+  }
 
   <ion-item>
     <ion-label position="floating">Description</ion-label>
     <ion-textarea formControlName="description" autoGrow="true"></ion-textarea>
   </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">lien*</ion-label>
+    <ion-input formControlName="link" required></ion-input>
+  </ion-item>
+  @if(projectForm.get('link')?.errors?.['pattern'] &&
+  projectForm.get('link')?.touched){
+  <small class="error-text"> Please enter a valid URL </small>
+  }
 
   <ion-item>
     <ion-label position="floating">Technologies*</ion-label>
@@ -128,7 +142,7 @@
   [isOpen]="isToastOpen"
   [message]="messageToast"
   [duration]="5000"
-  color="danger"
+  [color]="colorToast"
   (didDismiss)="setOpen(false)"
 ></ion-toast>
 
