@@ -1,0 +1,6 @@
+Add user delete
+Add requests delete/confirm
+Fix wrong password/not admin message
+Fix/Remove current password field when changing user password
+Add settings dark theme/color
+Add settings language
