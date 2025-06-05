@@ -165,8 +165,12 @@ export class LoginComponent implements OnInit {
       userInfo.email,
       userInfo.password
     );
-    this.authService.setProfileInfo(result);
-    this.router.navigate(['/tabs/account/']);
+    if (result) {
+      this.profilesService.getProfilesById(result.user.id).then((profile) => {
+        this.authService.setProfileInfo(profile);
+        this.router.navigate(['/tabs/account/']);
+      });
+    }
   }
 
   public showError(message: string): void {
