@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const sessionSchema = new mongoose.Schema({
         email: String,
-        status: Boolean,  
+        status: {
+            type: Boolean,
+            default: true
+         },  
     },{
         timestamps: true
     }
