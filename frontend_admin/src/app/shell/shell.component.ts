@@ -38,8 +38,8 @@ export class ShellComponent {
 
   public openProfileDialog() {
     this.dialog.open(ProfileComponent, {
-      height: '400px',
-      width: '600px',
+      height: 'auto',
+      width: 'auto',
     });
   }
 

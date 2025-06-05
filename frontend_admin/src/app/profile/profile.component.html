@@ -1,38 +1,23 @@
-<h2 mat-dialog-title>Administrateur</h2>
-<mat-dialog-content>
-  <div class="profile-info">
-    <div class="profile-item"><strong>Nom :</strong> {{user.name}}</div>
-    <div class="profile-item"><strong>Email :</strong> {{user.email}}</div>
-    <div class="profile-item"><strong>Rôle :</strong> {{user.role}}</div>
-    <div class="profile-item"><strong>ID :</strong> {{user.id}}</div>
-    <div class="profile-item">
-      <strong>Date de création du compte :</strong> {{user.createdAt}}
+<div class="profile-dialog-container">
+  <h2 mat-dialog-title>Administrateur</h2>
+  <mat-dialog-content>
+    <div class="profile-info">
+      <div class="profile-item"><strong>Nom :</strong> {{user.name}}</div>
+      <div class="profile-item"><strong>Email :</strong> {{user.email}}</div>
+      <div class="profile-item"><strong>Rôle :</strong> {{user.role}}</div>
+      <div class="profile-item">
+        <strong>Date de création du compte :</strong> {{user.createdAt}}
+      </div>
+      <!--
+      <div class="profile-item">
+        <strong>Statut du compte :</strong>
+        <span class="status-active">Actif</span>
+      </div>
+    -->
     </div>
-    <!--
-    <div class="profile-item">
-      <strong>Statut du compte :</strong>
-      <span class="status-active">Actif</span>
-    </div>
-  -->
-  </div>
+  </mat-dialog-content>
 
-  <h3>Privilèges</h3>
-  <div class="privileges">
-    <div class="privilege-item">
-      <mat-icon>manage_accounts</mat-icon>
-      <span>Gestion des utilisateurs</span>
-    </div>
-    <div class="privilege-item">
-      <mat-icon>rule</mat-icon>
-      <span>Gestion des demandes</span>
-    </div>
-    <div class="privilege-item">
-      <mat-icon>settings</mat-icon>
-      <span>Gestion des paramètres</span>
-    </div>
-  </div>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="closeDialog()">Fermer</button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="closeDialog()">Fermer</button>
+  </mat-dialog-actions>
+</div>

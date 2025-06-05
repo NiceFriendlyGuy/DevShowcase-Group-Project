@@ -1,4 +1,5 @@
-const Profile = require('../models/profile.model')
+const Profile = require('../models/profile.model');
+const Session = require('../models/session.model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -18,6 +19,10 @@ authController.login = async function (req, res) {
         const isValid = await bcrypt.compare(userPass, user.password);
         if (!isValid) {
             return res.status(401).json( { message: 'wrong password'});
+        }
+        const session = await Session.insertOne({email: userEmail});
+        if (!session) {
+            return res.status(401).json( { message: 'session does not exist'});
         }
         res.status(200).json( {
             message: 'successfully authentificated',
@@ -66,6 +71,28 @@ authController.changePassword = async function (req, res) {
     }
 }
 
+// forgotPassword
+
+authController.logout = async function (req,res) {
+    const userEmail = req.body.email;
+    try {
+        const session = await Session.findOne({email:userEmail, status:true});
+        if (!session) {
+            return res.status(400).json( {message: 'session not found'});
+        }
+
+        const outcome = await Session.findOneAndUpdate({_id: session._id}, {status:false});
+        res.status(200).json({message:"logout successfull"});
+
+    } catch (err) {
+        res.status(400).json({message:"failure to log out", error:err.message});
+    }
+}
+
 // logout
+// aller dans la collection session
+// recuperer la session grace à l'email actif, dont le statut est true
+// changer le statut en false 
+// retourne logout successful / ou pas 
 
   module.exports = authController;
