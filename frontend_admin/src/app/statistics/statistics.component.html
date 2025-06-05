@@ -7,12 +7,16 @@
       <div class="stat-item" (click)="toggleLineChart('users')">
         <mat-icon color="primary">group</mat-icon>
         <div class="stat-item-text">
-          <h3>1 245</h3>
+          @if (users.length > 0) {
+          <h3>{{ users.length }}</h3>
+          }
           <p>Utilisateurs inscrits</p>
         </div>
-        <app-doughnut-chart></app-doughnut-chart>
+        <app-doughnut-chart
+          [chartData]="userTechChartDataObject"
+        ></app-doughnut-chart>
       </div>
-
+      <!-- TO ADD MORE STATS
       <div class="stat-item" (click)="toggleLineChart('active')">
         <mat-icon color="primary">show_chart</mat-icon>
         <div class="stat-item-text">
@@ -30,9 +34,28 @@
         </div>
         <app-doughnut-chart></app-doughnut-chart>
       </div>
+    -->
+      <div class="stat-item" (click)="toggleLineChart('projects')">
+        <mat-icon color="primary">trending_up</mat-icon>
+        <div class="stat-item-text">
+          <h3>@if (projects.length > 0) {
+            {{ projects.length }}
+          }</h3>
+          <p>Nombre de Projets</p>
+        </div>
+        <app-doughnut-chart
+          [chartData]="doughnutChartDataObject"
+        ></app-doughnut-chart>
+
+      </div>
     </div>
+
     @if (showLineChart) {
-    <app-line-chart [datasetKey]="selectedKey"></app-line-chart>
+      <app-line-chart
+        [labels]="lineChartLabels"
+        [data]="lineChartCounts"
+        [title]="selectedKey === 'projects' ? 'Projects Over Time' : 'User Registrations Over Time'">
+      </app-line-chart>
     }
   </mat-card-content>
 </mat-card>

@@ -11,7 +11,13 @@ import { ChartType } from 'chart.js';
   styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent implements OnChanges {
-@Input() datasetKey: string | null = null;
+
+  @Input() datasetKey: string | null = null;
+
+  // ✅ NEW INPUTS for dynamic data
+  @Input() labels: string[] = [];
+  @Input() data: number[] = [];
+  @Input() title: string = 'Projects Over Time';
 
   public chartOptions = {
     responsive: true,
@@ -21,9 +27,7 @@ export class LineChartComponent implements OnChanges {
     },
     scales: {
       x: {},
-      y: {
-        beginAtZero: true,
-      },
+      y: { beginAtZero: true },
     }
   };
 
@@ -33,12 +37,27 @@ export class LineChartComponent implements OnChanges {
   };
 
   ngOnChanges(changes: SimpleChanges): void {
-  if (changes['datasetKey'] && this.datasetKey) {
-    this.loadDataset(this.datasetKey);
+    if (changes['datasetKey'] && this.datasetKey) {
+      this.loadDataset(this.datasetKey);
+    }
+
+    // ✅ Rebuild the chart data if labels or data changed
+    if (changes['labels'] || changes['data']) {
+      this.lineChartData = {
+        labels: this.labels,
+        datasets: [
+          {
+            label: this.title,
+            data: this.data,
+            borderColor: '#42A5F5',
+            tension: 0.3
+          }
+        ]
+      };
+    }
   }
-}
 
-
+  // Keep mock loader if you still use keys
   loadDataset(key: string) {
     const mockDatasets: Record<string, any> = {
       users: {

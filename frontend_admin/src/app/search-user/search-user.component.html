@@ -14,12 +14,12 @@
 
 <div class="scrollable-container">
   <div class="card-container">
-    @for (user of filteredUsers(); track user) {
+    @for (user of filteredUsers(); track user._id) {
     <mat-card class="user-card" appearance="outlined">
       <mat-card-header class="user-card-header">
         <div class="user-info">
-          <mat-card-title>{{ user.nom }}</mat-card-title>
-          <mat-card-subtitle>{{ user.prenom }}</mat-card-subtitle>
+          <mat-card-title>{{ user.name }}</mat-card-title>
+          <mat-card-subtitle>{{ user.surname }}</mat-card-subtitle>
         </div>
         <button mat-icon-button (click)="openUserSettingsDialog(user)">
           <mat-icon>more_vert</mat-icon>

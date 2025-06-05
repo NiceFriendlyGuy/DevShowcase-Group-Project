@@ -1,16 +1,19 @@
 <h2 mat-dialog-title>Administrateur</h2>
 <mat-dialog-content>
   <div class="profile-info">
-    <div class="profile-item"><strong>Nom :</strong> John Doe</div>
-    <div class="profile-item"><strong>Email :</strong> admin.johndoe.com</div>
-    <div class="profile-item"><strong>Rôle :</strong> Administrateur</div>
+    <div class="profile-item"><strong>Nom :</strong> {{user.name}}</div>
+    <div class="profile-item"><strong>Email :</strong> {{user.email}}</div>
+    <div class="profile-item"><strong>Rôle :</strong> {{user.role}}</div>
+    <div class="profile-item"><strong>ID :</strong> {{user.id}}</div>
     <div class="profile-item">
-      <strong>Date de création du compte :</strong> 15 janvier 2023
+      <strong>Date de création du compte :</strong> {{user.createdAt}}
     </div>
+    <!--
     <div class="profile-item">
       <strong>Statut du compte :</strong>
       <span class="status-active">Actif</span>
     </div>
+  -->
   </div>
 
   <h3>Privilèges</h3>

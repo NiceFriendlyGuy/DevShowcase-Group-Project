@@ -13,7 +13,8 @@
         <mat-icon>{{ getIcon(request.type) }}</mat-icon>
         <div class="request-text">
           <p>
-            <strong>{{ request.title }}</strong> {{ request.content }}
+            <strong>{{ request.message }} {{ request.name }}</strong>
+            {{ request.name }}
           </p>
         </div>
         <div class="action-buttons">

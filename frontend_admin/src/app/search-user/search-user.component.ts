@@ -43,22 +43,24 @@ export class SearchUserComponent {
 
     ref.afterClosed().subscribe((result) => {
       if (result?.delete && result.user) {
-        this.users.set(this.users().filter((u) => u !== result.user));
+        this.users.set(this.users().filter((u) => u._id !== result.user._id));
       }
 
       if (result?.update && result.user) {
-        this.users.set(this.users().map((u) => (u === user ? result.user : u)));
+        this.loadUsers();
+        this.searchQuery.set('');
       }
     });
   }
 
   public filteredUsers = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
-    return this.users().filter(
-      (user) =>
-        user.nom.toLowerCase().includes(query) ||
-        user.prenom.toLowerCase().includes(query)
-    );
+
+    return this.users().filter((user) => {
+      const name = user.name?.toLowerCase() || '';
+      const surname = user.surname?.toLowerCase() || '';
+      return name.includes(query) || surname.includes(query);
+    });
   });
 
   // Méthode sécurisée pour gérer la recherche

@@ -1,5 +1,7 @@
 require('./config/db.config');
 
+const cors = require('cors');
+
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/projects', projectRoutes);
 app.use('/api/profiles', profileRoutes);
