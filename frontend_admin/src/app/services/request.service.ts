@@ -9,7 +9,7 @@ import { environment } from '../environement';
 })
 export class RequestService {
   private readonly http = inject(HttpClient);
-  private requestsUrl = environment.BASE_URL + '/api/requests/findAll';
+  private requestsUrl = environment.BASE_URL + '/requests/findAll';
 
   public getRequests(): Observable<Request[]> {
     return this.http.post<Request[]>(this.requestsUrl, {});

@@ -9,13 +9,13 @@ import { environment } from '../environement';
   providedIn: 'root'
 })
 export class ProjectService {
-  private baseUrl = environment.BASE_URL + '/api/projects/findAll';
+  private baseUrl = environment.BASE_URL + '/projects/findAll';
 
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<Project[]> {
     return this.http.post<Project[]>(
-      environment.BASE_URL + '/api/projects/findAll',
+      environment.BASE_URL + '/projects/findAll',
       {},
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

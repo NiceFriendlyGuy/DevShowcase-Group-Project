@@ -12,7 +12,7 @@ import { environment } from '../environement';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly apiUrl = environment.BASE_URL + '/api/auth';
+  private readonly apiUrl = environment.BASE_URL + '/auth';
   private userSubject = new BehaviorSubject<any>(this.loadUser());
 
   user$ = this.userSubject.asObservable(); // components can subscribe to this
