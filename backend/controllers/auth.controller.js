@@ -1,4 +1,5 @@
-const Profile = require('../models/profile.model')
+const Profile = require('../models/profile.model');
+const Session = require('../models/session.model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -18,6 +19,10 @@ authController.login = async function (req, res) {
         const isValid = await bcrypt.compare(userPass, user.password);
         if (!isValid) {
             return res.status(401).json( { message: 'wrong password'});
+        }
+        const session = await Session.insertOne({email: userEmail});
+        if (!session) {
+            return res.status(401).json( { message: 'session does not exist'});
         }
         res.status(200).json( {
             message: 'successfully authentificated',
@@ -66,6 +71,12 @@ authController.changePassword = async function (req, res) {
     }
 }
 
+// forgotPassword
+
 // logout
+// aller dans la collection session
+// recuperer la session grace à l'email actif, dont le statut est true
+// changer le statut en false 
+// retourne logout successful / ou pas 
 
   module.exports = authController;
