@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit {
       );
 
       if (emailExists) {
-        alert(
+        this.showError(
           'This email is already registered. Please use a different email.'
         );
       } else {
@@ -138,7 +138,9 @@ export class LoginComponent implements OnInit {
         //console.log(result);
         if (result) {
           // Redirect to the login page after successful registration
-          alert('Profile registered successfully!');
+          this.showMessage(
+            'An email has been sent to confirm your account, please check your inbox.'
+          );
           this.authService.isSignUp = false; // Reset the sign-up flag
         } else {
           console.error('Signup failed: Unable to create profile');
@@ -147,7 +149,9 @@ export class LoginComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error during signup:', error);
-      alert('An error occurred while registering. Please try again later.');
+      this.showError(
+        'An error occurred while registering. Please try again later.'
+      );
     }
   }
 
@@ -184,6 +188,16 @@ export class LoginComponent implements OnInit {
       message,
       duration: 2000,
       color: 'danger',
+      position: 'bottom',
+    });
+    await toast.present();
+  }
+
+  public async showMessage(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color: 'success',
       position: 'bottom',
     });
     await toast.present();
