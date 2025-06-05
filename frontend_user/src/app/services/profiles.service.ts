@@ -270,14 +270,19 @@ export class ProfilesService {
     return authorsPreview;
   }
 
-  async sendAdminMessage(category: string, message: string): Promise<any[]> {
+  async sendAdminMessage(
+    id: string,
+    category: string,
+    message: string
+  ): Promise<any[]> {
     const data = {
-      category: category,
+      userId: id,
+      type: category,
       message: message,
     };
     const result = await firstValueFrom(
       this.httpClient.post(
-        environment.BASE_URL_PROFILES + '/contactAdmin',
+        environment.BASE_URL + '/requests',
         data,
         this.headers
       )

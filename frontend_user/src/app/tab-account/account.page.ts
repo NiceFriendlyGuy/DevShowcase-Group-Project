@@ -138,6 +138,7 @@ export class AccountPage {
     // Envoyer au backend ou afficher une notification
     console.log('Message to admin:', event);
     let result = await this.profilesService.sendAdminMessage(
+      this.profile._id,
       event.category,
       event.message
     );
