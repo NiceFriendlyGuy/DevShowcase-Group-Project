@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const sessionController ={};
 
 sessionController.findAll = async function (req, res) {
-    const filter = req?.params?.email?{email:req.params?.email} :{};
+    console.log ("Params", req.params);
+    const filter = req?.params?.email?{"email":req.params?.email} :{};
     try {
         const sessions = await Session.find(filter);
         res.status(200).json(sessions);
