@@ -73,6 +73,22 @@ authController.changePassword = async function (req, res) {
 
 // forgotPassword
 
+authController.logout = async function (req,res) {
+    const userEmail = req.body.email;
+    try {
+        const session = await Session.findOne({email:userEmail, status:true});
+        if (!session) {
+            return res.status(400).json( {message: 'session not found'});
+        }
+
+        const outcome = await Session.findOneAndUpdate({_id: session._id}, {status:false});
+        res.status(200).json({message:"logout successfull"});
+
+    } catch (err) {
+        res.status(400).json({message:"failure to log out", error:err.message});
+    }
+}
+
 // logout
 // aller dans la collection session
 // recuperer la session grace à l'email actif, dont le statut est true
