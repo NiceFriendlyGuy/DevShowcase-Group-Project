@@ -29,6 +29,7 @@
     photo: string;
     technologies: Technology[];
     isDeleted: boolean;
+    validProfile: boolean;
     createdAt: date;
     updatedAt: date;
   }
@@ -52,14 +53,19 @@
     updatedAt: date;
   }
 ```
+
 ### UserRequests
 
 ```typescript
-  {
+{
   id: string;
-  userId: string; 
-  status: 'pending' | 'solved' | 'cancelled';
-  type: 'Demande de support' | 'Demande de verification' | 'Plainte' | 'Suggestion' | 'Autre demande';
+  userId: string;
+  status: "pending" | "solved" | "cancelled";
+  type: "Demande de support" |
+    "Demande de verification" |
+    "Plainte" |
+    "Suggestion" |
+    "Autre demande";
   message: string;
   createdAt: date;
   updatedAt: date;
@@ -97,6 +103,11 @@
   ```
 
 ### Create a profile
+
+The backend will set the field validProfile to false and send an email to the user with a link to validate his profile.
+After accessing the to the link, the field validProfile will be set to true and the profile will be validated.
+The Profile should not be accessible until validated.
+The profile can be deleted if not validated after X time.
 
 - **POST** `/api/profiles/`
 - **Body**
@@ -136,7 +147,12 @@
     "phone": "+1 444 987 6543",
     "role": "Full Stack Developer",
     "photo": "",
-    "technologies": [{ "name": "Vue.js", "version": 3.0 }, { "name": "JavaScript", "version": "ES6" }, { "name": "HTML5" }, { "name": "CSS3" }],
+    "technologies": [
+      { "name": "Vue.js", "version": 3.0 },
+      { "name": "JavaScript", "version": "ES6" },
+      { "name": "HTML5" },
+      { "name": "CSS3" }
+    ],
     "bio": "Full stack developer in web application development."
   }
   ```
@@ -149,22 +165,21 @@
   ```json
   {}
   ```
-// update from backend: soft delete implemented -> Change the status of the profile with the field isDeleted to true
+
+  // update from backend: soft delete implemented -> Change the status of the profile with the field isDeleted to true
 
 ## Authentification Endpoints
 
 For test purposes:
 {
-  "email": "john.doe@gmail.com",
-  "password": "newPassword321"
+"email": "john.doe@gmail.com",
+"password": "newPassword321"
 }
-
-
 
 ### Change password
 
-- **PUT** `/api/auth/changePassword` 
-// route updated to fit with backend
+- **PUT** `/api/auth/changePassword`
+  // route updated to fit with backend
 - **Body**
   ```json
   {
@@ -182,8 +197,8 @@ For test purposes:
 
 ### Authenticate a user
 
-- **POST** `/api/auth/login` 
-// route updated to fit with backend 
+- **POST** `/api/auth/login`
+  // route updated to fit with backend
 - **Body**
   ```json
   {
@@ -196,15 +211,47 @@ For test purposes:
 
 ```json
 {
-  "successfully authentificated"
+    "message": "successfully authentificated",
+    "user": {
+        "id": "683f341def92d5460daa0cf5",
+        "name": "John",
+        "surname": "Smith",
+        "admin": false,
+        "role": "UI/UX Designer",
+        "email": "john.smith@email.com",
+        "createdAt": "2025-05-29T17:42:53.066Z"
+    }
 }
 ```
+  ```json
+  {
+    "successfully authentificated"
+  }
+  ```
+
+### Forgotten password
+
+- **POST** `/api/auth/sendResetPasswordEmail`
+- **Body**
+  ```json
+  {
+    "email": "john.smith@email.com",
+  }
+  ``
+  ```
+- **Answer :**
+
+  ```json
+  {
+    "successfully sent email for reset password"
+  }
+  ```
 
 ### Logout
 
 **POST** `/api/auth/logout`
 
-  **Work still in progress**
+**Work still in progress**
 
 ## Endpoints Projects
 
@@ -245,7 +292,13 @@ For test purposes:
     "title": "Portfolio Website",
     "category": "Technology",
     "description": "A portfolio website for a developer",
-    "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
+    "technologies": [
+      { "name": "HTML5" },
+      { "name": "CSS3" },
+      { "name": "Node.js", "version": 5 },
+      { "name": "Express" },
+      { "name": "MongoDB", "version": 11 }
+    ],
     "link": "https://example.com/portfolio",
     "authors": ["1", "2"],
     "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
@@ -274,10 +327,20 @@ For test purposes:
   ```json
   {
     "title": "Portfolio Website",
-    "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
+    "technologies": [
+      { "name": "HTML5" },
+      { "name": "CSS3" },
+      { "name": "Node.js", "version": 5 },
+      { "name": "Express" },
+      { "name": "MongoDB", "version": 11 }
+    ],
     "link": "https://example.com/portfolio",
     "authors": ["1", "2"],
-    "photos": ["assets/1/Screenshot1.png", "assets/1/Screenshot2.png", "assets/1/Screenshot3.png"],
+    "photos": [
+      "assets/1/Screenshot1.png",
+      "assets/1/Screenshot2.png",
+      "assets/1/Screenshot3.png"
+    ],
     "date": "2022-01-01T00:00:00.000Z"
   }
   ```
@@ -296,95 +359,114 @@ For test purposes:
 
 ## Endpoints UserRequests
 
-  ### Request all the user requests
+### Request all the user requests
 
--  **POST** `/api/requests/findAll`
+- **POST** `/api/requests/findAll`
 
 -  **Answer :** 
   ```json
   [
   {
-    "_id": "6831234567abc123456789ab",
-    "userId": "682e417ac57f899365caa020",
+    "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
     "status": "pending",
-    "type": "Suggestion",
-    "message": "Ajouter un mode sombre dans le dashboard.",
-    "createdAt": "2025-05-20T14:32:00.000Z",
-    "updatedAt": "2025-05-20T14:32:00.000Z"
+    "type": "Demande de support",
+    "message": "Je rencontre un bug lors de la connexion.",
+    "createdAt": "2025-06-03T18:59:18.787Z",
+    "updatedAt": "2025-06-03T18:59:18.787Z",
+    "__v": 0
   },
   ...
   ]
 
-  ```
-
-  ### Create a new user request
+```
 
 -  **POST** `/api/requests/`
   
 -  **Body**
   ```json
   {
-  "userId": "682e417ac57f899365caa020",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
   "type": "Demande de support",
   "message": "Impossible de modifier mon profil depuis hier."
-  }
-  ```
+}
+```
 
--  **Answer :**
-  ```json
-  {
+- **Answer :**
+
+```json
+{
   "_id": "683234abc456def7890abcd1",
-  "userId": "682e417ac57f899365caa020",
+  "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
   "status": "pending",
   "type": "Demande de support",
   "message": "Impossible de modifier mon profil depuis hier.",
   "createdAt": "2025-05-22T14:48:00.000Z",
   "updatedAt": "2025-05-22T14:48:00.000Z",
   "__v": 0
-  }
-  ```
+}
+```
 
-  ### Update an existant user request
+### Update an existant user request
 
--  **PUT** `/api/requests/:id`
-  
--  **Body**
-  ```json
-  {
+- **PUT** `/api/requests/:id`
+
+- **Body**
+
+```json
+{
   "status": "solved"
-  }
-  ```
+}
+```
 
--  **Answer :**
-  ```json
-  {
+- **Answer :**
+
+```json
+{
   "message": "the request with id: 683234abc456def7890abcd1 was successfully updated",
   "updatedRequest": {
-    "_id": "683234abc456def7890abcd1",
-    "userId": "682e417ac57f899365caa020",
+    "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    }
     "status": "solved",
     "type": "Demande de support",
     "message": "Impossible de modifier mon profil depuis hier.",
     "createdAt": "2025-05-22T14:48:00.000Z",
     "updatedAt": "2025-05-22T15:02:00.000Z",
     "__v": 0
-    }
   }
-  ```
+}
+```
 
 ## Endpoints statistics
 
-  ### request the statistics
+### request the statistics
 
--  **GET** `/api/stats/`
+- **GET** `/api/stats/`
 
--  **Answer :**
-  ```json
-  {
+- **Answer :**
+
+```json
+{
   "totalUsers": 158,
   "usersCreatedThisWeek": 12,
   "usersActiveThisWeek": "not implemented because activity needs to be defined",
   "userGrowthThisWeek": 8.2
-  }
-  ```
-
+}
+```
