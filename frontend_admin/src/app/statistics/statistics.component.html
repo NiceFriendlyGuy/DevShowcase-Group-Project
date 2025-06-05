@@ -51,6 +51,11 @@
     </div>
 
     @if (showLineChart) {
+      <div class="period-buttons">
+        <button mat-button [color]="period === 'day' ? 'primary' : undefined" (click)="setPeriod('day')">Day</button>
+        <button mat-button [color]="period === 'week' ? 'primary' : undefined" (click)="setPeriod('week')">Week</button>
+        <button mat-button [color]="period === 'month' ? 'primary' : undefined" (click)="setPeriod('month')">Month</button>
+      </div>
       <app-line-chart
         [labels]="lineChartLabels"
         [data]="lineChartCounts"
