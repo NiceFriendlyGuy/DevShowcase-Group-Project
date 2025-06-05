@@ -68,6 +68,9 @@
             Password must be at least 4 characters long.
           </small>
         </div>
+        <ion-nav-link class="nav-link" (click)="openForgotPasswordModal()"
+          >Forgot your password?</ion-nav-link
+        >
       </div>
 
       <ion-button type="submit" [disabled]="loginForm.invalid">{{

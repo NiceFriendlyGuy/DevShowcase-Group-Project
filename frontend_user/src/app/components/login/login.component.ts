@@ -8,18 +8,17 @@ import {
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonButtons,
-  IonIcon,
+  IonNavLink,
+  IonButton,
+  ModalController,
+  ToastController,
 } from '@ionic/angular/standalone';
-import { IonButton } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline } from 'ionicons/icons';
 import { ProfilesService } from 'src/app/services/profiles.service';
+import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -28,13 +27,9 @@ import { ProfilesService } from 'src/app/services/profiles.service';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonButton,
-    IonButtons,
-    IonIcon,
+    IonNavLink,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -45,6 +40,8 @@ export class LoginComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   public loginForm: FormGroup;
   public isSignUp: boolean = false; // Flag to toggle between login and signup
+  private modalCtrl = inject(ModalController);
+  private toastController = inject(ToastController);
 
   constructor() {
     addIcons({ arrowBackOutline });
@@ -93,18 +90,27 @@ export class LoginComponent implements OnInit {
   }
 
   private async onLogIn(formData: any): Promise<void> {
-    const result = await this.authService.authUser(
-      formData.email,
-      formData.password
-    );
-    //console.log('Logged: ', result);
-    if (result) {
-      let profile = await this.profilesService.getProfilesById(result.user.id);
-      this.authService.setProfileInfo(profile);
-      this.router.navigate(['/tabs/account/']);
-    } else {
-      console.error('Login failed: Invalid credentials');
-      this.showError('Login failed: Invalid credentials');
+    try {
+      const result = await this.authService.authUser(
+        formData.email,
+        formData.password
+      );
+      //console.log('Logged: ', result);
+      if (result) {
+        let profile = await this.profilesService.getProfilesById(
+          result.user.id
+        );
+        this.authService.setProfileInfo(profile);
+        this.router.navigate(['/tabs/account/']);
+      } else {
+        console.error('Login failed: Invalid credentials');
+        this.showError('Login failed: Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      this.showError(
+        'An error occurred while logging in. Please try again later.'
+      );
     }
   }
 
@@ -173,7 +179,40 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  public showError(message: string): void {
-    alert(message);
+  public async showError(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color: 'danger',
+      position: 'bottom',
+    });
+    await toast.present();
+  }
+
+  async openForgotPasswordModal() {
+    const modal = await this.modalCtrl.create({
+      component: ForgotPasswordModalComponent,
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data?.valid) {
+      // data.email contains the email from the modal
+      console.log('Email from modal:', data.email);
+      try {
+        const result = await this.authService.sendResetPasswordEmail(
+          data.email
+        );
+        console.log('Reset password email result:', result);
+        if (result) {
+          this.showError('Email sent successfully' + result);
+        } else {
+          this.showError('Email not sent');
+        }
+      } catch (error) {
+        console.error('Error sending reset password email:', error);
+        this.showError('Email not sent: ' + <string>error);
+      }
+    }
   }
 }

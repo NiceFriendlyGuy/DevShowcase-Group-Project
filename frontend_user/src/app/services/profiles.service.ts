@@ -232,6 +232,25 @@ export class ProfilesService {
     }
   }
 
+  async sendResetPasswordEmail(email: string): Promise<any> {
+    const data = { email: email };
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.BASE_URL + '/auth/sendResetPasswordEmail',
+        data,
+        this.headers
+      )
+    )
+      .then((response) => {
+        console.log('Reset password email sent:', response);
+        return response; // Return the response from the server
+      })
+      .catch((error) => {
+        console.error('Error sending reset password email:', error);
+        return null; // Return null in case of error
+      });
+  }
+
   async getPreviewProfile(profiles: string[]): Promise<any[]> {
     const authorsPreview: any[] = [];
     profiles.forEach(async (authorId: string) => {
