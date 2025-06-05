@@ -40,6 +40,7 @@ export class ProfilesPage {
 
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
+    this.cdr.detectChanges();
     if (this.filteredProfiles.length === 0 && !this.loadingData) {
       this.noResults = true;
     } else {
@@ -55,7 +56,6 @@ export class ProfilesPage {
   async ngOnInit() {
     this.loadingData = true;
     this.profiles = await this.profilesService.getProfilesAll();
-    this.cdr.detectChanges();
     this.loadingData = false;
 
     let technologiesNames: any[] = this.profilesService
