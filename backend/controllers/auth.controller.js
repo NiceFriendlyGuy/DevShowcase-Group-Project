@@ -1,4 +1,5 @@
-const Profile = require('../models/profile.model')
+const Profile = require('../models/profile.model');
+const Session = require('../models/session.model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -19,7 +20,10 @@ authController.login = async function (req, res) {
         if (!isValid) {
             return res.status(401).json( { message: 'wrong password'});
         }
-        // session { créer l'entrée dans la collection session }
+        const session = await Session.insertOne({email: userEmail});
+        if (!session) {
+            return res.status(401).json( { message: 'session does not exist'});
+        }
         res.status(200).json( {
             message: 'successfully authentificated',
             user: {
