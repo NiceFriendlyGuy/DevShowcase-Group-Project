@@ -71,6 +71,12 @@ authController.changePassword = async function (req, res) {
     }
 }
 
+// forgotPassword
+
 // logout
+// aller dans la collection session
+// recuperer la session grace à l'email actif, dont le statut est true
+// changer le statut en false 
+// retourne logout successful / ou pas 
 
   module.exports = authController;
