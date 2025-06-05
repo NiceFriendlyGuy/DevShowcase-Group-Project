@@ -15,11 +15,11 @@
   >
   </app-horizontal-filter>
 
-  @for (profile of filteredProfiles; track profile.id) {
+  @for (profile of filteredProfiles; track profile._id) {
   <app-profile
     [profile]="profile"
     [previewProjects]="true"
-    (click)="onProfileClick(profile.id)"
+    (click)="onProfileClick(profile._id)"
   ></app-profile>
   } @if (noResults) {
   <div class="no-projects-message">

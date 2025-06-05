@@ -68,12 +68,17 @@
             Password must be at least 4 characters long.
           </small>
         </div>
+        <ion-nav-link class="nav-link" (click)="openForgotPasswordModal()"
+          >Forgot your password?</ion-nav-link
+        >
       </div>
 
       <ion-button type="submit" [disabled]="loginForm.invalid">{{
         isSignUp ? "Sign up" : "Login"
       }}</ion-button>
     </form>
+
+    <div id="google-signin-button" class="google-signin-button"></div>
 
     <div *ngIf="!isSignUp" class="signup-container">
       <p>Don't have an account?</p>

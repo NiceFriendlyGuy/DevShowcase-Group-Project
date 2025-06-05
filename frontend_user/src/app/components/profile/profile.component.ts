@@ -85,7 +85,6 @@ export class ProfileComponent implements OnInit {
     if (environment.hideContactDetails) {
       this.auth.isLoggedIn$.subscribe((value: any) => {
         this.hideContactDetails = !value;
-        console.log('Sign up event received:', value);
       });
     }
   }

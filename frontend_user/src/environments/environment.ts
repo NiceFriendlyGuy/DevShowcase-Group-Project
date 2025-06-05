@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   BASE_URL_PROFILES: 'http://13.219.82.203:3333/api/profiles',
   BASE_URL_PROJECTS: 'http://13.219.82.203:3333/api/projects',
+  BASE_URL: 'http://13.219.82.203:3333/api',
   hideContactDetails: true,
+  googleClientId: '',
 };
 
 /*

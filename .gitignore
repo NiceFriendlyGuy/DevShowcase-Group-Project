@@ -1,3 +1,5 @@
 frontend_user/.firebaserc
 frontend_user/firebase.json
 frontend_user/.firebase/*
+frontend_user/src/environments/environment.prod.ts
+frontend_user/src/environments/environment.ts

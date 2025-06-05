@@ -12,7 +12,7 @@
       { "name": "Express" },
       { "name": "MongoDB", "version": 11 }
     ],
-    "authors": ["1"],
+    "authors": ["683f37d1ef92d5460daa0d1b"],
     "link": "https://example.com/portfolio",
     "photos": [
       "assets/1/Screenshot1.png",
@@ -36,7 +36,7 @@
       { "name": "Express" },
       { "name": "MongoDB" }
     ],
-    "authors": ["1", "4", "6"],
+    "authors": ["1", "4", "683f37d1ef92d5460daa0d1b"],
     "link": "https://example.com/ecommerce",
     "photos": [
       "assets/2/Screenshot1.png",

@@ -27,7 +27,7 @@ export class ProfilesService {
   public async getProfilesAll(): Promise<any> {
     if (environment.production) {
       const profiles = await firstValueFrom(
-        this.httpClient.post(this.findAllProfilesUrl, this.headers)
+        this.httpClient.post(this.findAllProfilesUrl, {}, this.headers)
       );
       if (profiles) {
         this.profiles = <any>profiles;
@@ -50,21 +50,29 @@ export class ProfilesService {
     if (this.profiles.length === 0) {
       await this.getProfilesAll();
     }
-    return this.profiles.filter((profile) => profile.id === authorId)[0];
+    return this.profiles.filter((profile) => profile._id === authorId)[0];
+  }
+
+  async getProfilesByEmail(email: string) {
+    if (this.profiles.length === 0) {
+      await this.getProfilesAll();
+    }
+    return this.profiles.filter((profile) => profile.email === email)[0];
   }
 
   async addProfile(profile: any): Promise<any> {
     //console.log('addProfile', profile);
     if (environment.production) {
-      const id = await firstValueFrom(
+      const result: any = await firstValueFrom(
         this.httpClient.post(this.newProfilesUrl, profile, this.headers)
       );
-      console.log('Profile added with id:', id);
-      if (id) {
-        profile['id'] = id;
+      //console.log('Profile added :', result);
+      if (result) {
+        profile['_id'] = result._id;
+        //console.log('Profile added :', profile);
         this.profiles.push(profile);
       } else {
-        console.error('Error adding profile:', id);
+        console.error('Error adding profile:');
       }
     } else {
       /////// Using Mock Data //////////
@@ -79,16 +87,26 @@ export class ProfilesService {
 
     if (environment.production) {
       const result = await firstValueFrom(
-        this.httpClient.post(
+        this.httpClient.put(
           this.updateProfilesUrl + profile.id,
           profile,
           this.headers
         )
       );
-      console.log('Profile updated:', result);
       if (result) {
-        this.profiles.push(result);
-        return profile;
+        const index = this.profiles.findIndex(
+          (profileToUpdate) => profileToUpdate._id === profile.id
+        );
+        //console.log('Index:', index);
+        if (index !== -1) {
+          for (const key in profile) {
+            if (profile.hasOwnProperty(key)) {
+              this.profiles[index][key] = profile[key]; // Update the field
+            }
+          }
+          return this.profiles[index];
+        }
+        return null;
       } else {
         console.error('Error adding profile:', result);
         return null;
@@ -140,7 +158,7 @@ export class ProfilesService {
       const authData = { email: email, password: password };
       const valid = await firstValueFrom(
         this.httpClient.post(
-          environment.BASE_URL_PROFILES + '/auth',
+          environment.BASE_URL + '/auth/login',
           authData,
           this.headers
         )
@@ -214,6 +232,25 @@ export class ProfilesService {
     }
   }
 
+  async sendResetPasswordEmail(email: string): Promise<any> {
+    const data = { email: email };
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.BASE_URL + '/auth/sendResetPasswordEmail',
+        data,
+        this.headers
+      )
+    )
+      .then((response) => {
+        console.log('Reset password email sent:', response);
+        return response; // Return the response from the server
+      })
+      .catch((error) => {
+        console.error('Error sending reset password email:', error);
+        return null; // Return null in case of error
+      });
+  }
+
   async getPreviewProfile(profiles: string[]): Promise<any[]> {
     const authorsPreview: any[] = [];
     profiles.forEach(async (authorId: string) => {
@@ -233,14 +270,19 @@ export class ProfilesService {
     return authorsPreview;
   }
 
-  async sendAdminMessage(category: string, message: string): Promise<any[]> {
+  async sendAdminMessage(
+    id: string,
+    category: string,
+    message: string
+  ): Promise<any[]> {
     const data = {
-      category: category,
+      userId: id,
+      type: category,
       message: message,
     };
     const result = await firstValueFrom(
       this.httpClient.post(
-        environment.BASE_URL_PROFILES + '/contactAdmin',
+        environment.BASE_URL + '/requests',
         data,
         this.headers
       )

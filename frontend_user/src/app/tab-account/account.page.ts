@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   IonCard,
   IonFab,
@@ -14,7 +14,7 @@ import { ProfilesService } from '../services/profiles.service';
 import { AuthService } from '../services/auth.service';
 import { addIcons } from 'ionicons';
 import { logOut, close, add, pencil } from 'ionicons/icons';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../services/projects.service';
 import { ContactAdminComponent } from '../components/contact-admin/contact-admin.component';
@@ -42,16 +42,24 @@ export class AccountPage {
   private router = inject(Router);
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
+  private route = inject(ActivatedRoute);
 
   public projectsPreview = (id: string): any[] =>
     this.projectsService.getProjectsByAuthor(id);
 
   constructor() {
     addIcons({ logOut, close, add, pencil });
-    //console.log('Profile:', this.profile);
+    this.profilesService.getProfilesAll(); // Initialize profiles data
+    this.projectsService.getProjectsAll(); // Initialize projects data
   }
 
   async ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params['reload']) {
+        this.refreshProfile();
+      }
+    });
+
     this.profile = this.auth.getProfileInfo();
   }
 
@@ -63,7 +71,7 @@ export class AccountPage {
   }
 
   async refreshProfile() {
-    this.profile = await this.profilesService.getProfilesById(this.profile.id);
+    this.profile = await this.profilesService.getProfilesById(this.profile._id);
     //console.log('Profile:', this.profile);
   }
 
@@ -130,6 +138,7 @@ export class AccountPage {
     // Envoyer au backend ou afficher une notification
     console.log('Message to admin:', event);
     let result = await this.profilesService.sendAdminMessage(
+      this.profile._id,
       event.category,
       event.message
     );

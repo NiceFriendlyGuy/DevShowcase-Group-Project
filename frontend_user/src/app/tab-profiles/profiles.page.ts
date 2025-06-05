@@ -7,6 +7,7 @@ import { SearchComponent } from '../components/utils/search/search.component';
 import { HorizontalFilterComponent } from '../components/utils/horizontal-filter/horizontal-filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profiles',
@@ -24,7 +25,7 @@ import { CommonModule } from '@angular/common';
 export class ProfilesPage {
   private profilesService: ProfilesService =
     inject<ProfilesService>(ProfilesService);
-  public profiles: any[] = [];
+  public profiles: any = [];
   public searchTerm: string = '';
   public listTechnologies: any = [];
   public selectedTechnologies: any[] = [];
@@ -35,8 +36,11 @@ export class ProfilesPage {
   public noResults: boolean = false;
   public loadingData: boolean = false;
 
+  private cdr = inject(ChangeDetectorRef);
+
   onFilteredProfiles(filtered: any[]) {
     this.filteredProfiles = filtered;
+    this.cdr.detectChanges();
     if (this.filteredProfiles.length === 0 && !this.loadingData) {
       this.noResults = true;
     } else {

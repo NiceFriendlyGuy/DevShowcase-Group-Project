@@ -46,4 +46,13 @@ export class AuthService {
   getProfileInfo(): any {
     return this.userInfoSubject.value;
   }
+
+  async sendResetPasswordEmail(email: string): Promise<any> {
+    const result: any = await this.profileService.sendResetPasswordEmail(email);
+    if (result) {
+      return result; // Return the result of sending the reset password email
+    } else {
+      throw new Error('Failed to send reset password email');
+    }
+  }
 }

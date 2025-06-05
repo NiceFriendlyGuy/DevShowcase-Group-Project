@@ -64,3 +64,14 @@ ion-button:disabled {
   color: red;
   font-size: 12px;
 }
+
+ion-nav-link.nav-link {
+  color: blue;
+  display: block;
+  margin-top: 10px;
+}
+
+.google-signin-button {
+  margin-top: 20px;
+  text-align: center;
+}
