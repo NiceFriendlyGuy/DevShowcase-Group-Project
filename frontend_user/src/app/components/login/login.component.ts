@@ -19,7 +19,7 @@ import { addIcons } from 'ionicons';
 import { arrowBackOutline } from 'ionicons/icons';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { firstValueFrom } from 'rxjs';
 
 declare const google: any; // Declare the global `google` object
