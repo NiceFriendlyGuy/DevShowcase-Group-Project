@@ -21,7 +21,7 @@
 
     @if(previewProjects){
     <swiper-container [breakpoints]="swiperBreakpoints" space-between="10">
-      @for (preview of projectsPreview(profile._id); track $index){
+      @for (preview of projectsPreview; track $index) {
       <swiper-slide>
         <div class="image-container">
           <ion-img

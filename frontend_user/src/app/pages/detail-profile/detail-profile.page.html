@@ -13,7 +13,7 @@
   }
   <div class="section-title">{{profile.name}}'s PROJECTS</div>
 
-  @for (project of projects; track project.id) {
+  @for (project of projects; track project._id) {
   <app-project
     [project]="project"
     class="project-card"

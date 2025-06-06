@@ -44,8 +44,7 @@ export class AccountPage {
   private toastController = inject(ToastController);
   private route = inject(ActivatedRoute);
 
-  public projectsPreview = (id: string): any[] =>
-    this.projectsService.getProjectsByAuthor(id);
+  public projectsPreview: any[] = [];
 
   constructor() {
     addIcons({ logOut, close, add, pencil });
@@ -61,6 +60,9 @@ export class AccountPage {
     });
 
     this.profile = this.auth.getProfileInfo();
+    this.projectsPreview = await this.projectsService.getProjectsByAuthor(
+      this.profile._id
+    );
   }
 
   logout() {

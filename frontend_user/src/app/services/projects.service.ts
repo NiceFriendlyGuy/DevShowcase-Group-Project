@@ -114,7 +114,10 @@ export class ProjectsService {
     return project;
   }
 
-  getProjectsByAuthor(authorId: string) {
+  async getProjectsByAuthor(authorId: string): Promise<any[]> {
+    if (this.projects.length === 0) {
+      this.projects = await this.getProjectsAll();
+    }
     return this.projects.filter((project) =>
       project.authors.includes(authorId)
     );

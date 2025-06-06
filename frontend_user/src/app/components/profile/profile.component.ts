@@ -53,8 +53,8 @@ export class ProfileComponent implements OnInit {
     inject<ProjectsService>(ProjectsService);
 
   private auth = inject(AuthService); // Replace with actual AuthService type
-  public projectsPreview = (id: string): any[] =>
-    this.projectsService.getProjectsByAuthor(id);
+
+  public projectsPreview: any[] = [];
 
   public randomImageIndex: number = Math.floor(Math.random() * 4) + 1;
 
@@ -80,13 +80,17 @@ export class ProfileComponent implements OnInit {
 
   constructor() {}
 
-  public ngOnInit() {
+  public async ngOnInit() {
     // Subscribe to profile updates
     if (environment.hideContactDetails) {
       this.auth.isLoggedIn$.subscribe((value: any) => {
         this.hideContactDetails = !value;
       });
     }
+
+    this.projectsPreview = await this.projectsService.getProjectsByAuthor(
+      this.profile._id
+    );
   }
 
   public getIcon(technology: string, type: string): string {

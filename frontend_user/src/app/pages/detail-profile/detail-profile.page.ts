@@ -41,7 +41,9 @@ export class DetailProfilePage implements OnInit {
   async ngOnInit() {
     if (this.profileId) {
       this.profile = await this.profilesService.getProfilesById(this.profileId);
-      this.projects = this.projectsService.getProjectsByAuthor(this.profileId);
+      this.projects = await this.projectsService.getProjectsByAuthor(
+        this.profileId
+      );
     } else {
       this.noResults = true;
     }

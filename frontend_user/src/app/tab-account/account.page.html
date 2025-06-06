@@ -2,14 +2,11 @@
   <app-profile [profile]="profile" [previewProjects]="true"></app-profile>
 
   <div class="section-title">MY PROJECTS</div>
-  <div
-    class="section-description"
-    *ngIf="projectsPreview(profile.id).length === 0"
-  >
+  <div class="section-description" *ngIf="projectsPreview.length === 0">
     You do not have any projects yet
   </div>
   <ion-card class="category-card">
-    @for(project of projectsPreview(profile.id); track project.id){
+    @for(project of projectsPreview; track project._id){
     <div class="project-item">
       <ion-label class="project-title">{{ project.title }}</ion-label>
       <div class="project-icons">
