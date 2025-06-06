@@ -13,9 +13,13 @@
           </ion-chip>
         }
       </div>
+    </div>
+  </ion-card-header>
 
       <div class="author-section">
-        <p class="project-meta">Created in YEAR by :</p>
+      <p class="project-meta">
+        Created on {{ getFormattedDate(project.date) }} by :
+      </p>
         <div class="author-list">
           @for(author of authorsPreview; track author){
             <ion-chip class="author-chip">
