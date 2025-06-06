@@ -89,6 +89,7 @@ export class ProjectsPage {
   }
 
   showProject(projectId: string) {
+    console.log(projectId);
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 }

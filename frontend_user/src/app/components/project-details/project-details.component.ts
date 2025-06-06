@@ -49,6 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
   //Probleme avec le type et le service projects
   constructor(private route: ActivatedRoute) {
     this.projectId = this.route.snapshot.paramMap.get('id');
+    console.log('detaisl', this.projectId);
   }
 
   async ngOnInit() {
@@ -97,5 +98,13 @@ export class ProjectDetailsComponent implements OnInit {
 
   closeImageModal() {
     this.isImageModalOpen = false;
+  }
+  getFormattedDate(dateInput: string): string {
+    // 1. Extraire la partie date avant le T
+    const datePart = dateInput.split('T')[0]; // "2024-05-01"
+    // 2. Séparer année, mois, jour
+    const [year, month, day] = datePart.split('-');
+    const dateReturn = day + '.' + month + '.' + year;
+    return dateReturn;
   }
 }

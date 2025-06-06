@@ -36,6 +36,7 @@ export class ProjectComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {
+    console.log('authors', this.project.authors);
     //console.log('ProjectComponent', this.project);
     this.authorsPreview = await this.getProfilePreview(this.project.authors);
     //console.log('ProjectComponent authorsPreview', this.authorsPreview);
@@ -70,5 +71,14 @@ export class ProjectComponent implements OnInit {
       profiles
     );
     return this.authorsPreview;
+  }
+
+  getFormattedDate(dateInput: string): string {
+    // 1. Extraire la partie date avant le T
+    const datePart = dateInput.split('T')[0]; // "2024-05-01"
+    // 2. Séparer année, mois, jour
+    const [year, month, day] = datePart.split('-');
+    const dateReturn = day + '.' + month + '.' + year;
+    return dateReturn;
   }
 }
