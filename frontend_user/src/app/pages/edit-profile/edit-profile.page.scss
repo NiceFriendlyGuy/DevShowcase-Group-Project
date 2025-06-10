@@ -1,0 +1,218 @@
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+.edit-label {
+  display: block; /* Ensures the label behaves as a block element */
+  text-align: center; /* Centers the text horizontally */
+  font-size: 1.5rem; /* Increases the font size */
+  font-weight: bold; /* Makes the text bold */
+  color: #4a4a4a; /* Sets a neutral dark color */
+  margin: 20px 0; /* Adds vertical spacing above and below the label */
+}
+
+ion-card {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9f9f9
+  ); /* Subtle gradient background */
+}
+
+ion-card-header {
+  display: flex;
+  flex-direction: column; /* Stacks elements vertically */
+  align-items: flex-start; /* Aligns all child elements to the left */
+  padding: 10px; /* Adds padding inside the header */
+}
+
+ion-card-content {
+  padding-top: 0px;
+}
+
+ion-item {
+  margin-bottom: 20px; /* Increased spacing between form fields */
+  --background: #f5f5f5; /* Light background for input fields */
+  --border-radius: 8px; /* Rounded corners for input fields */
+  --padding-start: 10px; /* Padding inside input fields */
+}
+
+ion-label {
+  font-size: 1rem; /* Consistent label font size */
+  color: #666; /* Subtle text color for labels */
+}
+
+ion-input,
+ion-textarea {
+  font-size: 1rem; /* Consistent input font size */
+  color: #333; /* Darker text color for inputs */
+}
+
+ion-card {
+  padding: 0px;
+}
+
+.top-center-avatar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  float: none;
+  width: 110px; /* Set a fixed size for the avatar */
+  height: 110px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4a4a4a; /* Darker text color for better readability */
+  text-align: left; /* Align the title to the left */
+}
+
+.category-card {
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  margin: 0px;
+  padding: 30px;
+  background: #afc7eb;
+}
+
+.share-line-container {
+  display: flex; /* Enables flexbox layout */
+  gap: 15px; /* Adds space between the fields */
+}
+
+.share-line-container ion-item {
+  flex: 1; /* Ensures both fields take equal width */
+}
+
+.technologies-list {
+  display: flex; /* Enables flexbox layout */
+  flex-wrap: wrap; /* Allows chips to wrap to the next line */
+  gap: 10px; /* Adds space between the chips */
+  justify-content: flex-start; /* Aligns chips to the left */
+  align-items: center; /* Vertically aligns the chips */
+
+  margin-top: 25px;
+  padding: 10px;
+  background: #f7f7f7; /* Light background for the technologies section */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+}
+.label-container {
+  margin-bottom: 5px; /* Add spacing below the label */
+  font-weight: bold; /* Optional: Make the label bold */
+}
+
+.technologies-inline {
+  display: flex; /* Enables flexbox layout */
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 15px; /* Adds space between the items */
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center; /* Vertically aligns items */
+}
+
+.technologies-inline ion-item {
+  flex: 1; /* Ensures both inputs take equal width */
+  max-width: 200px; /* Maximum width for each input */
+  min-width: 150px; /* Sets a minimum width for each item */
+}
+.technologies-inline ion-item.version {
+  flex: 1; /* Ensures both inputs take equal width */
+  max-width: 80px; /* Maximum width for each input */
+}
+
+.technology-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd; /* Border around each technology item */
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+ion-button[disabled] {
+  --background: #ccc; /* Grey background for disabled state */
+  --color: #666; /* Subtle text color for disabled state */
+}
+
+.actions {
+  display: flex; /* Enables flexbox layout */
+  justify-content: flex-end; /* Aligns buttons to the right */
+  align-items: center; /* Vertically aligns the buttons */
+  gap: 10px; /* Adds space between buttons */
+  margin: 10px;
+}
+
+.save-button,
+.cancel-button {
+  --background: #248317; /* Green background for save button */
+  --color: white; /* White text color */
+  --border-radius: 8px; /* Rounded corners */
+  font-size: 1rem;
+  font-weight: bold;
+  width: 20%; /* Default width for larger screens */
+}
+
+.cancel-button {
+  --background: #dc3545; /* Red background for cancel button */
+  max-width: 80px;
+}
+
+.avatar-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.upload-label {
+  position: absolute;
+  color: white;
+  top: 60px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to the text */
+
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.delete-label {
+  padding: 10px 20px; /* Adds padding */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+@media (max-width: 768px) {
+  ion-card-title {
+    font-size: 1.5rem; /* Adjusted font size for smaller screens */
+    text-align: left;
+    flex-direction: column; /* Stack elements vertically on mobile */
+    align-items: flex-start; /* Align items to the left */
+  }
+  .share-line-container {
+    flex-direction: column; /* Stacks the fields vertically on smaller screens */
+  }
+  .save-button,
+  .cancel-button {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .technologies-inline {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  .label-container {
+    margin-bottom: 10px; /* Add more spacing below the label for mobile */
+  }
+
+  .technologies-inline ion-item {
+    max-width: 100%; /* Allow inputs to take full width on mobile */
+  }
+}

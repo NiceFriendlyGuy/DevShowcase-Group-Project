@@ -1,0 +1,50 @@
+<ion-content>
+  <app-profile [profile]="profile" [previewProjects]="true"></app-profile>
+
+  <div class="section-title">MY PROJECTS</div>
+  <div class="section-description" *ngIf="projectsPreview.length === 0">
+    You do not have any projects yet
+  </div>
+  <ion-card class="category-card">
+    @for(project of projectsPreview; track project._id){
+    <div class="project-item" (click)="showProject(project._id)">
+      <ion-label class="project-title">{{ project.title }}</ion-label>
+      <div class="project-icons">
+        <ion-icon
+          name="pencil"
+          (click)="editProject($event,project._id)"
+        ></ion-icon>
+        <ion-icon
+          name="close"
+          (click)="confirmDeleteProject(project._id)"
+        ></ion-icon>
+      </div>
+    </div>
+    }
+    <div class="project-item">
+      <ion-label class="project-title" (click)="newProject($event)"
+        >Add new project</ion-label
+      >
+      <div class="project-icons">
+        <ion-icon name="add" (click)="newProject($event)"></ion-icon>
+      </div>
+    </div>
+  </ion-card>
+
+  <div class="section-title">CONTACT ADMIN</div>
+
+  <app-contact-admin
+    (sendMessage)="handleAdminMessage($event)"
+  ></app-contact-admin>
+
+  <!-- Floating Action Buttons (FAB) for Edit -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button
+      color="success"
+      (click)="goEditProfile()"
+      style="margin-bottom: 10px"
+    >
+      <ion-icon name="pencil"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

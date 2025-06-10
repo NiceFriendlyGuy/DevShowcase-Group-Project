@@ -1,0 +1,35 @@
+<ion-content>
+  <!-- Search Field -->
+  <app-search
+    *ngIf="!profileId"
+    [items]="profiles"
+    [selectedCategories]="selectedTechnologies"
+    (filteredItems)="onFilteredProfiles($event)"
+  >
+  </app-search>
+
+  <app-horizontal-filter
+    *ngIf="!profileId"
+    [listItems]="listTechnologies"
+    (filteredItems)="onFilteredItems($event)"
+  >
+  </app-horizontal-filter>
+
+  @for (profile of filteredProfiles; track profile._id) {
+  <app-profile
+    [profile]="profile"
+    [previewProjects]="true"
+    (click)="onProfileClick(profile._id)"
+  ></app-profile>
+  } @if (noResults) {
+  <div class="no-projects-message">
+    <img src="assets/icon/no-result.png" alt="No projects found" />
+    <p>No profiles found.</p>
+  </div>
+  } @if (loadingData) {
+  <div class="no-projects-message">
+    <img src="assets/icon/loading.gif" alt="Loading data" />
+    <p>Loading data, please wait.</p>
+  </div>
+  }
+</ion-content>

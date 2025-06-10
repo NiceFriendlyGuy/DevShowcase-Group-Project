@@ -1,0 +1,33 @@
+<!-- Items Filter -->
+<swiper-container [breakpoints]="swiperBreakpoints" space-between="5">
+  @for (item of listItems; track item) {
+  <swiper-slide>
+    <div
+      class="item"
+      [class.selected]="isSelected(item)"
+      (click)="toggleItem(item)"
+    >
+      <img
+        class="item-icon"
+        [src]="item.src"
+        [title]="item.name"
+        onerror="this.onerror=null;this.src='assets/noImage.png';"
+      />
+
+      <p>{{ item.name }}</p>
+    </div>
+  </swiper-slide>
+  }
+</swiper-container>
+<div class="delete-filters-chip-row">
+  @if(selectedItems.length > 0){
+  <ion-chip
+    class="delete-filters-chip"
+    color="primary"
+    (click)="clearFilters()"
+  >
+    <ion-icon name="close"></ion-icon>
+    <ion-label>Delete filters</ion-label>
+  </ion-chip>
+  }
+</div>

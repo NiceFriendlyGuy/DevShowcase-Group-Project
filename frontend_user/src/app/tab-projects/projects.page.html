@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <!-- Search Field -->
+  <app-search
+    [items]="projects"
+    [selectedCategories]="selectedCategories"
+    (filteredItems)="onFilteredProjects($event)"
+  >
+  </app-search>
+
+  <app-horizontal-filter
+    [listItems]="categories"
+    (filteredItems)="onFilteredItems($event)"
+  >
+  </app-horizontal-filter>
+
+  <div class="project-grid" [class.empty]="filteredProjects.length === 0">
+    @for(project of filteredProjects; track project){
+    <app-project
+      [project]="project"
+      class="project-card"
+      (click)="showProject(project._id)"
+    ></app-project>
+    } @if (noResults) {
+    <div class="no-projects-message">
+      <img src="assets/icon/no-result.png" alt="No projects found" />
+      <p>No profiles found.</p>
+    </div>
+    } @if (loadingData) {
+    <div class="no-projects-message">
+      <img src="assets/icon/loading.gif" alt="Loading data" />
+      <p>Loading data, please wait.</p>
+    </div>
+    }
+  </div>
+</ion-content>
