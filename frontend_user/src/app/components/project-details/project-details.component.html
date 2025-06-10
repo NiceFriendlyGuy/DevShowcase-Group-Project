@@ -62,7 +62,7 @@
     <h3>Authors</h3>
     <div class="chip-container">
       @for(author of authorsPreview; track author) {
-      <ion-chip class="author-chip">
+      <ion-chip class="author-chip" (click)="onProfileClick($event, author.id)">
         <ion-avatar>
           <img
             [src]="author.photo || 'assets/default-profile.png'"

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -43,6 +43,7 @@ export class ProjectDetailsComponent implements OnInit {
   private profilesService = inject(ProfilesService);
   private projectId: any;
   public authorsPreview: any[] = [];
+  private router = inject(Router);
   selectedTab: string = 'overview';
   project: any;
 
@@ -97,5 +98,10 @@ export class ProjectDetailsComponent implements OnInit {
 
   closeImageModal() {
     this.isImageModalOpen = false;
+  }
+
+  onProfileClick(event: MouseEvent, profileId: string) {
+    event.stopPropagation();
+    this.router.navigate(['tabs/profiles/profileDetails', profileId]);
   }
 }
