@@ -1,264 +1,91 @@
-# API Documentation
+# PortfolioProjets
+
+This web application was developed as part of a FullStack course. It serves as a platform for users to showcase their professional profiles, manage projects, and interact with other users. The app demonstrates modern web development practices using Angular (frontend) and a Node.js/Express backend.
 
 ---
 
-## Models
+## What is PortfolioProjets?
 
-### Technology
+PortfolioProjets is a portfolio and project management web app where users can:
 
-```typescript
-{
-  name: string;
-  version: string;
-}
+- Main tabs: Projects, Profiles and Account
+  - Projects: Search/Filter and visualize projects
+  - Profiles: Search/Filter and visualize profiles
+  - Account: Visualize profile account
+- Browse and search (by text) /Filter (by category) users' projects
+- Add, edit and delete projects (remove users from project)
+- Browse and search (by text) /Filter (by technologies) users' profiles
+- Create and edit users' personal profiles
+- Contact administrators for support or feature requests
+
+<img src=".\src\assets\Doc\diagram.PNG" alt="App Screenshot"/>
+
+---
+
+## Main Functionalities
+
+- **User Authentication:** Sign up, log in, and log out securely.
+  - by email/password
+  - using google OAth 2.0
+  - Forgot password link request
+  - Sign up with email validation
+- **Profile Management:** Create, edit, and view user profiles with skills, biography, and contact details.
+- **Project Management:** Add new projects, edit existing ones, assign technologies, and manage project authors.
+- **Search & Filter:** Search for profiles and projects, filter by technology or category.
+- **Admin Contact:** Send messages to administrators for support or feedback.
+- **Responsive Design:** Optimized for desktop and mobile devices.
+
+---
+
+## Implementation Details
+
+**State Management:** Uses RxJS BehaviorSubject for authentication and profile state.
+
+**Routing:** Angular Router with route guards for protected pages.
+
+**Forms:** Reactive Forms for validation and user input.
+
+**API Communication:** HTTPClient for RESTful API calls.
+
+**Error Handling:** Toast notifications for user feedback.
+
+---
+
+## Technologies Used
+
+**Frontend:** Angular, Ionic, TypeScript, RxJS, SCSS
+
+**Authentication:** JWT, Google OAuth 2.0
+
+**Other:** REST API, RxJS Observables, Responsive Design
+
+---
+
+## Folder Structure
+
+```text
+src/
+  app/
+    components/ # Reusable UI components
+      utils/ # Utility components for Search and Filter
+    guards/ # Guard for loggin in account page
+    models/ # Profile and Project models
+    pages/ # Subpages for creation and edit
+    services/ # Services for Profiles, Projects and Authentication
+      dummyData/ # Dummy json data for testing
+    tab-account/ # LogIn and Account page
+    tab-projects/ # Projects page
+    tab-profiles/ # Profiles page
+    tabs/ # Tabs logic and routing
+
+  assets/ # Icons, images, and other assets
+    Doc/ # Documentation images
+
+  environment/ # Environment variables for development and production
 ```
 
-### Profile
+---
 
-```typescript
-  {
-    id: string;
-    admin: boolean;
-    name: string;
-    surname: string;
-    password: string;
-    role: string;
-    bio: string;
-    email: string;
-    phone: string;
-    photo: string;
-    technologies: Technology[];
-    isDeleted: boolean;
-    createdAt: date;
-    updatedAt: date;
-  }
-```
+## License
 
-### Project
-
-```typescript
-  {
-    id: string;
-    title: string;
-    category: string;
-    date: date;
-    link: string;
-    technologies: Technology[];
-    authors: string[];
-    description: string;
-    photos: string[];
-    isDeleted: boolean;
-    createdAt: date;
-    updatedAt: date;
-  }
-```
-
-## Endpoints Profiles
-
-### Request all the profiles
-
-- **POST** `/api/profiles/findAll`
-- **Answer :**
-
-  ```json
-  [
-    {
-      "id": "1",
-      "admin": false,
-      "name": "John",
-      "surname": "Smith",
-      "email": "john.smith@email.com",
-      "phone": "+1 444 987 6543",
-      "role": "Full Stack Developer",
-      "photo": "",
-      "technologies": [
-        { "name": "Vue.js", "version": 3.0 },
-        { "name": "JavaScript", "version": "ES6" },
-        { "name": "HTML5" },
-        { "name": "CSS3" }
-      ],
-      "bio": "Full stack developer in web application development."
-    },
-    ...
-  ]
-  ```
-
-### Create a profile
-
-- **POST** `/api/profiles/`
-- **Body**
-  ```json
-  {
-    "name": "John",
-    "email": "john.smith@email.com",
-    "password": "1234"
-  }
-  ```
-- **Answer :**
-
-  ```json
-  {
-    "id": "1"
-  }
-  ```
-
-### Update a profile
-
-- **PUT** `/api/profiles/:Id`
-- **Body**
-  ```json
-  {
-    "email": "john.smith@email.com"
-  }
-  ```
-- **Answer :**
-
-  ```json
-  {
-    "id": "1",
-    "admin": false,
-    "name": "John",
-    "surname": "Smith",
-    "email": "john.smith@email.com",
-    "phone": "+1 444 987 6543",
-    "role": "Full Stack Developer",
-    "photo": "",
-    "technologies": [{ "name": "Vue.js", "version": 3.0 }, { "name": "JavaScript", "version": "ES6" }, { "name": "HTML5" }, { "name": "CSS3" }],
-    "bio": "Full stack developer in web application development."
-  }
-  ```
-
-### Delete a profile
-
-- **DEL** `/api/profiles/:Id`
-- **Answer :**
-
-  ```json
-  {}
-  ```
-
-### Change password
-
-- **POST** `/api/profiles/changePassword`
-- **Body**
-  ```json
-  {
-    "id": "1",
-    "password": "1234",
-    "newPassword": "12345678"
-  }
-  ```
-- **Answer :**
-  ```json
-  {
-    "valid": true
-  }
-  ```
-
-### Authenticate a user
-
-- **POST** `/api/profiles/auth`
-- **Body**
-  ```json
-  {
-    "email": "john.smith@email.com",
-    "password": "1234"
-  }
-  ``
-  ```
-- **Answer :**
-
-```json
-{
-  "valid": true
-}
-```
-
-(Change the status of the project with the field isDeleted to true)
-
-## Endpoints Projects
-
-### Request all the projects
-
-- **POST** `/api/projects/findAll`
-- **Answer :**
-
-  ```json
-  [
-    {
-    "id": 1,
-    "title": "Portfolio Website",
-    "category": "Technology",
-    "description": "A portfolio website for a developer",
-    "date": "2024-05-01T10:00:00Z",
-    "technologies": [
-      { "name": "HTML5" },
-      { "name": "CSS3" },
-      { "name": "Node.js", "version": 5 },
-      { "name": "Express" },
-      { "name": "MongoDB", "version": 11 }
-    ],
-    "link": "https://example.com/portfolio",
-    "authors": ["1","2"],
-    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-  },
-    ...
-  ]
-  ```
-
-### Create a project
-
-- **POST** `/api/projects/`
-- **Body**
-  ```json
-  {
-    "title": "Portfolio Website",
-    "category": "Technology",
-    "description": "A portfolio website for a developer",
-    "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
-    "link": "https://example.com/portfolio",
-    "authors": ["1", "2"],
-    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-    "date": "2022-01-01T00:00:00.000Z"
-  }
-  ```
-- **Answer :**
-
-  ```json
-  {
-    "id": "1"
-  }
-  ```
-
-### Update a project
-
-- **PUT** `/api/projects/:Id`
-- **Body**
-  ```json
-  {
-    "link": "https://example.com/portfolio"
-  }
-  ```
-- **Answer :**
-
-  ```json
-  {
-    "title": "Portfolio Website",
-    "technologies": [{ "name": "HTML5" }, { "name": "CSS3" }, { "name": "Node.js", "version": 5 }, { "name": "Express" }, { "name": "MongoDB", "version": 11 }],
-    "link": "https://example.com/portfolio",
-    "authors": ["1", "2"],
-    "photos": ["assets/1/Screenshot1.png", "assets/1/Screenshot2.png", "assets/1/Screenshot3.png"],
-    "date": "2022-01-01T00:00:00.000Z"
-  }
-  ```
-
-### Delete a project
-
-- **DEL** `/api/projects/:Id`
-- **Answer :**
-
-  ```json
-  {}
-  ```
-
-  (Change the status of the project with the field isDeleted to true)
+This project is for educational purposes as part of a FullStack course.
