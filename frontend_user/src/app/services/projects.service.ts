@@ -128,32 +128,31 @@ export class ProjectsService {
     return this.categories;
   }
 
-  removeAuthorFromProject(projectId: string, authorId: string) {
-    const projectIndex = this.projects.findIndex(
-      (project) => project.id === projectId
+  async removeAuthorFromProject(projectId: string, authorsId: string) {
+    const projectToUpdate = this.projects.find(
+      (project) => project._id === projectId
     );
-    if (projectIndex !== -1) {
-      this.projects[projectIndex].authors = this.projects[
-        projectIndex
-      ].authors.filter((item: string) => item !== authorId);
-    }
+    const newAuthors = projectToUpdate.authors.filter(
+      (id: String) => id !== authorsId
+    );
+    const data = { _id: projectId, authors: newAuthors };
+    await this.updateProject(data);
   }
 
-  removeProject(projectId: string) {
+  async removeProject(projectId: string): Promise<any> {
     if (environment.production) {
       try {
-        this.httpClient
-          .delete(this.updateProjectUrl + projectId, this.headers)
-          .subscribe({
-            next: (response) => {
-              console.log('Project deleted successfully:', response);
-            },
-            error: (error) => {
-              console.error('Error deleting project:', error);
-            },
-          });
+        const response = await firstValueFrom(
+          this.httpClient.delete(
+            this.updateProjectUrl + projectId,
+            this.headers
+          )
+        );
+        console.log('response :', response);
+        return response;
       } catch (error) {
         console.error('Error:', error);
+        throw error; // ou return null selon ton usage
       }
     } else {
       // Simulate the deletion of a project

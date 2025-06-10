@@ -73,8 +73,13 @@ export class AccountPage {
   }
 
   async refreshData() {
-    this.profile = await this.profilesService.getProfilesById(this.profile._id);
     await this.projectsService.getProjectsAll();
+    await this.profilesService.getProfilesAll();
+    this.profile = await this.profilesService.getProfilesById(this.profile._id);
+    this.projectsPreview = await this.projectsService.getProjectsByAuthor(
+      this.profile._id
+    );
+    console.log(this.profile);
     //console.log('Profile:', this.profile);
   }
 
@@ -84,12 +89,14 @@ export class AccountPage {
     } else {
       await this.projectsService.removeAuthorFromProject(
         projectId,
-        this.profile.id
+        this.profile._id
       );
     }
+    this.refreshData();
   }
 
-  async confirmDeleteProject(projectId: string) {
+  async confirmDeleteProject(event: MouseEvent, projectId: string) {
+    event.stopPropagation();
     let project = await this.projectsService.getProjectById(projectId);
     let warning = '';
     let isOnlyAuthor = false;
