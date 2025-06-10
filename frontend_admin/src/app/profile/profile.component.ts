@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -19,6 +21,7 @@ import { AuthService } from '../services/auth.service';
         MatButtonModule,
         MatIconModule,
         MatDialogActions,
+        CommonModule
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss'

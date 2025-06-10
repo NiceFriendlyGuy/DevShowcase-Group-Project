@@ -45,9 +45,28 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: () => {
         const user = this.authService.getCurrentUser();
-        console.log('Utilisateur connecté :', user);
-        const targetRoute = user?.admin ? '/shell' : '/unauthorized';
-        this.router.navigate([targetRoute]);
+
+        if (!user?.admin) {
+          this.router.navigate(['/unauthorized'], {
+            state: {
+              message:
+                "Vous n'avez pas le droit d'accéder à cette application.",
+            },
+          });
+          return;
+        }
+
+        this.router.navigate(['/shell']);
+      },
+      error: (err) => {
+        const msg = err.error?.message;
+        if (msg === 'wrong password') {
+          this.error = 'Mot de passe incorrect.';
+        } else if (msg === 'user not found') {
+          this.error = 'Aucun compte trouvé pour cet email.';
+        } else {
+          this.error = 'Erreur lors de la connexion.';
+        }
       },
     });
   }

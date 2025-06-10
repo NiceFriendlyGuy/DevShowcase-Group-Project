@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class UnauthorizedComponent {
   router = inject(Router);
+  public message =
+    this.router.getCurrentNavigation()?.extras.state?.['message'] ?? null;
 
   public goToLogin() {
     this.router.navigate(['/login']);
