@@ -31,12 +31,14 @@ sessionController.findOnline = async function (req, res) {
 sessionController.findOffline = async function (req, res) {
     console.log ("body", req.body);
     const online = {"status":1};
-    console.log('filter= ', online);
+    console.log('filter= ', online);map(s => s.email);
     try {
 
 
-        const onlineEmails = await Session.find(online).projection({"email":1});
-        console.log ("Online email profile:", onlineEmails);
+        const onlineSessions = await Session.find(online).select("email");
+        console.log ("Online email profile:", onlineSessions);
+
+        const onlineEmails = onlineSessions.map(s => s.email);
         
         const offlineProfiles = await Profile.find({"email": {$nin: onlineEmails}});
 
