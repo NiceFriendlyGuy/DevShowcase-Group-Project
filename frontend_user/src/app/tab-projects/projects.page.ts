@@ -31,10 +31,17 @@ export class ProjectsPage {
   public filteredProjects: any[] = [];
   public categories: any[] = [];
   public selectedCategories: any[] = [];
+  public noResults: boolean = false;
+  public loadingData: boolean = false;
 
   onFilteredProjects(filtered: any[]) {
     console.log('Filtered projects:', filtered);
     this.filteredProjects = filtered;
+    if (this.filteredProjects.length === 0 && !this.loadingData) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
   }
 
   onFilteredItems(filtered: any[]) {
@@ -45,10 +52,12 @@ export class ProjectsPage {
   constructor() {}
 
   async ngOnInit() {
+    this.loadingData = true;
     this.profilesService.getProfilesAll();
     this.projects = await this.projectsService.getProjectsAll();
-    this.filteredProjects = this.projects;
     this.categories = this.projectsService.getCategoriesAll();
+    this.filteredProjects = this.projects;
+    this.loadingData = false;
   }
   ////// Filtre Categories //////
 
