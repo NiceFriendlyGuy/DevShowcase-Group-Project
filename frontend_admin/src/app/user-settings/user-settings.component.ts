@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { User } from '../models/user.model';
+import { CommonModule } from '@angular/common';
+
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -29,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss',

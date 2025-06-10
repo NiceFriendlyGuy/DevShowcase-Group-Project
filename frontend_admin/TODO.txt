@@ -1,4 +1,11 @@
+<<<<<<< Updated upstream
 Add user delete (MIS EN PLACE MAIS LE ENDPOINT RENVOIE QUE TRUE)
 Add requests delete/confirm
 Fix wrong password/not admin message
 Fix/Remove current password field when changing user password
+=======
+Add user delete
+Add requests delete/confirm (ask for api endpoint)
+Fix wrong password/not admin message
+Fix/Remove current password field when changing user password (ask for admin chnage password api endpoint)
+>>>>>>> Stashed changes

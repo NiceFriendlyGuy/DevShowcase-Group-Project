@@ -6,7 +6,8 @@
       <div class="profile-item"><strong>Email :</strong> {{user.email}}</div>
       <div class="profile-item"><strong>Rôle :</strong> {{user.role}}</div>
       <div class="profile-item">
-        <strong>Date de création du compte :</strong> {{user.createdAt}}
+        <strong>Date de création du compte :</strong> {{ user.createdAt | date:'dd-MM-yyyy' }}
+
       </div>
       <!--
       <div class="profile-item">
