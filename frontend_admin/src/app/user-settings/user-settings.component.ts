@@ -66,7 +66,7 @@ export class UserSettingsComponent {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.dialogRef.close({ delete: true, user });
+        this.deleteUser(user);
       }
     });
   }
@@ -88,11 +88,15 @@ export class UserSettingsComponent {
   }
 
   public deleteUser(user: User) {
-    this.userService
-      .deleteUser(this.users(), user)
-      .subscribe((updatedUsers) => {
-        this.users.set(updatedUsers);
-      });
+    this.userService.deleteUserById(user._id!).subscribe({
+      next: () => {
+        alert('Utilisateur supprimé');
+        this.dialogRef.close({ delete: true, user });
+      },
+      error: (err) => {
+        alert(err.error?.message || 'Erreur lors de la suppression');
+      },
+    });
   }
 
   public isEditing = signal(false);

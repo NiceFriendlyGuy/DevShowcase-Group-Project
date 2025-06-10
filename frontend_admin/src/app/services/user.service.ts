@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../environement';
 
@@ -44,12 +44,7 @@ export class UserService {
     );
   }
 
-  /* public deleteUser(user: User): Observable<User[]> {
-    return this.http.delete<User[]>('assets/fakeusers.json', { body: user });
-  } */
-
-  public deleteUser(users: User[], userToDelete: User): Observable<User[]> {
-    const updatedUsers = users.filter((user) => user !== userToDelete);
-    return of(updatedUsers);
+  public deleteUserById(userId: string): Observable<any> {
+    return this.http.delete(environment.BASE_URL + `/profiles/${userId}`);
   }
 }

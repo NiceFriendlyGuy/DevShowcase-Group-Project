@@ -22,7 +22,7 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 
-  login(credentials: LoginCredentials): Observable<any> {
+  public login(credentials: LoginCredentials): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         if (response.user) {
