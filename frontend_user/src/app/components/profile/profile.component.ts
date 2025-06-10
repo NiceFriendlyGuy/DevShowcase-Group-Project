@@ -117,7 +117,8 @@ export class ProfileComponent implements OnInit {
     return primaryUrl;
   }
 
-  showProject(projectId: string) {
+  showProject(event: MouseEvent, projectId: string) {
+    event.stopPropagation();
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 

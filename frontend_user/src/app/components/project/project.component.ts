@@ -11,6 +11,7 @@ import {
   IonLabel,
 } from '@ionic/angular/standalone';
 import { ProfilesService } from 'src/app/services/profiles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -33,6 +34,7 @@ export class ProjectComponent implements OnInit {
   @Input() project: any;
   public authorsPreview: any[] = [];
   public profilesService = inject(ProfilesService);
+  private router = inject(Router);
   constructor() {}
 
   async ngOnInit() {
@@ -70,5 +72,10 @@ export class ProjectComponent implements OnInit {
       profiles
     );
     return this.authorsPreview;
+  }
+
+  onProfileClick(event: MouseEvent, profileId: string) {
+    event.stopPropagation();
+    this.router.navigate(['tabs/profiles/profileDetails', profileId]);
   }
 }

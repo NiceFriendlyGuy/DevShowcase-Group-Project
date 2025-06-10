@@ -26,7 +26,7 @@
         <div class="image-container">
           <ion-img
             [src]="preview.photos[0]"
-            (click)="showProject(preview.id)"
+            (click)="showProject($event, preview._id)"
           ></ion-img>
           <div class="icons-container">
             @for(technology of preview.technologies; track technology){

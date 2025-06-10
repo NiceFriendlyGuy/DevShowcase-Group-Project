@@ -260,7 +260,7 @@ export class ProfilesService {
         : foundProfile;
       if (profile) {
         authorsPreview.push({
-          id: profile.id,
+          id: profile._id,
           name: profile.name,
           surname: profile.surname,
           photo: profile.photo,
