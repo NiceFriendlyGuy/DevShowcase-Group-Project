@@ -139,11 +139,29 @@ export class ProjectsService {
   }
 
   removeProject(projectId: string) {
-    const projectIndex = this.projects.findIndex(
-      (project) => project.id === projectId
-    );
-    if (projectIndex !== -1) {
-      this.projects.splice(projectIndex, 1);
+    if (environment.production) {
+      try {
+        this.httpClient
+          .delete(this.updateProjectUrl + projectId, this.headers)
+          .subscribe({
+            next: (response) => {
+              console.log('Project deleted successfully:', response);
+            },
+            error: (error) => {
+              console.error('Error deleting project:', error);
+            },
+          });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    } else {
+      // Simulate the deletion of a project
+      const projectIndex = this.projects.findIndex(
+        (project) => project.id === projectId
+      );
+      if (projectIndex !== -1) {
+        this.projects.splice(projectIndex, 1);
+      }
     }
   }
 }
