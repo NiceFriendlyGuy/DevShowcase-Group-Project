@@ -11,10 +11,10 @@ export class ProfilesService {
   private headers = { headers: { 'Content-Type': 'application/json' } };
 
   // Urls
-  private findAllProfilesUrl = environment.BASE_URL_PROFILES + '/findAll';
-  private newProfilesUrl = environment.BASE_URL_PROFILES + '/';
-  private updateProfilesUrl = environment.BASE_URL_PROFILES + '/';
-  private deleteProfilesUrl = environment.BASE_URL_PROFILES + '/';
+  private findAllProfilesUrl = environment.BASE_URL + '/profiles/findAll';
+  private newProfilesUrl = environment.BASE_URL + '/profiles/';
+  private updateProfilesUrl = environment.BASE_URL + '/profiles/';
+  private deleteProfilesUrl = environment.BASE_URL + '/profiles/';
 
   private httpClient = inject(HttpClient);
 
@@ -203,7 +203,7 @@ export class ProfilesService {
       };
       return await firstValueFrom(
         this.httpClient.post(
-          environment.BASE_URL_PROFILES + '/changePassword',
+          environment.BASE_URL + '/auth/changePassword',
           changePasswordData,
           this.headers
         )

@@ -16,9 +16,9 @@ export class ProjectsService {
   private categories: any[] = [];
 
   private headers = { headers: { 'Content-Type': 'application/json' } };
-  private findAllProjectUrl = environment.BASE_URL_PROJECTS + '/findAll';
-  private createProjectUrl = environment.BASE_URL_PROJECTS + '/';
-  private updateProjectUrl = environment.BASE_URL_PROJECTS + '/';
+  private findAllProjectUrl = environment.BASE_URL + '/projects/findAll';
+  private createProjectUrl = environment.BASE_URL + '/projects/';
+  private updateProjectUrl = environment.BASE_URL + '/projects/';
 
   constructor() {
     if (!environment.production) {
