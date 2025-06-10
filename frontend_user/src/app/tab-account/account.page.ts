@@ -128,12 +128,18 @@ export class AccountPage {
     await alert.present();
   }
 
-  editProject(projectId: string) {
+  editProject(event: MouseEvent, projectId: string) {
+    event.stopPropagation();
     this.router.navigate(['/tabs/account/editProject', projectId]);
   }
 
-  newProject() {
+  newProject(event: MouseEvent) {
+    event.stopPropagation();
     this.router.navigate(['/tabs/account/newProject']);
+  }
+
+  showProject(projectId: string) {
+    this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 
   async handleAdminMessage(event: { category: string; message: string }) {

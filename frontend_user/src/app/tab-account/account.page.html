@@ -7,23 +7,26 @@
   </div>
   <ion-card class="category-card">
     @for(project of projectsPreview; track project._id){
-    <div class="project-item">
+    <div class="project-item" (click)="showProject(project._id)">
       <ion-label class="project-title">{{ project.title }}</ion-label>
       <div class="project-icons">
-        <ion-icon name="pencil" (click)="editProject(project.id)"></ion-icon>
+        <ion-icon
+          name="pencil"
+          (click)="editProject($event,project._id)"
+        ></ion-icon>
         <ion-icon
           name="close"
-          (click)="confirmDeleteProject(project.id)"
+          (click)="confirmDeleteProject(project._id)"
         ></ion-icon>
       </div>
     </div>
     }
     <div class="project-item">
-      <ion-label class="project-title" (click)="newProject()"
+      <ion-label class="project-title" (click)="newProject($event)"
         >Add new project</ion-label
       >
       <div class="project-icons">
-        <ion-icon name="add" (click)="newProject()"></ion-icon>
+        <ion-icon name="add" (click)="newProject($event)"></ion-icon>
       </div>
     </div>
   </ion-card>
