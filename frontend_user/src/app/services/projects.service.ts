@@ -23,8 +23,8 @@ export class ProjectsService {
   constructor() {
     if (!environment.production) {
       this.projects = dummyProjectsData;
-      this.categories = dummyCategoriesData;
     }
+    this.categories = dummyCategoriesData;
   }
 
   async getProjectsAll(): Promise<any> {
@@ -110,7 +110,7 @@ export class ProjectsService {
   }
 
   getProjectById(id: string) {
-    const project = this.projects.filter((project) => project.id === id);
+    const project = this.projects.filter((project) => project._id === id);
     return project;
   }
 

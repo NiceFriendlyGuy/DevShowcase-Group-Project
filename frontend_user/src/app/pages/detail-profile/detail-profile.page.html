@@ -17,7 +17,7 @@
   <app-project
     [project]="project"
     class="project-card"
-    (click)="showProject(project.id)"
+    (click)="showProject(project._id)"
   ></app-project>
   } @if (projects.length === 0 && !loadingData) {
   <div class="no-data-message">
