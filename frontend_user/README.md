@@ -1,4 +1,4 @@
-# PortfolioProjets
+# PortfolioProjets <img src=".\src\assets\logo_trans.png" alt="logo"/>
 
 This web application was developed as part of a FullStack course. It serves as a platform for users to showcase their professional profiles, manage projects, and interact with other users. The app demonstrates modern web development practices using Angular (frontend) and a Node.js/Express backend.
 
@@ -85,6 +85,20 @@ src/
 ```
 
 ---
+
+## Missing to implement
+
+- Unit and functional tests
+
+- Token API request validation
+
+- Captha SingUp
+
+- Lazy projects and profiles browsing
+
+- Adding dynamic fields to projects and profiles
+
+- ..
 
 ## License
 
