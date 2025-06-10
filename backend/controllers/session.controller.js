@@ -31,7 +31,7 @@ sessionController.findOnline = async function (req, res) {
 sessionController.findOffline = async function (req, res) {
     console.log ("body", req.body);
     const online = {"status":1};
-    console.log('filter= ', filter);
+    console.log('filter= ', online);
     try {
 
 
