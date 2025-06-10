@@ -1,0 +1,100 @@
+ion-toolbar {
+  --background: linear-gradient(
+    45deg,
+    #4d65b4,
+    #fdfdfd
+  ); /* Adds a gradient background */
+  --color: rgb(250, 249, 249); /* Sets the text color */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow below the header */
+  --padding-start: 16px; /* Adds padding to the toolbar */
+  --padding-end: 16px;
+}
+
+ion-title {
+  font-size: 1.5rem; /* Increases the font size of the title */
+  font-weight: bold; /* Makes the title bold */
+  text-align: left; /* Centers the title */
+}
+
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+//////////// STYLE BULLES DE TECHNOLOGIES ////////////
+.tech-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* ne bloque pas le scroll vertical */
+  gap: 12px;
+  padding: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* pour un scroll fluide sur mobile */
+}
+
+.tech-container::-webkit-scrollbar {
+  display: none; /* Masquer la scrollbar */
+}
+
+.tech {
+  flex: 0 0 auto; /* empêcher la réduction */
+  width: 80px;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.tech img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-bottom: 8px;
+  transition: transform 0.3s;
+}
+
+.tech img:hover {
+  transform: scale(1.05);
+}
+
+.tech p {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html,
+body {
+  height: auto;
+  overflow-y: auto;
+}
+
+.tech.selected p {
+  color: #007bff; /* Bleu Bootstrap / Instagram-like */
+}
+
+.tech.selected img {
+  border-color: #007bff;
+}
+////////////////////////////////////////////////////////
+.no-projects-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+  font-weight: 500;
+  gap: 16px;
+
+  img {
+    width: 90px;
+    height: 90px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+}

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -7,30 +8,92 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+        path: 'projects',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../tab-projects/projects.page').then(
+                (m) => m.ProjectsPage
+              ),
+          },
+          {
+            path: 'projectDetails/:id',
+            loadComponent: () =>
+              import(
+                '../components/project-details/project-details.component'
+              ).then((m) => m.ProjectDetailsComponent),
+          },
+        ],
       },
       {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+        path: 'profiles',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../tab-profiles/profiles.page').then(
+                (m) => m.ProfilesPage
+              ),
+          },
+          {
+            path: 'profileDetails/:id',
+            loadComponent: () =>
+              import('../pages/detail-profile/detail-profile.page').then(
+                (m) => m.DetailProfilePage
+              ),
+          },
+        ],
       },
       {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+        path: 'account',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../tab-account/account.page').then((m) => m.AccountPage),
+            canActivate: [AuthGuard], // Protect the account route
+          },
+          {
+            path: 'login',
+            loadComponent: () =>
+              import('../components/login/login.component').then(
+                (m) => m.LoginComponent
+              ),
+          },
+          {
+            path: 'editProfile',
+            loadComponent: () =>
+              import('../pages/edit-profile/edit-profile.page').then(
+                (m) => m.EditProfilePage
+              ),
+          },
+          {
+            path: 'newProject',
+            loadComponent: () =>
+              import('../pages/new-project/new-project.page').then(
+                (m) => m.NewProjectPage
+              ),
+          },
+          {
+            path: 'editProject/:id',
+            loadComponent: () =>
+              import('../pages/edit-project/edit-project.page').then(
+                (m) => m.EditProjectPage
+              ),
+          },
+        ],
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/projects',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/projects',
     pathMatch: 'full',
   },
 ];

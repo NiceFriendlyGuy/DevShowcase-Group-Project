@@ -1,0 +1,146 @@
+ion-toolbar {
+  --background: linear-gradient(
+    45deg,
+    #149139,
+    #fdfdfd
+  ); /* Adds a gradient background */
+  --color: rgb(250, 249, 249); /* Sets the text color */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow below the header */
+  --padding-start: 16px; /* Adds padding to the toolbar */
+  --padding-end: 16px;
+}
+
+ion-title {
+  font-size: 1.5rem; /* Increases the font size of the title */
+  font-weight: bold; /* Makes the title bold */
+  text-align: left; /* Centers the title */
+}
+
+ion-content {
+  --background: #bed0f7; /* Sets a light background color */
+  padding: 20px; /* Adds padding around the content */
+}
+
+////////////Filters /////////////
+///
+//////////// STYLE BULLES DE categories ////////////
+.cat-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* ne bloque pas le scroll vertical */
+  gap: 12px;
+  padding: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* pour un scroll fluide sur mobile */
+}
+
+.cat-container::-webkit-scrollbar {
+  display: none; /* Masquer la scrollbar */
+}
+
+.cat {
+  flex: 0 0 auto; /* empêcher la réduction */
+  width: 80px;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.cat img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+
+  margin-bottom: 8px;
+  transition: transform 0.3s;
+}
+
+.cat img:hover {
+  transform: scale(1.05);
+}
+
+.cat p {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html,
+body {
+  height: auto;
+  overflow-y: auto;
+}
+
+.cat.selected p {
+  color: #007bff; /* Bleu Bootstrap / Instagram-like */
+}
+
+.cat.selected img {
+  border-color: #007bff;
+}
+
+.delete-filters-chip-row {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.delete-filters-chip {
+  font-size: 1em;
+  cursor: pointer;
+  min-width: unset;
+  width: auto;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: static; // retire le positionnement absolu
+}
+
+/////////// app-project ///////////
+///Affichage de 2 par lignes pour tablette et desktop
+@media (min-width: 768px) {
+  .project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .project-card {
+    width: calc(50% - 4px); /* Moins d'espace latéral */
+    box-sizing: border-box;
+    margin: 0; /* Supprime les marges autour de la carte */
+    margin-bottom: 16px;
+  }
+}
+
+.no-projects-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+  font-weight: 500;
+  gap: 16px;
+
+  img {
+    width: 90px;
+    height: 90px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+}
+
+.project-grid.empty {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 320px;
+  width: 100%;
+}
