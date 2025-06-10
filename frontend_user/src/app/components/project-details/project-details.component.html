@@ -20,7 +20,7 @@
           </div>
           <span class="project-date">
             <ion-icon name="calendar-outline"></ion-icon>
-            {{ project.date | date : "longDate" }}
+            {{ getFormattedDate(project.date) }}
           </span>
         </div>
         <p>{{ project.description || "No description provided." }}</p>
