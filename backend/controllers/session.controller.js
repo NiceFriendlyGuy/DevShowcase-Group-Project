@@ -35,7 +35,7 @@ sessionController.findOffline = async function (req, res) {
     try {
 
 
-        const onlineEmails = await Session.find(filter).projection({"email":1});
+        const onlineEmails = await Session.find(online).projection({"email":1});
         console.log ("Online email profile:", onlineEmails);
         
         const offlineProfiles = await Profile.find({"email": {$nin: onlineEmails}});
