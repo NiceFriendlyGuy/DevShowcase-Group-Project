@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from '../environement';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     return this.http.post<User[]>(
-      'http://localhost:3000/api/profiles/findAll',
+      environment.BASE_URL + '/profiles/findAll',
       {},
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +22,7 @@ export class UserService {
 
   public updateUser(user: User): Observable<User> {
     return this.http.put<User>(
-      `http://localhost:3000/api/profiles/${user._id}`,
+      environment.BASE_URL + `/profiles/${user._id}`,
       user,
       {
         headers: { 'Content-Type': 'application/json' },
@@ -35,7 +36,7 @@ export class UserService {
     newPassword: string
   ): Observable<any> {
     return this.http.put(
-      `http://localhost:3000/api/auth/changePassword/${userId}`,
+      environment.BASE_URL + `/auth/changePassword/${userId}`,
       {
         currentPassword,
         newPassword,

@@ -9,6 +9,7 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-profile',
@@ -23,9 +24,16 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  constructor(private dialogRef: MatDialogRef<ProfileComponent>) {}
+  user: any;
+
+  constructor(private dialogRef: MatDialogRef<ProfileComponent>,private authService: AuthService) {}
 
   closeDialog() {
     this.dialogRef.close();
   }
+
+  ngOnInit(): void {
+    this.user = this.authService.getUser();
+  }
+
 }

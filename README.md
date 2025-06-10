@@ -209,6 +209,20 @@ For test purposes:
   ```
 - **Answer :**
 
+```json
+{
+    "message": "successfully authentificated",
+    "user": {
+        "id": "683f341def92d5460daa0cf5",
+        "name": "John",
+        "surname": "Smith",
+        "admin": false,
+        "role": "UI/UX Designer",
+        "email": "john.smith@email.com",
+        "createdAt": "2025-05-29T17:42:53.066Z"
+    }
+}
+```
   ```json
   {
     "successfully authentificated"
@@ -349,33 +363,38 @@ For test purposes:
 
 - **POST** `/api/requests/findAll`
 
-- **Answer :**
-
-```json
-[
-{
-  "_id": "6831234567abc123456789ab",
-  "userId": "682e417ac57f899365caa020",
-  "status": "pending",
-  "type": "Suggestion",
-  "message": "Ajouter un mode sombre dans le dashboard.",
-  "createdAt": "2025-05-20T14:32:00.000Z",
-  "updatedAt": "2025-05-20T14:32:00.000Z"
-},
-...
-]
+-  **Answer :** 
+  ```json
+  [
+  {
+    "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
+    "status": "pending",
+    "type": "Demande de support",
+    "message": "Je rencontre un bug lors de la connexion.",
+    "createdAt": "2025-06-03T18:59:18.787Z",
+    "updatedAt": "2025-06-03T18:59:18.787Z",
+    "__v": 0
+  },
+  ...
+  ]
 
 ```
 
-### Create a new user request
-
-- **POST** `/api/requests/`
-
-- **Body**
-
-```json
-{
-  "userId": "682e417ac57f899365caa020",
+-  **POST** `/api/requests/`
+  
+-  **Body**
+  ```json
+  {
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
   "type": "Demande de support",
   "message": "Impossible de modifier mon profil depuis hier."
 }
@@ -386,7 +405,12 @@ For test purposes:
 ```json
 {
   "_id": "683234abc456def7890abcd1",
-  "userId": "682e417ac57f899365caa020",
+  "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    },
   "status": "pending",
   "type": "Demande de support",
   "message": "Impossible de modifier mon profil depuis hier.",
@@ -414,8 +438,12 @@ For test purposes:
 {
   "message": "the request with id: 683234abc456def7890abcd1 was successfully updated",
   "updatedRequest": {
-    "_id": "683234abc456def7890abcd1",
-    "userId": "682e417ac57f899365caa020",
+    "_id": "683f4606ef92d5460daa0d36",
+    "userId": {
+        "_id": "683f3070ef92d5460daa0cbc",
+        "name": "Tesla",
+        "surname": "Nikola"
+    }
     "status": "solved",
     "type": "Demande de support",
     "message": "Impossible de modifier mon profil depuis hier.",

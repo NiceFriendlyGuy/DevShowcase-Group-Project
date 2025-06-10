@@ -1,6 +1,8 @@
 export interface Request {
   id: string;
   userId: string;
+  name: string;
+  surname: string;
   status: 'pending' | 'solved' | 'cancelled';
   type:
     | 'Demande de support'

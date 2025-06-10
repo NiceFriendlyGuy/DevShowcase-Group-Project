@@ -34,7 +34,7 @@ export class LoginComponent {
 
   error: string | null = null;
 
-  onSubmit() {
+  public onSubmit() {
     const credentials: LoginCredentials = {
       email: this.loginForm.get('email')?.value ?? '',
       password: this.loginForm.get('password')?.value ?? '',
@@ -43,9 +43,11 @@ export class LoginComponent {
     if (this.loginForm.invalid) return;
 
     this.authService.login(credentials).subscribe({
-      next: () => this.router.navigate(['/shell']),
-      error: (err) => {
-        this.error = err.error.message || 'Une erreur est survenue';
+      next: () => {
+        const user = this.authService.getCurrentUser();
+        console.log('Utilisateur connecté :', user);
+        const targetRoute = user?.admin ? '/shell' : '/unauthorized';
+        this.router.navigate([targetRoute]);
       },
     });
   }
