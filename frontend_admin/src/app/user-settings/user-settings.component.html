@@ -6,6 +6,8 @@
   <p><strong>Prénom :</strong> {{ data.user.surname }}</p>
   <p><strong>Role :</strong> {{ data.user.role }}</p>
   <p><strong>Email :</strong> {{ data.user.email }}</p>
+  <p><strong>Création du compte :</strong> {{ data.user.createdAt | date:'dd-MM-yyyy'}}</p>
+
 
   <mat-divider class="my-2"></mat-divider>
 
@@ -18,12 +20,12 @@
     <form class="passwordForm" [formGroup]="passwordForm" (ngSubmit)="submitPasswordChange()">
       <mat-form-field appearance="fill">
         <mat-label>Mot de passe actuel</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="currentPassword"
-          required
-        />
+          <input
+            matInput
+            type="password"
+            formControlName="currentPassword"
+            required
+          />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
