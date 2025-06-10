@@ -7,8 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormsModule } from '@angular/forms';
-import { IonContent, IonFabButton, IonHeader } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonFabButton } from '@ionic/angular/standalone';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +23,6 @@ import {
   IonSelectOption,
   IonTextarea,
   IonList,
-  IonButton,
   IonChip,
   IonAvatar,
   IonIcon,
@@ -41,8 +40,6 @@ import { Project } from 'src/app/models/project.model';
   templateUrl: './form-project.component.html',
   styleUrls: ['./form-project.component.scss'],
   imports: [
-    IonContent,
-    IonHeader,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -53,7 +50,6 @@ import { Project } from 'src/app/models/project.model';
     IonSelectOption,
     IonTextarea,
     IonList,
-    IonButton,
     IonChip,
     IonAvatar,
     IonIcon,
@@ -96,6 +92,7 @@ export class FormProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   async ngOnInit() {
+    console.log(this.project);
     this.categories = this.projectService.getCategoriesAll();
     this.projectForm = this.fb.group(
       {
@@ -186,10 +183,10 @@ export class FormProjectComponent implements OnInit {
   chargeAuthors() {
     for (let i = 0; i < this.project.authors.length; i++) {
       const authorId = this.project.authors[i];
-      const profile = this.Profiles.find((p) => p.id === authorId);
+      const profile = this.Profiles.find((p) => p._id === authorId);
       if (profile) {
         this.selectedProfiles.push(profile);
-        this.authorsId.push(profile.id);
+        this.authorsId.push(profile._id);
       }
     }
   }
@@ -298,23 +295,23 @@ export class FormProjectComponent implements OnInit {
             profile.surname
               .toLowerCase()
               .startsWith(this.authorsInput.toLocaleLowerCase())) &&
-          !this.selectedProfiles.some((sel) => sel.id === profile.id)
+          !this.selectedProfiles.some((sel) => sel._id === profile._id)
       );
     }
   }
 
   removeAuthor(profile: any) {
     this.selectedProfiles = this.selectedProfiles.filter(
-      (sel) => sel.id !== profile.id
+      (sel) => sel._id !== profile._id
     );
-    this.authorsId = this.authorsId.filter((id) => id !== profile.id);
+    this.authorsId = this.authorsId.filter((id) => id !== profile._id);
     this.searchFilterProfiles(this.authorsInput);
     this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
   }
 
   selectAuthor(profile: any) {
     this.selectedProfiles.push(profile);
-    this.authorsId.push(profile.id);
+    this.authorsId.push(profile._id);
     this.authorsInput = '';
     this.filteredProfiles = [];
     this.projectForm.patchValue({ autors: '' });
@@ -330,6 +327,7 @@ export class FormProjectComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+    this.projectForm.updateValueAndValidity();
   }
 
   removePhoto(url: string) {}
@@ -337,7 +335,7 @@ export class FormProjectComponent implements OnInit {
   //Faire les requêtes necessaires
   async onSubmit() {
     const newProjectData = {
-      id: '',
+      _id: '',
       title: this.projectForm.get('title')?.value,
       category: this.projectForm.get('category')?.value,
       date: this.projectForm.get('date')?.value,
@@ -362,10 +360,15 @@ export class FormProjectComponent implements OnInit {
       this.setOpen(true);
       */
     } else {
-      newProjectData.id = this.project.id;
+      newProjectData._id = this.project._id;
+      console.log('new PRoject', newProjectData);
+      const response = await this.projectService.updateProject(newProjectData);
       this.messageToast = 'Project updated successfully.';
       this.colorToast = 'success';
       this.setOpen(true);
+      this.router.navigate(['/tabs/account'], {
+        queryParams: { reload: true },
+      });
 
       /*
       this.messageToast = 'Failed to update the project. Please try again.';

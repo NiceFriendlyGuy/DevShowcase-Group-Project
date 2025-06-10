@@ -78,12 +78,13 @@ export class ProjectsService {
 
   //tester si on a l'id dans projectData
   async updateProject(projectData: any): Promise<any> {
+    console.log('update', projectData);
     if (environment.production) {
       try {
         const response = await firstValueFrom(
           this.httpClient.put(
-            this.updateProjectUrl + projectData.id,
-            { projectData },
+            this.updateProjectUrl + projectData._id,
+            projectData,
             this.headers
           )
         );

@@ -55,7 +55,7 @@ export class AccountPage {
   async ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       if (params['reload']) {
-        this.refreshProfile();
+        this.refreshData();
       }
     });
 
@@ -72,8 +72,9 @@ export class AccountPage {
     }); // Add a query parameter
   }
 
-  async refreshProfile() {
+  async refreshData() {
     this.profile = await this.profilesService.getProfilesById(this.profile._id);
+    await this.projectsService.getProjectsAll();
     //console.log('Profile:', this.profile);
   }
 
@@ -129,6 +130,7 @@ export class AccountPage {
   }
 
   editProject(event: MouseEvent, projectId: string) {
+    console.log(projectId);
     event.stopPropagation();
     this.router.navigate(['/tabs/account/editProject', projectId]);
   }
