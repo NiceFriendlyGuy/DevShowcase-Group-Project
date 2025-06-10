@@ -1,4 +1,5 @@
-const Session = require('../models/session.model')
+const Session = require('../models/session.model');
+const Profile = require('../models/profile.model')
 const mongoose = require('mongoose');
 
 const sessionController ={};
@@ -17,7 +18,7 @@ sessionController.findByEmail = async function (req, res) {
 
 sessionController.findOnline = async function (req, res) {
     console.log ("body", req.body);
-    const filter = {"status":0};
+    const filter = {"status":1};
     console.log('filter= ', filter);
     try {
         const sessions = await Session.find(filter);
@@ -29,11 +30,19 @@ sessionController.findOnline = async function (req, res) {
 
 sessionController.findOffline = async function (req, res) {
     console.log ("body", req.body);
-    const filter = {"status":1};
+    const online = {"status":1};
     console.log('filter= ', filter);
     try {
-        const sessions = await Session.find(filter);
-        res.status(200).json(sessions);
+
+
+        const onlineEmails = await Session.find(filter).projection({"email":1});
+        console.log ("Online email profile:", onlineEmails);
+        
+        const offlineProfiles = await Profile.find({"email": {$nin: onlineEmails}});
+
+        console.log ("Offline profiles", offlineProfiles);
+
+        res.status(200).json(offlineProfiles);
     } catch(err) {
         res.status(400).json({message: 'Failed to load sessions', error:err.message});
     }
