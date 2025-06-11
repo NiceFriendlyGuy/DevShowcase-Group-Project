@@ -110,8 +110,8 @@ export class ProjectsService {
     }
   }
 
-  getProjectById(id: string) {
-    const project = this.projects.filter((project) => project._id === id);
+  async getProjectById(id: string): Promise<any> {
+    const project = await this.projects.filter((project) => project._id === id);
     return project;
   }
 

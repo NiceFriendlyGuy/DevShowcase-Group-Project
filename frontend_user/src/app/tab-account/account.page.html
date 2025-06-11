@@ -22,11 +22,17 @@
     </div>
     }
     <div class="project-item">
-      <ion-label class="project-title" (click)="newProject($event)"
-        >Add new project</ion-label
+      <ion-label
+        class="project-title"
+        (click)="newProject($event, profile._id)"
+      >
+        Add new project</ion-label
       >
       <div class="project-icons">
-        <ion-icon name="add" (click)="newProject($event)"></ion-icon>
+        <ion-icon
+          name="add"
+          (click)="newProject($event,profile._id)"
+        ></ion-icon>
       </div>
     </div>
   </ion-card>

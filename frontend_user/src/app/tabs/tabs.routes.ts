@@ -69,7 +69,7 @@ export const routes: Routes = [
               ),
           },
           {
-            path: 'newProject',
+            path: 'newProject/:id',
             loadComponent: () =>
               import('../pages/new-project/new-project.page').then(
                 (m) => m.NewProjectPage

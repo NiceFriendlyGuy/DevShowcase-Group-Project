@@ -27,7 +27,8 @@ import { ActivatedRoute } from '@angular/router';
   ],
 })
 export class EditProjectPage implements OnInit {
-  project: any;
+  //project: any;
+  mode: string = 'edit';
   private projectService = inject(ProjectsService);
   projectId: any;
 
@@ -36,8 +37,10 @@ export class EditProjectPage implements OnInit {
   }
 
   ngOnInit() {
+    /*
     this.project = this.projectService.getProjectById(this.projectId);
     this.project = this.project[0];
     console.log('edit : ', this.project);
+    */
   }
 }

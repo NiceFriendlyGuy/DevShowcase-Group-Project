@@ -137,17 +137,17 @@ export class AccountPage {
   }
 
   editProject(event: MouseEvent, projectId: string) {
-    console.log(projectId);
     event.stopPropagation();
     this.router.navigate(['/tabs/account/editProject', projectId]);
   }
 
-  newProject(event: MouseEvent) {
+  newProject(event: MouseEvent, profileId: string) {
     event.stopPropagation();
-    this.router.navigate(['/tabs/account/newProject']);
+    this.router.navigate(['/tabs/account/newProject', profileId]);
   }
 
   showProject(projectId: string) {
+    console.log('project ', projectId);
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 

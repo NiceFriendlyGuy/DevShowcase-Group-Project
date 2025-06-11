@@ -59,9 +59,11 @@ import { Project } from 'src/app/models/project.model';
   ],
 })
 export class FormProjectComponent implements OnInit {
-  @Input() project: any;
+  @Input() mode: any; // 'new' or 'edit'
+  @Input() id: any; // if new -> id of profile connected - if edit -> id of project
   @Output() formSubmitted = new EventEmitter<Project>();
   private router = inject(Router);
+  project: any = {};
 
   pageTitle = '';
   private projectService = inject(ProjectsService);
@@ -92,7 +94,6 @@ export class FormProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   async ngOnInit() {
-    console.log(this.project);
     this.categories = this.projectService.getCategoriesAll();
     this.projectForm = this.fb.group(
       {
@@ -117,9 +118,27 @@ export class FormProjectComponent implements OnInit {
       { validators: [this.othersValidators()] }
     );
     this.Profiles = await this.profilesService.getProfilesAll();
-    if (this.project) {
+
+    ///
+    ////
+    /// TESTER LE MODE SI NEW METTRE JUSTE L'AUTEUR
+    //// si edit charger
+    if (this.mode === 'edit') {
+      //mettre le chargement
+      this.project = await this.projectService.getProjectById(this.id);
+      this.project = this.project[0]; // Assuming getProjectById returns an array
       this.chargeProject();
+      //this.chargeProject();
       this.isNew = false;
+    } else {
+      console.log('New mode');
+
+      const profileConnected = this.Profiles.find((p) => p._id === this.id);
+      this.authorsId.push(this.id); // Assuming id is the profile ID of the connected user
+      this.selectedProfiles.push(profileConnected);
+      console.log('Profile connected:', profileConnected);
+      console.log('Authors ID:', this.authorsId);
+      //mettre l'auteur connecté
     }
   }
 
@@ -163,7 +182,7 @@ export class FormProjectComponent implements OnInit {
     };
   }
 
-  chargeProject() {
+  async chargeProject() {
     const dateOnly = this.project.date
       ? this.project.date.substring(0, 10)
       : '';
@@ -280,7 +299,6 @@ export class FormProjectComponent implements OnInit {
   onAuthorInput(event: any) {
     this.authorsInput = event.target.value;
     this.searchFilterProfiles(this.authorsInput);
-    console.log(this.authorsId);
   }
 
   searchFilterProfiles(textSearch: string) {
@@ -385,7 +403,6 @@ export class FormProjectComponent implements OnInit {
     //Enregistre le project
     if (this.isNew) {
       const response = await this.projectService.createProject(newProjectData);
-      console.log(response);
       //tester la response quand cela fonction afficher toast en fonction
       //Faire requete création
       this.messageToast = 'Project created successfully.';
@@ -398,7 +415,6 @@ export class FormProjectComponent implements OnInit {
       */
     } else {
       newProjectData._id = this.project._id;
-      console.log('new PRoject', newProjectData);
       const response = await this.projectService.updateProject(newProjectData);
       this.messageToast = 'Project updated successfully.';
       this.colorToast = 'success';
@@ -413,7 +429,6 @@ export class FormProjectComponent implements OnInit {
       this.setOpen(true);
       */
     }
-    console.log(newProjectData);
   }
 
   onCancel() {
