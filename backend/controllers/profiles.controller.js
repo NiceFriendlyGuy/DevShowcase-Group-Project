@@ -85,7 +85,7 @@ profileController.deleteHard = async function (req, res) {
         if (!deletedProfile) {
             return res.status(404).json({message: "Profile not found / already deleted"});
         }
-        res.status(200).json({message:"Profile deleted successfully"});
+        res.status(200).json({message:"Profile permanently deleted successfully"});
     } catch(err) {
         res.status(400).json({message:"failure to delete profile", error:err.message});
     }

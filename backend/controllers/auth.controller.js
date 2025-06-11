@@ -71,8 +71,8 @@ authController.changePassword = async function (req, res) {
     }
 }
 
-// forgotPassword
 
+// logout
 authController.logout = async function (req,res) {
     const userEmail = req.body.email;
     try {
@@ -89,10 +89,8 @@ authController.logout = async function (req,res) {
     }
 }
 
-// logout
-// aller dans la collection session
-// recuperer la session grace à l'email actif, dont le statut est true
-// changer le statut en false 
-// retourne logout successful / ou pas 
+// reset password
+
+// forgot password
 
   module.exports = authController;
