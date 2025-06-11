@@ -17,9 +17,10 @@ profileController.findAll = async function (req, res) {
 */ 
 
 profileController.findAll = async function (req, res) {
-    const filter = req.body || {};
+    const rawFilter = req.body || {};
+    const filter = { isDeleted: false, ...rawFilter };
     try {
-        // add .select() to avoid display the hashed password for security
+        // added .select() to avoid display the hashed password for security
         const profiles = await Profile.find(filter).select('-password');
         res.status(200).json(profiles);
     } catch(err) {
