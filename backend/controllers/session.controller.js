@@ -40,7 +40,10 @@ sessionController.findOffline = async function (req, res) {
 
         const onlineEmails = onlineSessions.map(s => s.email);
         
-        const offlineProfiles = await Profile.find({"email": {$nin: onlineEmails}});
+        const offlineProfiles = await Profile.find({
+            "email": {$nin: onlineEmails},
+            "isDeleted":false
+        }).select("-password");
 
         console.log ("Offline profiles", offlineProfiles);
 
