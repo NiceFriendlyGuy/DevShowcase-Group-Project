@@ -15,7 +15,8 @@ projectController.findAll = async function (req, res) {
 */
 
 projectController.findAll = async function (req, res) {
-    const filter = req.body || {};
+    const rawFilter = req.body || {};
+    const filter = { ...rawFilter, isDeleted: false };
     try {
         const projects = await Project.find(filter);
         res.status(200).json(projects);
