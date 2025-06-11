@@ -15,7 +15,13 @@ import { AuthService } from './services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { logOut, arrowBackOutline, sadOutline, save } from 'ionicons/icons';
+import {
+  logOut,
+  arrowBackOutline,
+  sadOutline,
+  save,
+  closeCircleOutline,
+} from 'ionicons/icons';
 import {
   imagesOutline,
   informationCircleOutline,
@@ -34,6 +40,7 @@ addIcons({
   add: add,
   'sad-outline': sadOutline,
   save: save,
+  'close-circle-outline': closeCircleOutline,
 });
 @Component({
   selector: 'app-root',

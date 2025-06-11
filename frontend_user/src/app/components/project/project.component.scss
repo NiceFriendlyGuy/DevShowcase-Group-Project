@@ -118,25 +118,25 @@
   -ms-overflow-style: none;
 }
 
-.project-screenshots::-webkit-scrollbar {
-  display: none;
+.project-screenshots {
+  width: 100%;
+  overflow: hidden;
+}
+
+swiper-slide.auto-slide {
+  width: auto; /* 👈 Important : adapte la largeur à l'image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .screenshot {
-  height: 120px;
+  height: 160px;
+  width: auto;
+  max-width: 100%;
   border-radius: 6px;
   object-fit: contain;
   transition: box-shadow 0.2s;
-
-  &.portrait {
-    max-width: 60%;
-    object-fit: contain;
-  }
-
-  &.landscape {
-    max-width: 100%;
-    object-fit: cover;
-  }
 }
 
 /* --- Adaptation pour écrans larges (desktop) --- */

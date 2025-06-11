@@ -127,12 +127,14 @@
   @if(photos.length > 0){
   <div class="preview-photos">
     @for(photo of photos; track photo) {
-    <img [src]="photo" class="photo-preview" />
-    <ion-icon
-      name="close"
-      class="remove-photo-icon"
-      (click)="removePhoto(photo)"
-    ></ion-icon>
+    <div class="photo-wrapper">
+      <img [src]="photo" class="photo-preview" />
+      <ion-icon
+        name="close-circle-outline"
+        class="remove-photo-icon"
+        (click)="removePhoto(photo)"
+      ></ion-icon>
+    </div>
     }
   </div>
   }

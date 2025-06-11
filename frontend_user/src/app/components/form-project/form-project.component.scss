@@ -47,15 +47,31 @@ ion-datetime {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 10px 0 20px 0;
-  img.photo-preview {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: #f7f7f7;
-  }
+}
+
+.photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-preview {
+  height: 120px; /* contrôle la hauteur */
+  width: auto; /* largeur auto pour garder le ratio */
+  display: block;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.remove-photo-icon {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 20px;
+  color: #ff3b30; /* rouge iOS / delete */
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .autocomplete-list {

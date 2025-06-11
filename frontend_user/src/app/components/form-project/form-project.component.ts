@@ -315,22 +315,59 @@ export class FormProjectComponent implements OnInit {
     this.authorsInput = '';
     this.filteredProfiles = [];
     this.projectForm.patchValue({ autors: '' });
-    this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
+    this.projectForm.updateValueAndValidity(); // Recalcule les validations
+  }
+
+  // Utile pour le redimensionnement + compression
+  resizeAndConvertToBase64(
+    file: File,
+    maxWidth = 800,
+    quality = 0.7
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const scaleFactor = Math.min(maxWidth / img.width, 1); // ne pas agrandir
+          canvas.width = img.width * scaleFactor;
+          canvas.height = img.height * scaleFactor;
+
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return reject('Canvas not supported');
+
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const base64 = canvas.toDataURL('image/jpeg', quality);
+          resolve(base64);
+        };
+        img.src = reader.result as string;
+      };
+
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   }
 
   async onPhotosSelected(event: any) {
     const files = event.target.files;
     for (let file of files) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.photos.push(e.target.result); // base64
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressedBase64 = await this.resizeAndConvertToBase64(file);
+        this.photos.push(compressedBase64);
+      } catch (error) {
+        console.error('Erreur lors de la compression de l’image :', error);
+      }
     }
+
     this.projectForm.updateValueAndValidity();
   }
 
-  removePhoto(url: string) {}
+  removePhoto(url: string) {
+    this.photos = this.photos.filter((photo) => photo !== url);
+    this.projectForm.updateValueAndValidity(); // Recalcule les validations
+  }
 
   //Faire les requêtes necessaires
   async onSubmit() {

@@ -48,15 +48,22 @@
       An e-commerce platform for selling various products online.
     </p>
 
-    <div class="project-screenshots">
+    <swiper-container
+      [breakpoints]="swiperBreakpoints"
+      space-between="10"
+      class="project-screenshots"
+      slides-per-view="auto"
+    >
       @for(screenshot of project.photos; track screenshot) {
-      <img
-        [src]="screenshot"
-        [alt]="project.title + ' screenshot ' + project.id"
-        class="screenshot"
-      />
+      <swiper-slide>
+        <img
+          [src]="screenshot"
+          [alt]="project.title + ' screenshot ' + project.id"
+          class="screenshot"
+        />
+      </swiper-slide>
       }
-    </div>
+    </swiper-container>
   </ion-card-content>
   <!-- fermeture unique -->
 
