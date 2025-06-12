@@ -7,16 +7,16 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-user-requests',
-    imports: [
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        CommonModule,
-        MatTooltipModule,
-    ],
-    templateUrl: './user-requests.component.html',
-    styleUrl: './user-requests.component.scss'
+  selector: 'app-user-requests',
+  imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    CommonModule,
+    MatTooltipModule,
+  ],
+  templateUrl: './user-requests.component.html',
+  styleUrl: './user-requests.component.scss',
 })
 export class UserRequestsComponent {
   public requests = signal<any[]>([]);
@@ -26,6 +26,15 @@ export class UserRequestsComponent {
   constructor() {
     this.loadRequests();
   }
+
+  //méthode pour ne plus afficher les requêtes traitées.
+  /* public loadRequests() {
+    this.requestService.getRequests().subscribe((data) => {
+      const filtered = data.filter((r) => r.status === 'pending');
+      this.requests.set(filtered);
+      this.isLoading.set(false);
+    });
+  } */
 
   public loadRequests() {
     this.requestService.getRequests().subscribe((data) => {
@@ -52,10 +61,12 @@ export class UserRequestsComponent {
   }
 
   public acceptRequest(request: any) {
+    request.status = 'solved';
     this.requests.set(this.requests().filter((r) => r !== request));
   }
 
   public rejectRequest(request: any) {
+    request.status = 'cancelled';
     this.requests.set(this.requests().filter((r) => r !== request));
   }
 }
