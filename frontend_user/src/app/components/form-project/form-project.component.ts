@@ -131,14 +131,9 @@ export class FormProjectComponent implements OnInit {
       //this.chargeProject();
       this.isNew = false;
     } else {
-      console.log('New mode');
-
       const profileConnected = this.Profiles.find((p) => p._id === this.id);
       this.authorsId.push(this.id); // Assuming id is the profile ID of the connected user
       this.selectedProfiles.push(profileConnected);
-      console.log('Profile connected:', profileConnected);
-      console.log('Authors ID:', this.authorsId);
-      //mettre l'auteur connecté
     }
   }
 

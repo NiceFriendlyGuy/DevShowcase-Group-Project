@@ -100,7 +100,6 @@ export class LoginComponent implements OnInit {
         formData.email,
         formData.password
       );
-      //console.log('Logged: ', result);
       if (result) {
         let profile = await this.profilesService.getProfilesById(
           result.user.id
@@ -138,9 +137,7 @@ export class LoginComponent implements OnInit {
           email: formData.email,
           password: formData.password, // You may want to hash the password before sending it to the backend
         };
-        //console.log(newProfile);
         const result = await this.profilesService.addProfile(newProfile); //await firstValueFrom(this.profilesService.addProfile(newProfile));
-        //console.log(result);
         if (result) {
           // Redirect to the login page after successful registration
           this.showMessage(
@@ -169,7 +166,6 @@ export class LoginComponent implements OnInit {
   }
 
   public async byPass(): Promise<void> {
-    console.log('Bypass');
     const userInfo = {
       id: 6,
       email: 'tester@gmail.com',
@@ -216,8 +212,6 @@ export class LoginComponent implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data?.valid) {
-      // data.email contains the email from the modal
-      console.log('Email from modal:', data.email);
       try {
         const result = await this.authService.sendResetPasswordEmail(
           data.email

@@ -79,8 +79,6 @@ export class AccountPage {
     this.projectsPreview = await this.projectsService.getProjectsByAuthor(
       this.profile._id
     );
-    console.log(this.profile);
-    //console.log('Profile:', this.profile);
   }
 
   async removeProject(projectId: string, isOnlyAuthor: boolean) {
@@ -119,9 +117,7 @@ export class AccountPage {
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {
-            console.log('Delete canceled');
-          },
+          handler: () => {},
         },
         {
           text: 'Delete',
@@ -147,13 +143,11 @@ export class AccountPage {
   }
 
   showProject(projectId: string) {
-    console.log('project ', projectId);
     this.router.navigate(['tabs/projects/projectDetails', projectId]);
   }
 
   async handleAdminMessage(event: { category: string; message: string }) {
     // Envoyer au backend ou afficher une notification
-    console.log('Message to admin:', event);
     let result = await this.profilesService.sendAdminMessage(
       this.profile._id,
       event.category,

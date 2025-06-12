@@ -36,11 +36,5 @@ export class EditProjectPage implements OnInit {
     this.projectId = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {
-    /*
-    this.project = this.projectService.getProjectById(this.projectId);
-    this.project = this.project[0];
-    console.log('edit : ', this.project);
-    */
-  }
+  ngOnInit() {}
 }

@@ -77,13 +77,11 @@ export class AppComponent {
     // Subscribe to profile updates
     this.auth.profile$.subscribe((updatedProfile) => {
       this.profile = updatedProfile;
-      //console.log('Profile updated:', this.profile);
     });
 
     this.auth.enabledSignUp$.subscribe((value: any) => {
       this.showBackButton = value;
       this.isSignUp = value;
-      //console.log('Sign up event received:', this.isSignUp);
     });
 
     this.router.events.subscribe((event) => {

@@ -50,7 +50,6 @@ export class ProjectDetailsComponent implements OnInit {
   //Probleme avec le type et le service projects
   constructor(private route: ActivatedRoute) {
     this.projectId = this.route.snapshot.paramMap.get('id');
-    console.log('detaisl', this.projectId);
   }
 
   async ngOnInit() {

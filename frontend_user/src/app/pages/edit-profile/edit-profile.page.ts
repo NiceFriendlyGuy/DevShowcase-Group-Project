@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +17,6 @@ import {
   IonIcon,
   IonLabel,
   IonCardContent,
-  IonCardHeader,
   IonItem,
   IonButton,
   IonInput,
@@ -51,7 +50,6 @@ import { AuthService } from 'src/app/services/auth.service';
     IonIcon,
     IonLabel,
     IonCardContent,
-    IonCardHeader,
     IonItem,
     IonButton,
     IonInput,
@@ -148,7 +146,6 @@ export class EditProfilePage implements OnInit {
       }
     } else if (data && typeof data === 'string') {
       // Handle modal dismissal with error
-      console.log(data);
       this.presentToast(data, 'danger');
     } else {
       // Handle modal dismissal without data
@@ -188,8 +185,6 @@ export class EditProfilePage implements OnInit {
       const formValue = { ...this.profileForm.value }; // Create a copy of the form value
       delete formValue.techName; // Remove techName
       delete formValue.techVersion; // Remove techVersion (if needed)
-
-      //console.log('Updated Profile:', formValue);
 
       this.profile = await this.profilesService.updateProfile(formValue);
       this.auth.setProfileInfo(this.profile); // Update the profile in AuthService
@@ -289,15 +284,12 @@ export class EditProfilePage implements OnInit {
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {
-            console.log('Delete canceled');
-          },
+          handler: () => {},
         },
         {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            //console.log('deleting', this.profile);
             this.profilesService.deleteProfile(this.profile.id);
             this.logout();
           },
