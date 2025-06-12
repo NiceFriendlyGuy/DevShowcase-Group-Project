@@ -17,9 +17,10 @@ profileController.findAll = async function (req, res) {
 */ 
 
 profileController.findAll = async function (req, res) {
-    const filter = req.body || {};
+    const rawFilter = req.body || {};
+    const filter = { ...rawFilter, isDeleted: false };
     try {
-        // add .select() to avoid display the hashed password for security
+        // added .select() to avoid display the hashed password for security
         const profiles = await Profile.find(filter).select('-password');
         res.status(200).json(profiles);
     } catch(err) {
@@ -69,6 +70,22 @@ profileController.delete = async function (req, res) {
             return res.status(400).json({message: "failed to delete profile"});
         }
         res.status(200).json({message:"Profile deleted successfully"});
+    } catch(err) {
+        res.status(400).json({message:"failure to delete profile", error:err.message});
+    }
+}
+
+profileController.deleteHard = async function (req, res) {
+    const id = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({message:"Id not existant"});
+        }
+        const deletedProfile = await Profile.findByIdAndDelete(id);
+        if (!deletedProfile) {
+            return res.status(404).json({message: "Profile not found / already deleted"});
+        }
+        res.status(200).json({message:"Profile permanently deleted successfully"});
     } catch(err) {
         res.status(400).json({message:"failure to delete profile", error:err.message});
     }
