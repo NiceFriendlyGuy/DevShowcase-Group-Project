@@ -130,6 +130,7 @@ export class FormProjectComponent implements OnInit {
       //this.chargeProject();
       this.isNew = false;
     } else {
+      this.isNew = true;
       const profileConnected = this.Profiles.find((p) => p._id === this.id);
       this.authorsId.push(this.id); // Assuming id is the profile ID of the connected user
       this.selectedProfiles.push(profileConnected);
@@ -256,28 +257,22 @@ export class FormProjectComponent implements OnInit {
       this.setOpen(true);
       return;
     }
-    if (this.techFound) {
-      const exist = this.technologies.some(
-        (tech) =>
-          tech.name.toLowerCase().trim() === nameTech.toLowerCase().trim() &&
-          (tech.version?.toString().toLowerCase().trim() || '') ===
-            (versionTech?.toLowerCase().trim() || '')
-      );
-      if (!exist) {
-        this.technologies.push({
-          name: nameTech,
-          version: versionTech,
-        });
-        this.projectForm.patchValue({ techName: '', techVersion: '' });
-        this.techIconUrl = '';
-        this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
-      } else {
-        this.messageToast = 'Technology already exists in the list.';
-        this.colorToast = 'danger';
-        this.setOpen(true);
-      }
+    const exist = this.technologies.some(
+      (tech) =>
+        tech.name.toLowerCase().trim() === nameTech.toLowerCase().trim() &&
+        (tech.version?.toString().toLowerCase().trim() || '') ===
+          (versionTech?.toLowerCase().trim() || '')
+    );
+    if (!exist) {
+      this.technologies.push({
+        name: nameTech,
+        version: versionTech,
+      });
+      this.projectForm.patchValue({ techName: '', techVersion: '' });
+      this.techIconUrl = '';
+      this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
     } else {
-      this.messageToast = 'Technology is not found';
+      this.messageToast = 'Technology already exists in the list.';
       this.colorToast = 'danger';
       this.setOpen(true);
     }
@@ -396,12 +391,17 @@ export class FormProjectComponent implements OnInit {
     };
     //Enregistre le project
     if (this.isNew) {
+      console.log('Creating new project with data:', newProjectData);
       const response = await this.projectService.createProject(newProjectData);
+      console.log('Project creation response:', response);
       //tester la response quand cela fonction afficher toast en fonction
       //Faire requete création
       this.messageToast = 'Project created successfully.';
       this.colorToast = 'success';
       this.setOpen(true);
+      this.router.navigate(['/tabs/account'], {
+        queryParams: { reload: true },
+      });
       /*
       this.messageToast = 'Failed to create the project. Please try again.';
       this.colorToast = 'danger';

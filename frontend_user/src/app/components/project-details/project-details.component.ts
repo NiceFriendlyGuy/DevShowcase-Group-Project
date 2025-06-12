@@ -54,6 +54,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.authorsPreview = await this.profilesService.getPreviewProfile(
       this.project.authors
     );
+    console.log(this.project);
   }
 
   onSegmentChange(event: CustomEvent) {

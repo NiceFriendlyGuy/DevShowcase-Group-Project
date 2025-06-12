@@ -50,14 +50,11 @@ export class ProjectsService {
   }
 
   async createProject(projectData: any): Promise<any> {
+    console.log('createProject', projectData);
     if (environment.production) {
       try {
         const response = await firstValueFrom(
-          this.httpClient.post(
-            this.createProjectUrl,
-            { projectData },
-            this.headers
-          )
+          this.httpClient.post(this.createProjectUrl, projectData, this.headers)
         );
         console.log('Success:', response);
         return response; // retourne le project
