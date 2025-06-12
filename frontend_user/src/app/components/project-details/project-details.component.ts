@@ -1,20 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
   IonContent,
   IonSegmentButton,
   IonSegment,
   IonLabel,
   IonIcon,
-  IonBackButton,
-  IonButtons,
   IonChip,
   IonAvatar,
   IonModal,
 } from '@ionic/angular/standalone';
-import { DatePipe } from '@angular/common';
 
 import { ProjectsService } from 'src/app/services/projects.service';
 import { ProfilesService } from 'src/app/services/profiles.service';
@@ -29,7 +24,6 @@ import { NgClass } from '@angular/common';
     IonAvatar,
     IonSegment,
     IonSegmentButton,
-    DatePipe,
     IonLabel,
     IonIcon,
     NgClass,
@@ -53,11 +47,14 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.project = this.projectService.getProjectById(this.projectId);
-    this.project = this.project[0];
+    const projectArray = await this.projectService.getProjectById(
+      this.projectId
+    );
+    this.project = projectArray[0];
     this.authorsPreview = await this.profilesService.getPreviewProfile(
       this.project.authors
     );
+    console.log(this.project);
   }
 
   onSegmentChange(event: CustomEvent) {
@@ -103,5 +100,14 @@ export class ProjectDetailsComponent implements OnInit {
   onProfileClick(event: MouseEvent, profileId: string) {
     event.stopPropagation();
     this.router.navigate(['tabs/profiles/profileDetails', profileId]);
+  }
+
+  getFormattedDate(dateInput: string): string {
+    // 1. Extraire la partie date avant le T
+    const datePart = dateInput.split('T')[0]; // "2024-05-01"
+    // 2. Séparer année, mois, jour
+    const [year, month, day] = datePart.split('-');
+    const dateReturn = day + '.' + month + '.' + year;
+    return dateReturn;
   }
 }

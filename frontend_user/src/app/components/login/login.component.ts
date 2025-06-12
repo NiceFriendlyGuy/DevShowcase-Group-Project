@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -20,7 +20,6 @@ import { arrowBackOutline } from 'ionicons/icons';
 import { ProfilesService } from 'src/app/services/profiles.service';
 import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
 import { environment } from 'src/environments/environment.prod';
-import { firstValueFrom } from 'rxjs';
 
 declare const google: any; // Declare the global `google` object
 
@@ -100,7 +99,6 @@ export class LoginComponent implements OnInit {
         formData.email,
         formData.password
       );
-      //console.log('Logged: ', result);
       if (result) {
         let profile = await this.profilesService.getProfilesById(
           result.user.id
@@ -138,9 +136,7 @@ export class LoginComponent implements OnInit {
           email: formData.email,
           password: formData.password, // You may want to hash the password before sending it to the backend
         };
-        //console.log(newProfile);
         const result = await this.profilesService.addProfile(newProfile); //await firstValueFrom(this.profilesService.addProfile(newProfile));
-        //console.log(result);
         if (result) {
           // Redirect to the login page after successful registration
           this.showMessage(
@@ -169,7 +165,6 @@ export class LoginComponent implements OnInit {
   }
 
   public async byPass(): Promise<void> {
-    console.log('Bypass');
     const userInfo = {
       id: 6,
       email: 'tester@gmail.com',
@@ -216,8 +211,6 @@ export class LoginComponent implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data?.valid) {
-      // data.email contains the email from the modal
-      console.log('Email from modal:', data.email);
       try {
         const result = await this.authService.sendResetPasswordEmail(
           data.email

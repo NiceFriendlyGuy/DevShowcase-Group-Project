@@ -35,7 +35,6 @@ export class ProjectsPage {
   public loadingData: boolean = false;
 
   onFilteredProjects(filtered: any[]) {
-    console.log('Filtered projects:', filtered);
     this.filteredProjects = filtered;
     if (this.filteredProjects.length === 0 && !this.loadingData) {
       this.noResults = true;
@@ -45,7 +44,6 @@ export class ProjectsPage {
   }
 
   onFilteredItems(filtered: any[]) {
-    console.log('Filtered items:', filtered);
     this.selectedCategories = filtered;
   }
 

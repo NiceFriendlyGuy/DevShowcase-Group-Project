@@ -5,12 +5,12 @@
   class="project-edit-form"
 >
   <ion-item>
-    <ion-label position="floating">Titre*</ion-label>
+    <ion-label position="floating">Title*</ion-label>
     <ion-input formControlName="title" required></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Catégorie*</ion-label>
+    <ion-label position="floating">Category*</ion-label>
     <ion-select
       formControlName="category"
       interface="popover"
@@ -37,8 +37,8 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">lien*</ion-label>
-    <ion-input formControlName="link" required></ion-input>
+    <ion-label position="floating">Link</ion-label>
+    <ion-input formControlName="link"></ion-input>
   </ion-item>
   @if(projectForm.get('link')?.errors?.['pattern'] &&
   projectForm.get('link')?.touched){
@@ -60,11 +60,7 @@
   </ion-item>
 
   <ion-chip (click)="addTech()" color="primary" slot="end">
-    @if(techFound){
     <ion-icon [src]="techIconUrl"></ion-icon>
-    } @else {
-    <ion-icon name="sad-outline"></ion-icon>
-    }
     <ion-label
       >{{ projectForm.value.techName }}
       {{ projectForm.value.techVersion }}</ion-label
@@ -80,7 +76,7 @@
   }
 
   <ion-item>
-    <ion-label position="floating">Auteurs*</ion-label>
+    <ion-label position="floating">Author(s)*</ion-label>
     <ion-input
       formControlName="authors"
       (ionInput)="onAuthorInput($event)"
@@ -116,7 +112,7 @@
   }
 
   <ion-item>
-    <ion-label>Photos</ion-label>
+    <ion-label>Picture(s)</ion-label>
     <input
       type="file"
       multiple
@@ -127,12 +123,14 @@
   @if(photos.length > 0){
   <div class="preview-photos">
     @for(photo of photos; track photo) {
-    <img [src]="photo" class="photo-preview" />
-    <ion-icon
-      name="close"
-      class="remove-photo-icon"
-      (click)="removePhoto(photo)"
-    ></ion-icon>
+    <div class="photo-wrapper">
+      <img [src]="photo" class="photo-preview" />
+      <ion-icon
+        name="close-circle-outline"
+        class="remove-photo-icon"
+        (click)="removePhoto(photo)"
+      ></ion-icon>
+    </div>
     }
   </div>
   }

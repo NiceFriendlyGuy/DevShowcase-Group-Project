@@ -5,6 +5,7 @@ import { IonContent, IonFabButton, IonHeader } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormProjectComponent } from 'src/app/components/form-project/form-project.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-project',
@@ -21,6 +22,10 @@ import { FormProjectComponent } from 'src/app/components/form-project/form-proje
   ],
 })
 export class NewProjectPage implements OnInit {
-  constructor() {}
+  mode: string = 'new';
+  profileId: any;
+  constructor(private route: ActivatedRoute) {
+    this.profileId = this.route.snapshot.paramMap.get('id');
+  }
   ngOnInit(): void {}
 }

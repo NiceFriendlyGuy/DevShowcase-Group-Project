@@ -168,6 +168,8 @@
 .gallery-item img {
   width: 100%;
   height: auto;
+  max-width: 46vh;
+  max-height: 46vh;
   display: block;
   object-fit: contain;
   border-radius: 8px;

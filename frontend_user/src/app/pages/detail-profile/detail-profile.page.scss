@@ -31,3 +31,20 @@ ion-content {
     margin-bottom: 8px;
   }
 }
+
+/////////// app-project ///////////
+///Affichage de 2 par lignes pour tablette et desktop
+@media (min-width: 768px) {
+  .project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .project-card {
+    width: calc(50% - 4px); /* Moins d'espace latéral */
+    box-sizing: border-box;
+    margin: 0; /* Supprime les marges autour de la carte */
+    margin-bottom: 16px;
+  }
+}

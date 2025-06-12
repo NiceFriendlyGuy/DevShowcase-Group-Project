@@ -7,8 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormsModule } from '@angular/forms';
-import { IonContent, IonFabButton, IonHeader } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonFabButton } from '@ionic/angular/standalone';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +23,6 @@ import {
   IonSelectOption,
   IonTextarea,
   IonList,
-  IonButton,
   IonChip,
   IonAvatar,
   IonIcon,
@@ -41,8 +40,6 @@ import { Project } from 'src/app/models/project.model';
   templateUrl: './form-project.component.html',
   styleUrls: ['./form-project.component.scss'],
   imports: [
-    IonContent,
-    IonHeader,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -53,7 +50,6 @@ import { Project } from 'src/app/models/project.model';
     IonSelectOption,
     IonTextarea,
     IonList,
-    IonButton,
     IonChip,
     IonAvatar,
     IonIcon,
@@ -63,9 +59,11 @@ import { Project } from 'src/app/models/project.model';
   ],
 })
 export class FormProjectComponent implements OnInit {
-  @Input() project: any;
+  @Input() mode: any; // 'new' or 'edit'
+  @Input() id: any; // if new -> id of profile connected - if edit -> id of project
   @Output() formSubmitted = new EventEmitter<Project>();
   private router = inject(Router);
+  project: any = {};
 
   pageTitle = '';
   private projectService = inject(ProjectsService);
@@ -106,7 +104,6 @@ export class FormProjectComponent implements OnInit {
         link: [
           '',
           [
-            Validators.required,
             Validators.pattern(
               /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i
             ),
@@ -120,9 +117,23 @@ export class FormProjectComponent implements OnInit {
       { validators: [this.othersValidators()] }
     );
     this.Profiles = await this.profilesService.getProfilesAll();
-    if (this.project) {
+
+    ///
+    ////
+    /// TESTER LE MODE SI NEW METTRE JUSTE L'AUTEUR
+    //// si edit charger
+    if (this.mode === 'edit') {
+      //mettre le chargement
+      this.project = await this.projectService.getProjectById(this.id);
+      this.project = this.project[0]; // Assuming getProjectById returns an array
       this.chargeProject();
+      //this.chargeProject();
       this.isNew = false;
+    } else {
+      this.isNew = true;
+      const profileConnected = this.Profiles.find((p) => p._id === this.id);
+      this.authorsId.push(this.id); // Assuming id is the profile ID of the connected user
+      this.selectedProfiles.push(profileConnected);
     }
   }
 
@@ -166,7 +177,7 @@ export class FormProjectComponent implements OnInit {
     };
   }
 
-  chargeProject() {
+  async chargeProject() {
     const dateOnly = this.project.date
       ? this.project.date.substring(0, 10)
       : '';
@@ -186,10 +197,10 @@ export class FormProjectComponent implements OnInit {
   chargeAuthors() {
     for (let i = 0; i < this.project.authors.length; i++) {
       const authorId = this.project.authors[i];
-      const profile = this.Profiles.find((p) => p.id === authorId);
+      const profile = this.Profiles.find((p) => p._id === authorId);
       if (profile) {
         this.selectedProfiles.push(profile);
-        this.authorsId.push(profile.id);
+        this.authorsId.push(profile._id);
       }
     }
   }
@@ -246,28 +257,22 @@ export class FormProjectComponent implements OnInit {
       this.setOpen(true);
       return;
     }
-    if (this.techFound) {
-      const exist = this.technologies.some(
-        (tech) =>
-          tech.name.toLowerCase().trim() === nameTech.toLowerCase().trim() &&
-          (tech.version?.toString().toLowerCase().trim() || '') ===
-            (versionTech?.toLowerCase().trim() || '')
-      );
-      if (!exist) {
-        this.technologies.push({
-          name: nameTech,
-          version: versionTech,
-        });
-        this.projectForm.patchValue({ techName: '', techVersion: '' });
-        this.techIconUrl = '';
-        this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
-      } else {
-        this.messageToast = 'Technology already exists in the list.';
-        this.colorToast = 'danger';
-        this.setOpen(true);
-      }
+    const exist = this.technologies.some(
+      (tech) =>
+        tech.name.toLowerCase().trim() === nameTech.toLowerCase().trim() &&
+        (tech.version?.toString().toLowerCase().trim() || '') ===
+          (versionTech?.toLowerCase().trim() || '')
+    );
+    if (!exist) {
+      this.technologies.push({
+        name: nameTech,
+        version: versionTech,
+      });
+      this.projectForm.patchValue({ techName: '', techVersion: '' });
+      this.techIconUrl = '';
+      this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
     } else {
-      this.messageToast = 'Technology is not found';
+      this.messageToast = 'Technology already exists in the list.';
       this.colorToast = 'danger';
       this.setOpen(true);
     }
@@ -283,7 +288,6 @@ export class FormProjectComponent implements OnInit {
   onAuthorInput(event: any) {
     this.authorsInput = event.target.value;
     this.searchFilterProfiles(this.authorsInput);
-    console.log(this.authorsId);
   }
 
   searchFilterProfiles(textSearch: string) {
@@ -298,46 +302,83 @@ export class FormProjectComponent implements OnInit {
             profile.surname
               .toLowerCase()
               .startsWith(this.authorsInput.toLocaleLowerCase())) &&
-          !this.selectedProfiles.some((sel) => sel.id === profile.id)
+          !this.selectedProfiles.some((sel) => sel._id === profile._id)
       );
     }
   }
 
   removeAuthor(profile: any) {
     this.selectedProfiles = this.selectedProfiles.filter(
-      (sel) => sel.id !== profile.id
+      (sel) => sel._id !== profile._id
     );
-    this.authorsId = this.authorsId.filter((id) => id !== profile.id);
+    this.authorsId = this.authorsId.filter((id) => id !== profile._id);
     this.searchFilterProfiles(this.authorsInput);
     this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
   }
 
   selectAuthor(profile: any) {
     this.selectedProfiles.push(profile);
-    this.authorsId.push(profile.id);
+    this.authorsId.push(profile._id);
     this.authorsInput = '';
     this.filteredProfiles = [];
     this.projectForm.patchValue({ autors: '' });
-    this.projectForm.updateValueAndValidity(); // Recalcule les erreurs
+    this.projectForm.updateValueAndValidity(); // Recalcule les validations
+  }
+
+  // Utile pour le redimensionnement + compression
+  resizeAndConvertToBase64(
+    file: File,
+    maxWidth = 800,
+    quality = 0.7
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const scaleFactor = Math.min(maxWidth / img.width, 1); // ne pas agrandir
+          canvas.width = img.width * scaleFactor;
+          canvas.height = img.height * scaleFactor;
+
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return reject('Canvas not supported');
+
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const base64 = canvas.toDataURL('image/jpeg', quality);
+          resolve(base64);
+        };
+        img.src = reader.result as string;
+      };
+
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   }
 
   async onPhotosSelected(event: any) {
     const files = event.target.files;
     for (let file of files) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.photos.push(e.target.result); // base64
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressedBase64 = await this.resizeAndConvertToBase64(file);
+        this.photos.push(compressedBase64);
+      } catch (error) {
+        console.error('Erreur lors de la compression de l’image :', error);
+      }
     }
+
+    this.projectForm.updateValueAndValidity();
   }
 
-  removePhoto(url: string) {}
+  removePhoto(url: string) {
+    this.photos = this.photos.filter((photo) => photo !== url);
+    this.projectForm.updateValueAndValidity(); // Recalcule les validations
+  }
 
   //Faire les requêtes necessaires
   async onSubmit() {
     const newProjectData = {
-      id: '',
       title: this.projectForm.get('title')?.value,
       category: this.projectForm.get('category')?.value,
       date: this.projectForm.get('date')?.value,
@@ -349,23 +390,31 @@ export class FormProjectComponent implements OnInit {
     };
     //Enregistre le project
     if (this.isNew) {
+      console.log('Creating new project with data:', newProjectData);
       const response = await this.projectService.createProject(newProjectData);
-      console.log(response);
+      console.log('Project creation response:', response);
       //tester la response quand cela fonction afficher toast en fonction
       //Faire requete création
       this.messageToast = 'Project created successfully.';
       this.colorToast = 'success';
       this.setOpen(true);
+      this.router.navigate(['/tabs/account'], {
+        queryParams: { reload: true },
+      });
       /*
       this.messageToast = 'Failed to create the project. Please try again.';
       this.colorToast = 'danger';
       this.setOpen(true);
       */
     } else {
-      newProjectData.id = this.project.id;
+      newProjectData._id = this.project._id;
+      const response = await this.projectService.updateProject(newProjectData);
       this.messageToast = 'Project updated successfully.';
       this.colorToast = 'success';
       this.setOpen(true);
+      this.router.navigate(['/tabs/account'], {
+        queryParams: { reload: true },
+      });
 
       /*
       this.messageToast = 'Failed to update the project. Please try again.';
@@ -373,7 +422,6 @@ export class FormProjectComponent implements OnInit {
       this.setOpen(true);
       */
     }
-    console.log(newProjectData);
   }
 
   onCancel() {

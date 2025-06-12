@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   IonButton,
-  IonInput,
   IonItem,
   IonLabel,
   IonSelect,
@@ -20,7 +19,6 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonInput,
     IonTextarea,
     IonSelect,
     IonLabel,
