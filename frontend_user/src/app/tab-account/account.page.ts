@@ -55,7 +55,7 @@ export class AccountPage {
   async ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       if (params['reload']) {
-        this.refreshProfile();
+        this.refreshData();
       }
     });
 
@@ -72,8 +72,9 @@ export class AccountPage {
     }); // Add a query parameter
   }
 
-  async refreshProfile() {
+  async refreshData() {
     this.profile = await this.profilesService.getProfilesById(this.profile._id);
+    let projects = await this.projectsService.getProjectsAll();
     //console.log('Profile:', this.profile);
   }
 
