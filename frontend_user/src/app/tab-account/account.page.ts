@@ -75,7 +75,12 @@ export class AccountPage {
   async refreshData() {
     this.profile = await this.profilesService.getProfilesById(this.profile._id);
     let projects = await this.projectsService.getProjectsAll();
-    //console.log('Profile:', this.profile);
+    await this.projectsService.getProjectsAll();
+    await this.profilesService.getProfilesAll();
+    this.profile = await this.profilesService.getProfilesById(this.profile._id);
+    this.projectsPreview = await this.projectsService.getProjectsByAuthor(
+      this.profile._id
+    );
   }
 
   async removeProject(projectId: string, isOnlyAuthor: boolean) {
@@ -84,12 +89,14 @@ export class AccountPage {
     } else {
       await this.projectsService.removeAuthorFromProject(
         projectId,
-        this.profile.id
+        this.profile._id
       );
     }
+    this.refreshData();
   }
 
-  async confirmDeleteProject(projectId: string) {
+  async confirmDeleteProject(event: MouseEvent, projectId: string) {
+    event.stopPropagation();
     let project = await this.projectsService.getProjectById(projectId);
     let warning = '';
     let isOnlyAuthor = false;
@@ -112,9 +119,7 @@ export class AccountPage {
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {
-            console.log('Delete canceled');
-          },
+          handler: () => {},
         },
         {
           text: 'Delete',
@@ -134,9 +139,9 @@ export class AccountPage {
     this.router.navigate(['/tabs/account/editProject', projectId]);
   }
 
-  newProject(event: MouseEvent) {
+  newProject(event: MouseEvent, profileId: string) {
     event.stopPropagation();
-    this.router.navigate(['/tabs/account/newProject']);
+    this.router.navigate(['/tabs/account/newProject', profileId]);
   }
 
   showProject(projectId: string) {
@@ -145,7 +150,6 @@ export class AccountPage {
 
   async handleAdminMessage(event: { category: string; message: string }) {
     // Envoyer au backend ou afficher une notification
-    console.log('Message to admin:', event);
     let result = await this.profilesService.sendAdminMessage(
       this.profile._id,
       event.category,

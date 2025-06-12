@@ -1,20 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
   IonContent,
   IonSegmentButton,
   IonSegment,
   IonLabel,
   IonIcon,
-  IonBackButton,
-  IonButtons,
   IonChip,
   IonAvatar,
   IonModal,
 } from '@ionic/angular/standalone';
-import { DatePipe } from '@angular/common';
 
 import { ProjectsService } from 'src/app/services/projects.service';
 import { ProfilesService } from 'src/app/services/profiles.service';
@@ -29,7 +24,6 @@ import { NgClass } from '@angular/common';
     IonAvatar,
     IonSegment,
     IonSegmentButton,
-    DatePipe,
     IonLabel,
     IonIcon,
     NgClass,
@@ -50,15 +44,17 @@ export class ProjectDetailsComponent implements OnInit {
   //Probleme avec le type et le service projects
   constructor(private route: ActivatedRoute) {
     this.projectId = this.route.snapshot.paramMap.get('id');
-    console.log('detaisl', this.projectId);
   }
 
   async ngOnInit() {
-    this.project = this.projectService.getProjectById(this.projectId);
-    this.project = this.project[0];
+    const projectArray = await this.projectService.getProjectById(
+      this.projectId
+    );
+    this.project = projectArray[0];
     this.authorsPreview = await this.profilesService.getPreviewProfile(
       this.project.authors
     );
+    console.log(this.project);
   }
 
   onSegmentChange(event: CustomEvent) {

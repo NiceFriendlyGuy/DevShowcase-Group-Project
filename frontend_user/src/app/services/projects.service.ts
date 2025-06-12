@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import dummyProjectsData from 'src/app/services/dummyData/dummyProjectsData.json'; // Import JSON file
 import dummyCategoriesData from 'src/app/services/dummyData/dummyCategoriesData.json'; // Import JSON file
 import { ProfilesService } from './profiles.service';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -50,14 +50,11 @@ export class ProjectsService {
   }
 
   async createProject(projectData: any): Promise<any> {
+    console.log('createProject', projectData);
     if (environment.production) {
       try {
         const response = await firstValueFrom(
-          this.httpClient.post(
-            this.createProjectUrl,
-            { projectData },
-            this.headers
-          )
+          this.httpClient.post(this.createProjectUrl, projectData, this.headers)
         );
         console.log('Success:', response);
         return response; // retourne le project
@@ -78,12 +75,13 @@ export class ProjectsService {
 
   //tester si on a l'id dans projectData
   async updateProject(projectData: any): Promise<any> {
+    console.log('update', projectData);
     if (environment.production) {
       try {
         const response = await firstValueFrom(
           this.httpClient.put(
-            this.updateProjectUrl + projectData.id,
-            { projectData },
+            this.updateProjectUrl + projectData._id,
+            projectData,
             this.headers
           )
         );
@@ -109,8 +107,8 @@ export class ProjectsService {
     }
   }
 
-  getProjectById(id: string) {
-    const project = this.projects.filter((project) => project._id === id);
+  async getProjectById(id: string): Promise<any> {
+    const project = await this.projects.filter((project) => project._id === id);
     return project;
   }
 
@@ -127,32 +125,31 @@ export class ProjectsService {
     return this.categories;
   }
 
-  removeAuthorFromProject(projectId: string, authorId: string) {
-    const projectIndex = this.projects.findIndex(
-      (project) => project.id === projectId
+  async removeAuthorFromProject(projectId: string, authorsId: string) {
+    const projectToUpdate = this.projects.find(
+      (project) => project._id === projectId
     );
-    if (projectIndex !== -1) {
-      this.projects[projectIndex].authors = this.projects[
-        projectIndex
-      ].authors.filter((item: string) => item !== authorId);
-    }
+    const newAuthors = projectToUpdate.authors.filter(
+      (id: String) => id !== authorsId
+    );
+    const data = { _id: projectId, authors: newAuthors };
+    await this.updateProject(data);
   }
 
-  removeProject(projectId: string) {
+  async removeProject(projectId: string): Promise<any> {
     if (environment.production) {
       try {
-        this.httpClient
-          .delete(this.updateProjectUrl + projectId, this.headers)
-          .subscribe({
-            next: (response) => {
-              console.log('Project deleted successfully:', response);
-            },
-            error: (error) => {
-              console.error('Error deleting project:', error);
-            },
-          });
+        const response = await firstValueFrom(
+          this.httpClient.delete(
+            this.updateProjectUrl + projectId,
+            this.headers
+          )
+        );
+        console.log('response :', response);
+        return response;
       } catch (error) {
         console.error('Error:', error);
+        throw error; // ou return null selon ton usage
       }
     } else {
       // Simulate the deletion of a project

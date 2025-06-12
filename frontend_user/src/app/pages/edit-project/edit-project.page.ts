@@ -1,12 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader } from '@ionic/angular/standalone';
 import { FormProjectComponent } from 'src/app/components/form-project/form-project.component';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
@@ -19,15 +14,13 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     IonContent,
     IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     FormProjectComponent,
   ],
 })
 export class EditProjectPage implements OnInit {
-  project: any;
+  mode: string = 'edit';
   private projectService = inject(ProjectsService);
   projectId: any;
 
@@ -35,9 +28,5 @@ export class EditProjectPage implements OnInit {
     this.projectId = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {
-    this.project = this.projectService.getProjectById(this.projectId);
-    this.project = this.project[0];
-    console.log('edit : ', this.project);
-  }
+  ngOnInit() {}
 }
