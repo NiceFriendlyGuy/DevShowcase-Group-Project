@@ -1,6 +1,4 @@
 Add user delete
-Add requests delete/confirm
+Add requests delete/confirm (ask for api endpoint)
 Fix wrong password/not admin message
-Fix/Remove current password field when changing user password
-Add settings dark theme/color
-Add settings language
+Fix/Remove current password field when changing user password (ask for admin chnage password api endpoint)

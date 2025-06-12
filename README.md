@@ -4,7 +4,7 @@
 
 ## Models
 
-### Technology
+  ### Technology
 
 ```typescript
 {
@@ -13,7 +13,7 @@
 }
 ```
 
-### Profile
+  ### Profile
 
 ```typescript
   {
@@ -35,7 +35,7 @@
   }
 ```
 
-### Project
+  ### Project
 
 ```typescript
   {
@@ -54,7 +54,7 @@
   }
 ```
 
-### UserRequests
+  ### UserRequests
 
 ```typescript
 {
@@ -74,7 +74,7 @@
 
 ## Endpoints Profiles
 
-### Request all the profiles
+  ### Request all the profiles
 
 - **POST** `/api/profiles/findAll`
 - **Answer :**
@@ -102,7 +102,7 @@
   ]
   ```
 
-### Create a profile
+  ### Create a profile
 
 The backend will set the field validProfile to false and send an email to the user with a link to validate his profile.
 After accessing the to the link, the field validProfile will be set to true and the profile will be validated.
@@ -126,7 +126,7 @@ The profile can be deleted if not validated after X time.
   }
   ```
 
-### Update a profile
+  ### Update a profile
 
 - **PUT** `/api/profiles/:Id`
 - **Body**
@@ -157,36 +157,141 @@ The profile can be deleted if not validated after X time.
   }
   ```
 
-### Delete a profile
+  ### Delete (soft) a profile
+
+- **PUT** `/api/profiles/:Id`
+- **Answer :**
+
+  ```json
+  {
+    "Profile deleted successfully"
+  }
+  ```
+
+  ### Delete (Hard) a profile
 
 - **DEL** `/api/profiles/:Id`
 - **Answer :**
 
   ```json
-  {}
+  {
+    "Profile permanently deleted successfully"
+  }
   ```
 
-  // update from backend: soft delete implemented -> Change the status of the profile with the field isDeleted to true
+## Sessions Endpoints:
 
-## Authentification Endpoints
+  ### findAll
 
-For test purposes:
-{
-"email": "john.doe@gmail.com",
-"password": "newPassword321"
-}
-
-### Change password
-
-- **PUT** `/api/auth/changePassword`
-  // route updated to fit with backend
+- **POST** `/api/sessions`
 - **Body**
   ```json
+  {}
+  ``
+  ```
+- **Answer :**
+
+```json
+[
   {
-    "id": "1",
-    "password": "1234",
-    "newPassword": "12345678"
+      "_id": "6841dd0597c96a4095589912",
+      "email": "emily.davis@gmail.com",
+      "status": false,
+      "createdAt": "2025-06-05T18:08:05.144Z",
+      "updatedAt": "2025-06-05T18:47:12.545Z",
+      "__v": 0
+  },
+  ..
+]
+```
+
+  ### online
+
+- **POST** `/api/sessions/online`
+- **Body**
+  ```json
+  {}
+  ``
+  ```
+- **Answer :**
+
+```json
+[
+  {
+      "_id": "6841dd0597c96a4095589912",
+      "email": "emily.davis@gmail.com",
+      "status": true,
+      "createdAt": "2025-06-05T18:08:05.144Z",
+      "updatedAt": "2025-06-05T18:47:12.545Z",
+      "__v": 0
+  },
+  ..
+]
+```
+
+  ### offline
+
+- **POST** `/api/sessions/offline`
+- **Body**
+  ```json
+  {}
+  ``
+  ```
+- **Answer :**
+
+```json
+[
+  {
+        "_id": "683f341def92d5460daa0cf5",
+        "admin": false,
+        "name": "Kemper",
+        "surname": "Edmund",
+        "role": "UI/UX Designer",
+        "bio": "UI/UX designer passionate about creating intuitive and visually appealing user interfaces.",
+        "email": "emily.davis@gmail.com",
+        "phone": "+1 444 987 6543",
+        "photo": "",
+        "technologies": [
+            {
+                "name": "Figma"
+            },
+            {
+                "name": "Sketch"
+            },
+            {
+                "name": "HTML5"
+            },
+            {
+                "name": "CSS3"
+            }
+        ],
+        "isDeleted": false,
+        "createdAt": "2025-05-29T17:42:53.066Z",
+        "updatedAt": "2025-06-11T22:27:08.823Z",
+        "__v": 0
+    },
+  ..
+]
+```
+  
+## Authentification Endpoints
+
+  For test purposes:
+  {
+  "email": "john.doe@gmail.com",
+  "password": "newPassword321"
   }
+
+  ### Change password
+
+- **PUT** `/api/auth/changePassword/:id`
+
+- **Body**
+  ```json
+{
+    "currentPassword": "*old Password*",
+    "newPassword": "*updated Password*"
+}
   ```
 - **Answer :**
   ```json
@@ -195,7 +300,7 @@ For test purposes:
   }
   ```
 
-### Authenticate a user
+  ### Authenticate a user
 
 - **POST** `/api/auth/login`
   // route updated to fit with backend
@@ -223,13 +328,10 @@ For test purposes:
     }
 }
 ```
-  ```json
-  {
-    "successfully authentificated"
-  }
-  ```
 
-### Forgotten password
+  ### Forgotten password (not implemented yet)
+
+// Not implemented yet
 
 - **POST** `/api/auth/sendResetPasswordEmail`
 - **Body**
@@ -246,16 +348,32 @@ For test purposes:
     "successfully sent email for reset password"
   }
   ```
+  ### Reset Password (not implemented yet)
 
-### Logout
+// not implemented yet
+  
+  ### Logout
 
-**POST** `/api/auth/logout`
+- **POST** `/api/auth/logout`
+- **Body**
+  ```json
+  {
+    "email": "adress@email.com"
+  }
+  ``
+  ```
+- **Answer :**
 
-**Work still in progress**
+```json
+
+  {
+      "logout successful !"
+  }
+```
 
 ## Endpoints Projects
 
-### Request all the projects
+  ### Request all the projects
 
 - **POST** `/api/projects/findAll`
 - **Answer :**
@@ -283,7 +401,7 @@ For test purposes:
   ]
   ```
 
-### Create a project
+  ### Create a project
 
 - **POST** `/api/projects/`
 - **Body**
@@ -299,21 +417,34 @@ For test purposes:
       { "name": "Express" },
       { "name": "MongoDB", "version": 11 }
     ],
-    "link": "https://example.com/portfolio",
     "authors": ["1", "2"],
-    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
-    "date": "2022-01-01T00:00:00.000Z"
+    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"]
   }
   ```
 - **Answer :**
 
   ```json
   {
-    "id": "1"
+    "id": "1",
+    "title": "Portfolio Website",
+    "category": "Technology",
+    "description": "A portfolio website for a developer",
+    "technologies": [
+      { "name": "HTML5" },
+      { "name": "CSS3" },
+      { "name": "Node.js", "version": 5 },
+      { "name": "Express" },
+      { "name": "MongoDB", "version": 11 }
+    ],
+    "authors": ["1", "2"],
+    "photos": ["Screenshot1.png", "Screenshot2.png", "Screenshot3.png"],
+    "isDeleted": "false",
+    "createdAt": "2022-01-01T00:00:00.000Z",
+    "updatedAt": "2022-01-01T00:00:00.000Z",
   }
   ```
 
-### Update a project
+  ### Update a project
 
 - **PUT** `/api/projects/:Id`
 - **Body**
@@ -345,21 +476,32 @@ For test purposes:
   }
   ```
 
-### Delete a project
+  ### Delete (soft) a project
+
+- **PUT** `/api/projects/:Id`
+- **Answer :**
+
+  ```json
+  {
+    "Project deleted successfully"
+  }
+  ```
+
+  ### Delete (hard) a project (not implemented yet)
 
 - **DEL** `/api/projects/:Id`
 - **Answer :**
 
   ```json
-  {}
+  {
+    "Project deleted permenantly: successful"
+  }
   ```
 
-  (Change the status of the project with the field isDeleted to true)
-  // update: turned into a PUT with isDeleted -> true
 
 ## Endpoints UserRequests
 
-### Request all the user requests
+  ### Request all the user requests
 
 - **POST** `/api/requests/findAll`
 
@@ -385,9 +527,11 @@ For test purposes:
 
 ```
 
--  **POST** `/api/requests/`
+  ### Create new user request
+
+- **POST** `/api/requests/`
   
--  **Body**
+- **Body**
   ```json
   {
     "userId": {
@@ -420,7 +564,7 @@ For test purposes:
 }
 ```
 
-### Update an existant user request
+  ### Update an existant user request
 
 - **PUT** `/api/requests/:id`
 
@@ -443,7 +587,7 @@ For test purposes:
         "_id": "683f3070ef92d5460daa0cbc",
         "name": "Tesla",
         "surname": "Nikola"
-    }
+    },
     "status": "solved",
     "type": "Demande de support",
     "message": "Impossible de modifier mon profil depuis hier.",
@@ -456,7 +600,7 @@ For test purposes:
 
 ## Endpoints statistics
 
-### request the statistics
+  ### request the statistics
 
 - **GET** `/api/stats/`
 

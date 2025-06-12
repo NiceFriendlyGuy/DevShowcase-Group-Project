@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/findAll', profileController.findAll)
 router.post('/', profileController.create);
 router.put('/:id', profileController.update);
-router.delete('/:id', profileController.delete);
+router.put('/:id', profileController.delete);
+router.delete('/:id', profileController.deleteHard);
 
 module.exports = router;

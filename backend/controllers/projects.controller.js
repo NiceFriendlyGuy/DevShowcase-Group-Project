@@ -15,7 +15,8 @@ projectController.findAll = async function (req, res) {
 */
 
 projectController.findAll = async function (req, res) {
-    const filter = req.body || {};
+    const rawFilter = req.body || {};
+    const filter = { ...rawFilter, isDeleted: false };
     try {
         const projects = await Project.find(filter);
         res.status(200).json(projects);
@@ -62,6 +63,22 @@ projectController.delete = async function (req, res) {
             return res.status(404).json( { message: 'No project found for deletion'})
         }
         res.status(200).json({ message: 'Project deleted successfully'})
+    } catch (err) {
+        res.status(400).json( { message: 'Project deletion failed', error: err.message})
+    }
+}
+
+projectController.deleteHard = async function (req, res) {
+    const id = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json( { message: 'ID not existant for deletion'})
+        }
+        const deletedProject = await Project.findByIdAndDelete(id);
+        if (!deletedProject) {
+            return res.status(404).json( { message: 'No project found for deletion'})
+        }
+        res.status(200).json({ message: 'Project permanently deleted successfully'})
     } catch (err) {
         res.status(400).json( { message: 'Project deletion failed', error: err.message})
     }

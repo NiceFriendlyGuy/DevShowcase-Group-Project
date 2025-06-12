@@ -1,22 +1,21 @@
 <h2 mat-dialog-title>Settings Parameters</h2>
 
+<h3 mat-dialog-title>Nothing now...</h3>
+<!--
 <mat-dialog-content>
   <ul style="list-style: none; padding: 0;">
-    <!-- Iterate over parameters using @for -->
     @for (param of data.params; track param.name) {
       <li style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
         <div>
           <strong>{{ param.name }}:</strong>
         </div>
 
-        <!-- Theme: toggle -->
         @if (param.name === 'Theme') {
           <mat-slide-toggle [(ngModel)]="param.value" (change)="onThemeChange(param)">
             {{ param.value ? 'Dark' : 'Light' }}
           </mat-slide-toggle>
         }
 
-        <!-- Language: dropdown -->
         @if (param.name === 'Language') {
           <mat-form-field appearance="outline" style="width: 150px;">
             <mat-select [(ngModel)]="param.value">
@@ -27,7 +26,6 @@
           </mat-form-field>
         }
 
-        <!-- Default: button -->
         @if (param.name !== 'Theme' && param.name !== 'Language') {
           <button mat-stroked-button color="primary" (click)="onSelect(param)">
             Select
@@ -37,6 +35,7 @@
     }
   </ul>
 </mat-dialog-content>
+-->
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>
