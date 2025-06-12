@@ -378,7 +378,17 @@ export class FormProjectComponent implements OnInit {
 
   //Faire les requêtes necessaires
   async onSubmit() {
-    const newProjectData = {
+    const newProjectData: {
+      _id?: string;
+      title: any;
+      category: any;
+      date: any;
+      description: any;
+      technologies: any[];
+      authors: string[];
+      link: any;
+      photos: any[];
+    } = {
       title: this.projectForm.get('title')?.value,
       category: this.projectForm.get('category')?.value,
       date: this.projectForm.get('date')?.value,
