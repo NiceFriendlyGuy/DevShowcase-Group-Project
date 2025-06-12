@@ -104,7 +104,6 @@ export class FormProjectComponent implements OnInit {
         link: [
           '',
           [
-            Validators.required,
             Validators.pattern(
               /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i
             ),

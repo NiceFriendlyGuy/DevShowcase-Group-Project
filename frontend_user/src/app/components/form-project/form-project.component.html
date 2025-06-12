@@ -5,12 +5,12 @@
   class="project-edit-form"
 >
   <ion-item>
-    <ion-label position="floating">Titre*</ion-label>
+    <ion-label position="floating">Title*</ion-label>
     <ion-input formControlName="title" required></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Catégorie*</ion-label>
+    <ion-label position="floating">Category*</ion-label>
     <ion-select
       formControlName="category"
       interface="popover"
@@ -37,7 +37,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">lien*</ion-label>
+    <ion-label position="floating">Link</ion-label>
     <ion-input formControlName="link" required></ion-input>
   </ion-item>
   @if(projectForm.get('link')?.errors?.['pattern'] &&
@@ -80,7 +80,7 @@
   }
 
   <ion-item>
-    <ion-label position="floating">Auteurs*</ion-label>
+    <ion-label position="floating">Author(s)*</ion-label>
     <ion-input
       formControlName="authors"
       (ionInput)="onAuthorInput($event)"
@@ -116,7 +116,7 @@
   }
 
   <ion-item>
-    <ion-label>Photos</ion-label>
+    <ion-label>Picture(s)</ion-label>
     <input
       type="file"
       multiple

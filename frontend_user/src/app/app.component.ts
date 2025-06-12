@@ -21,6 +21,7 @@ import {
   sadOutline,
   save,
   closeCircleOutline,
+  calendarOutline,
 } from 'ionicons/icons';
 import {
   imagesOutline,
@@ -41,6 +42,7 @@ addIcons({
   'sad-outline': sadOutline,
   save: save,
   'close-circle-outline': closeCircleOutline,
+  'calendar-outline': calendarOutline,
 });
 @Component({
   selector: 'app-root',

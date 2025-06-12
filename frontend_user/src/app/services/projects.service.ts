@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import dummyProjectsData from 'src/app/services/dummyData/dummyProjectsData.json'; // Import JSON file
 import dummyCategoriesData from 'src/app/services/dummyData/dummyCategoriesData.json'; // Import JSON file
 import { ProfilesService } from './profiles.service';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 

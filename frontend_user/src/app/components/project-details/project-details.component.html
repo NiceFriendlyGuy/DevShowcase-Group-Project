@@ -1,5 +1,6 @@
 <ion-content class="ion-padding">
   <div class="project-details-container">
+    @if(project){
     <div class="project-header">
       <h2>{{ project.title }}</h2>
       @if(project.photos?.length > 0){
@@ -89,7 +90,12 @@
         }
       </div>
     </div>
-    } }
+    } } } @else {
+    <div class="no-projects-message">
+      <img src="assets/icon/loading.gif" alt="Loading data" />
+      <p>Loading data, please wait.</p>
+    </div>
+    }
   </div>
 
   <ion-modal
